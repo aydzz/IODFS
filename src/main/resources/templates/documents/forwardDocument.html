@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{layouts/default_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Forward Document</title>
+
+    <th:block layout:fragment="local-styles">
+	    <!-- Bootstrap Select Css -->
+	   <link href="/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+	    <!-- Sweetalert Css -->
+	    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    </th:block>
+</head>
+<body>
+	<section class="content" layout:fragment="content">
+		<div class="">
+			<!--container fluid class-->
+			<div class="block-header"></div>
+
+			<!-- Select -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header" align="center">
+							<h2>SELECT DESTINATION OFFICE</h2>
+						</div>
+						<table
+							class="table table-bordered table-striped table-hover js-basic-example dataTable">
+							<thead>
+								<tr>
+									<th>Tracking No.</th>
+									<th>Description</th>
+									<th>Document Type</th>
+									<th>Date Posted</th>
+
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td th:text="${document.trackingnum}"></td>
+									<td th:text="${document.description}"></td>
+									<td th:text="${document.doctype}"></td>
+									<td th:text="${document.date_received}"></td>
+								</tr>
+							</tbody>
+						</table>
+
+
+
+						<div class="body">
+
+
+							<form method="post" th:action="@{'/documents/forward/'+${document.trackingnum}+'/execute'}" id="form1">
+								<input type="hidden" id="ITO" name="destination" /> 
+
+								<div class="row clearfix">
+
+									<div class="col-lg-12">
+										<div class="col-lg-3"></div>
+										<div class="col-lg-6">
+											<select class="form-control show-tick" id="js-select2"
+												required>
+												<option value="">-- Please select --</option>
+												<th:block th:each="office: ${officeList}">
+													<th:block th:if="${office.officename != #authentication.principal.office}">
+														<option th:text="${office.officename}" th:value="${office.officename}"></option>
+													</th:block>
+												</th:block>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-12 col-sm-7">
+
+										<div class="col-lg-5"></div>
+										<div>
+											<button class="btn btn-primary waves-effect"
+												onclick="showPromptMessage()" type="button">SUBMIT</button>
+
+											<a href="PendingDocuments.jsp"><button
+													class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
+										</div>
+
+									</div>
+
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- #END# Select -->
+
+		</div>
+	</section>
+
+<th:block layout:fragment="local-scripts">
+  		<!-- Select Plugin Js -->
+    	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+   	  	<!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+		<script>
+			function showPromptMessage() {
+
+				var form = $('#form1');
+				var choice = $("#js-select2").val();
+				if (choice !== "") {
+					swal({
+						title : "Document has been forwarded",
+						closeOnConfirm : true,
+						showCancelButton : false,
+						animation : "slide-from-top"
+					}, function(inputValue) {
+						if (inputValue === true)
+							form.submit();
+
+					});
+				}
+			}
+		</script>
+
+		<script>
+			$('#js-select2').on('change', function() {
+
+				var choice = $("#js-select2").val();
+
+				$("#ITO").val(choice);
+
+			});
+		</script>
+	</th:block>
+</body>
+<!-- /.content-wrapper -->
+
+</html>

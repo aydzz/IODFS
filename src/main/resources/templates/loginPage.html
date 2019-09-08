@@ -1,0 +1,133 @@
+﻿﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Log-in | CPE Document Flow System</title>
+    <!-- Favicon-->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Sweet Alert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/css/themes/all-themes.css" rel="stylesheet" />
+    
+    <!-- LOCAL SCRIPT -->
+    <link href="/css/local/login.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+
+    
+    
+ 
+        <div class="">
+            <div align="center">
+            	<img src="/images/pup-logo.png" width="150" height="150"  />
+            </div>
+            <!-- Vertical Layout -->
+            <div align="center" class="row clearfix">
+			 <h1 style="font-size:64px">Inter-Office <br> Document Flow System</h1>
+			 <br><br>
+			   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3"></div>
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+			
+               
+				
+                    <div class="">
+                      
+                        <div class="body">
+                            <form method="post" action="login">
+                                <label for="email_address">Username</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input name="username" type="text" id="email_address" class="form-control login-textfield" placeholder="Enter your username">
+                                    </div>
+                                </div>
+                                <label for="password">Password</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input name="password" type="password" id="password" class="form-control login-textfield" placeholder="Enter your password">
+                                    </div>
+                                </div>
+
+                                <input type="checkbox" id="remember_me" class="filled-in">
+                                <label for="remember_me">Remember Me</label>
+                                <br>
+	                                
+                                
+                                <button type="submit" class="btn bg-grey m-t-15 waves-effect">LOGIN</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+				
+            </div>
+            <!-- #END# Vertical Layout -->
+           
+        </div>
+		
+  
+
+    <!-- Jquery Core Js -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/plugins/node-waves/waves.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/js/admin.js"></script>
+
+    <!-- Demo Js -->
+    <script src="/js/demo.js"></script>
+</body>
+
+</html>

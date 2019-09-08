@@ -1,0 +1,19 @@
+	<!-- SAMPLE SHIT -->
+	<h2>Welcome</h2>
+	<p>Spring Security Thymeleaf tutorial</p>
+	<div sec:authorize="hasRole('ROLE_USER')">Text visible to user.</div>
+	<div sec:authorize="hasRole('ROLE_ADMIN')">Text visible to admin.</div>
+	<div sec:authorize="isAuthenticated()">Text visible only to authenticated users.</div>
+	Authenticated username:
+	<div sec:authentication="name"></div>
+	Authenticated user roles:
+	<div sec:authentication="principal.authorities"></div>
+	THE USER OFFICE:
+	<div sec:authentication="principal.office"></div>
+	THE USER EMAIL
+	<div sec:authentication="principal.email"></div>
+	THE USER NAME:
+	<div sec:authentication="principal.name"></div>
+<!-- SAMPLE SHIT -->
+
+<div th:text="${#authentication.principal.office}">

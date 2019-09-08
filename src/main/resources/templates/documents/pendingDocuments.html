@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{layouts/default_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Pending Documents</title>
+
+<th:block layout:fragment="local-styles">
+	<!-- JQuery DataTable Css -->
+	<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+	<link href="/css/local/pendingDoc.css" rel="stylesheet">
+</th:block>
+</head>
+<body>
+	<section class="content" layout:fragment="content">
+		<div class="">
+			<!--container fluid class-->
+			<!-- Basic Examples -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>Pending Documents<small>View your Pending Documents here</small></h2>
+
+
+						</div>
+						<div class="body">
+							<div class="table-responsive">
+								<form method="post" id="form1">
+									<!-- mareremove sa PENDING Table kung release, then change status ng document sa ADD table,
+									mareremove sa PENDING table pag forward, mapupunta sa FORWARDED database table-->
+									<input type="hidden" id="ITO" name="CTS" />
+									<table data-order='[[ 2, "desc" ]]' id="pendingDocTbl" class="table table-bordered table-striped table-hover js-basic-example dataTable">
+										<thead>
+											<tr>
+												<th>Tracking No.</th>
+												<th>Document Type</th>
+												<th>Date Received</th>
+												<th>Action</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<tr th:each="documents: ${documentList}">
+												<td th:text="${documents.trackingnum}"></td>
+												<td th:text="${documents.doctype}"></td>
+												<td th:text="${documents.date_received}"></td>
+												<td>
+													<div style="padding-left: 20px">
+														<a th:href="@{'/documents/forward/'+${documents.trackingnum}}">
+															<button class="btn btn-primary waves-effect" type="button">
+															<i class="material-icons">forward</i>
+																Forward
+															</button>
+														</a>
+														<a th:href="@{'/documents/release/'+${documents.trackingnum}}">
+														<button class="btn bg-orange waves-effect" type="button">
+														<i class="material-icons">send</i>
+															Release
+														</button>
+														</a>
+												
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- #END# Basic Examples -->
+		</div>
+	</section>
+
+	<th:block layout:fragment="local-scripts">
+	    <!-- Jquery DataTable Plugin Js -->
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/jquery.dataTables.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.flash.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/jszip.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/pdfmake.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/vfs_fonts.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
+    	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
+    	
+		<script>
+		$(function () {
+		    $('#pendingDocTbl').DataTable({
+		        scrollY:'30vh'    
+		    });
+		});
+		</script>
+
+	</th:block>
+</body>
+<!-- /.content-wrapper -->
+
+</html>

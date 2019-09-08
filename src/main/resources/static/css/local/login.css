@@ -1,0 +1,11 @@
+body{
+	background-color:#ffaa0f !important;
+}
+.row {
+	color:white;
+}
+.login-textfield{
+	background:transparent;
+	padding:10px !important;
+	color:white;
+}

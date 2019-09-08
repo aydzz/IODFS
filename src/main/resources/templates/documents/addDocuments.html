@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Add Document</title>
+
+<th:block layout:fragment="local-styles">
+    <!-- Bootstrap Select Css -->
+   <link href="/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <!-- Sweetalert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+</th:block>
+</head>
+<body>
+	<section class="content" layout:fragment="content">
+		<div class="">
+
+			<!-- Input -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+
+						<form th:object="${documentObject}" th:action="@{/documents/save}" method="post">
+							<!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
+							
+							<input th:field="*{id}" type="hidden">  
+							<div class="header">
+								<h2>
+									Add Document <small>Add your document here for
+										tracking.</small>
+								</h2>
+
+							</div>
+							<div class="body">
+								<div class="row clearfix">
+									<div class="col-sm-6">
+										<h2 class="card-inside-title">Date</h2>
+										<div class="form-group">
+
+											<h1>
+												<span type="text" class="form-control" id="date"> </span>
+											</h1>
+
+										</div>
+
+									</div>
+
+									<div class="col-sm-6">
+										<h2 class="card-inside-title">CTS</h2>
+										<div class="form-group">
+											<div class="form-line">
+												<span class="form-control">
+													<span class="track" id="date1">
+													</span>
+													<span id="lol">
+														<span>
+														</span>
+													</span> 
+												</span> 
+												<input th:field="*{trackingnum}" type="hidden" id="tracknum" name="cts" class="form-control" />
+												<input type="hidden" id="typ" name="type" class="form-control" /> 
+												<input th:field="*{date_received}"type="hidden" id="date2" name="date" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<h2 class="card-inside-title">Document Type</h2>
+											<select th:field="*{doctype}" class="form-control show-tick" id="selDocType" required>
+												<option value="">-- Please select --</option>
+												<option value="Ace Form">Ace Form</option>
+												<option value="Completion Form">Completion Form</option>
+												<option value="R0">R-0 Form</option>
+											</select>
+									</div>
+									<div class="col-sm-12">
+										<h2 class="card-inside-title">Description</h2>
+										<div class="form-group">
+											<div class="form-line">
+                                   				 <textarea th:field="*{description}" rows="1" class="form-control no-resize auto-growth" placeholder="Enter a description..." style="overflow: hidden; overflow-wrap: break-word; height: 72px;"></textarea>
+                                			</div>
+										</div>
+									</div>
+
+									<div class="col-sm-5"></div>
+									<div class="col-sm-7">
+										<button id="saveDocBtn" class="btn btn-primary waves-effect" type="submit" data-type="success">SUBMIT</button>
+									</div>
+
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- #END# Input -->
+	</section>
+
+	<th:block layout:fragment="local-scripts">
+		<!-- Autosize Plugin Js -->
+	    <script src="/plugins/autosize/autosize.js"></script>
+	     <!-- Select Plugin Js -->
+    	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+   	    <!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+    	<script>
+    		$(function(){
+    			 $('#saveDocBtn').on('click', function () {
+    				 var type = $(this).data('type');
+    			        if (type === 'success') {
+    			            showSuccessMessage();
+    			        }
+    			 });
+    		});
+    			 
+ 			 function showSuccessMessage() {
+			    swal("Good job!", "You clicked the button!", "success");
+			}
+    	</script>
+	    <script>
+	    	$(function(){
+	    		//Textarea auto growth
+	    	    autosize($('textarea.auto-growth'));
+	    	})
+	    </script>
+		<script>
+			let a, b = 1, c = 1;
+			//if the values in each doc type is null, initialize 1 into everything
+			if (localStorage.getItem("AFnum") === null
+					|| localStorage.getItem("CFnum") === null
+					|| localStorage.getItem("R0num") === null) {
+				localStorage.setItem("AFnum", 1);
+				localStorage.setItem("CFnum", 1);
+				localStorage.setItem("R0num", 1);
+
+			}
+			//else they get their previous INTEGER values INTO STRING
+			//use localStorage command in F12 console to get the values in each items
+			//localStorage.clear() in F12 console to clear each variables stroed values
+			else {
+
+				localStorage.setItem("AFnum", parseInt(localStorage
+						.getItem("AFnum")));
+				localStorage.setItem("CFnum", parseInt(localStorage
+						.getItem("CFnum")));
+				localStorage.setItem("R0num", parseInt(localStorage
+						.getItem("R0num")));
+			}
+
+			$('#selDocType')
+					.on(
+							'change',
+							function() {
+
+								var choice = $("#selDocType").val();
+
+								let AFnums = parseInt(localStorage
+										.getItem("AFnum"));
+								let CFnums = parseInt(localStorage
+										.getItem("CFnum"));
+								let R0nums = parseInt(localStorage
+										.getItem("R0num"));
+								if (choice === "Ace Form") {
+
+									if (AFnums < 10) {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>00"
+																+ AFnums
+																+ "</span></span>");
+									} else if (AFnums >= 10 && AFnums < 100) {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>0"
+																+ AFnums
+																+ "</span></span>");
+									} else {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>"
+																+ AFnums
+																+ "</span></span>");
+									}
+
+								}
+
+								if (choice === "Completion Form") {
+									if (CFnums < 10) {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>00"
+																+ CFnums
+																+ "</span></span>");
+									} else if (CFnums >= 10 && CFnums < 100) {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>0"
+																+ CFnums
+																+ "</span></span>");
+									} else {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>"
+																+ CFnums
+																+ "</span></span>");
+									}
+								}
+
+								if (choice === "R0") {
+									if (R0nums < 10) {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>00"
+																+ R0nums
+																+ "</span></span>");
+									} else if (R0nums >= 10 && R0nums < 100) {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>0"
+																+ R0nums
+																+ "</span></span>");
+									} else {
+										$("#lol")
+												.replaceWith(
+														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>"
+																+ R0nums
+																+ "</span></span>");
+									}
+								}
+							});
+
+			$('form').on(
+					'submit',
+					function() {
+
+						var choice = $("#selDocType").val();
+						if (choice === "Ace Form") {
+							localStorage.setItem("AFnum", parseInt(localStorage
+									.getItem("AFnum")) + 1);
+						}
+						if (choice === "Completion Form") {
+							localStorage.setItem("CFnum", parseInt(localStorage
+									.getItem("CFnum")) + 1);
+						}
+						if (choice === "R0") {
+							localStorage.setItem("R0num", parseInt(localStorage
+									.getItem("R0num")) + 1);
+						}
+						e.preventDefault();// will stop the form submission
+
+					});
+
+			//RESETS THE NUMBER OF EACH DOCTYPE EVERY MIDNIGHT
+			var midnight = "0:00:00";
+			var now = null;
+
+			setInterval(function() {
+				now = moment().format("H:mm:ss");
+				if (now === midnight) {
+					localStorage.setItem("AFnum", 1);
+					localStorage.setItem("CFnum", 1);
+					localStorage.setItem("R0num", 1);
+				}
+				$("#time").text(now);
+			}, 1000);
+		</script>
+
+
+		<!-- FOR TRACKING NUMBER GOING TO INPUT TAG-->
+		<script>
+			$('#selDocType').on('change', function() {
+				var values = $(".track").map(function() {
+					return $(this).text();
+				}).get().join("");
+				$("#tracknum").val(values);
+
+				var values = $("#type").map(function() {
+					return $(this).text();
+				}).get().join("");
+				$("#typ").val(values);
+
+				var valuess = $("#date").map(function() {
+					return $(this).text();
+				}).get().join("");
+				$("#date2").val(valuess);
+
+			});
+		</script>
+
+		<script>
+			n = new Date();
+			y = n.getFullYear();
+			m = n.getMonth() + 1;
+			d = n.getDate();
+			document.getElementById("date").innerHTML = y + "-" + m + "-" + d;
+			document.getElementById("date1").innerHTML = y + "-" + m + "-" + d;
+		</script>
+	</th:block>
+</body>
+<!-- /.content-wrapper -->
+
+</html>

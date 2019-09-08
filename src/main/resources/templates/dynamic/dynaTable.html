@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dynamic Table</title>
+</head>
+<body>
+<h1>This is the dynamic Table</h1>
+	<ul>
+		<li>
+			<a href="/dynamic/home">Go back home</a>
+			<h2>Risk management</h2>
+        <table class="table table-striped" id="myTable">
+            <tr>
+                <th>Type of work</th>
+                <th>Type of threat</th>
+                <th>Person</th>
+                <th>Intial risk</th>
+                <th>Countermeasure</th>
+                <th>Final risk</th>
+            </tr>
+            <tr>
+
+                <td><input type="text" /> </td>
+                <td><input type="text" /> </td>
+                <td><input type="text" /> </td>
+                <td><input type="text" /> </td>
+                <td><input type="text" /> </td>
+                <td><input type="text" /> </td>
+
+            </tr>
+            <button type="button" onclick="addFields()">Insert new row</button>
+        </table>
+		</li>
+	</ul>
+<script th:inline="javascript">
+
+    function addFields()
+    {
+        document.getElementById("myTable").insertRow(-1).innerHTML = 
+            '                <th><input type="text" /> </th>\n' +
+            '                <th><input type="text" /> </th>\n' +
+            '                <th><input type="text" /> </th>\n' +
+            '                <th><input type="text" /> </th>\n' +
+            '                <th><input type="text" /> </th>\n' +
+            '                <th><input type="text" /> </th>';
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!-- BUTTON CODING FOR DIFFERENT OFFICES -->
+<tr th:each="documents: ${documentList}">
+	<td th:text="${documents.trackingnum}"></td>
+	<td th:text="${documents.doctype}"></td>
+	<th:block th:switch="${documents.currentoffice}">
+		<td th:case="'CPE Department'"><button th:text="${documents.currentoffice}" type="button" class="btn bg-orange btn-block btn-xs waves-effect">
+		</button></td>
+		<td th:case="*"><button th:text="${documents.currentoffice}"type="button" class="btn bg-blue btn-block btn-xs waves-effect">
+			
+		</button></td>
+	</th:block>
+	<td th:text="${documents.date_received}"></td>
+	<td th:text="${documents.sourceoffice}"></td>
+	<td th:text="${documents.status}"></td>
+</tr>

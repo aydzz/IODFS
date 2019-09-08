@@ -1,0 +1,90 @@
+<section th:fragment="sidebar">
+	<!-- Left Sidebar -->
+	<aside id="leftsidebar" class="sidebar">
+		<!-- User Info -->
+		<div class="user-info">
+			<div class="image">
+				<!-- <img src="/images/pup-logo.png" width="48" height="48" alt="User"> -->
+				<br><br>
+			</div>
+			<div class="info-container">
+				<div sec:authentication="principal.name" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+				<div sec:authentication="principal.email" class="email"></div>
+				<div class="btn-group user-helper-dropdown">
+					<i class="material-icons" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+					<ul class="dropdown-menu pull-right">
+						<li><a href="javascript:void(0);"
+							class=" waves-effect waves-block"><i class="material-icons">person</i>Profile</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a th:href="@{/logout}"
+							class=" waves-effect waves-block"><i class="material-icons">input</i>Sign
+								Out</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- #User Info -->
+		<!-- Menu -->
+		<div class="menu">
+			<ul class="list">
+				<li class="header">NAVIGATION</li>
+				<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+				<li th:classappend="${#request.requestURI.startsWith('/home') ? 'active':''}" class="">
+					<a href="/home"> 
+						<i class="material-icons">home</i> 
+						<span>Home</span>
+					</a>
+				</li>
+				</th:block>
+				
+			 	<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+				<li th:classappend="${#request.requestURI.startsWith('/administrator') ? 'active':''}" class="">
+					<a href="javascript:void(0);" class="menu-toggle"> 
+						<i class="material-icons">folder</i> 
+						<span>Administrator</span>
+					</a>
+					<ul class="ml-menu">
+						<li><a href="#">Users</a></li>
+						<li><a href="#">Offices</a></li>
+						<li><a href="#">Document</a></li>
+					</ul>
+				</li>
+				</th:block>
+				<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+				<li th:classappend="${#request.requestURI == '/documents/track' ? 'active':''}" class="">
+					<a href="/documents/track"> 
+						<i class="material-icons">track_changes</i>
+						<span>Track Document</span>
+					</a>
+				</li>
+				<li th:classappend="${#request.requestURI == '/documents/add' ? 'active':''}" class="">
+					<a href="/documents/add"> 
+						<i class="material-icons">note_add</i>
+						<span>Add Document</span>
+					</a>
+				</li>
+				<li th:classappend="${#request.requestURI == '/documents/incoming' ||
+									  #request.requestURI == '/documents/pending' ||											
+									  #request.requestURI == '/documents/forwarded'										
+									  													? 'active':''}" class="">
+					<a href="javascript:void(0);" class="menu-toggle"> 
+						<i class="material-icons">folder</i> 
+						<span>My Documents</span>
+					</a>
+					<ul class="ml-menu">
+						<li><a href="/documents/incoming">Incoming Documents</a></li>
+						<li><a href="/documents/pending">Pending Documents</a></li>
+						<li><a href="/documents/forwarded">Forwarded Documents</a>
+						</li>
+					</ul>
+				</li>
+				</th:block>
+			</ul>
+		</div>
+		<!-- #Menu -->
+
+	</aside>
+	<!-- #END# Left Sidebar -->
+
+</section>

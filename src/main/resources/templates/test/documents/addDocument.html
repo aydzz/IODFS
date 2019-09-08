@@ -1,0 +1,410 @@
+﻿﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Add Document | Inter-Office Document Flow System</title>
+    <!-- Favicon-->
+    <link rel="icon" href="trackkk/favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="trackkk/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="trackkk/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="trackkk/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="trackkk/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet" />
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="trackkk/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+
+    <!-- Wait Me Css -->
+    <link href="trackkk/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="trackkk/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="trackkk/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="trackkk/css/themes/all-themes.css" rel="stylesheet" />
+</head>
+
+<body class="">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class=""> <!--container fluid class-->
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+                <a class="navbar-brand" href="Home.jsp">Inter-Office Document Flow System</a>
+            </div>
+            
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+ <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src="trackkk/images/user.png" width="60" height="60" alt="User" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CPE Department</div>
+                    <div class="email">CPEDEPT@pup.edu.ph</div>
+            
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a href="Home.jsp">
+                            <i class="material-icons">home</i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                
+                    
+					   <li>
+                        <a href="TrackDocument.jsp" >
+                            <i class="material-icons">layers</i>
+                            <span>Track Document</span>
+                        </a>
+                    </li>
+                 <li class="active">
+                        <a href="AddDocument.jsp" >
+                            <i class="material-icons">layers</i>
+                            <span> Add Document</span>
+                        </a>
+                    </li>
+                     <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">view_list</i>
+                            <span>My Documents</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="IncomingDocuments.jsp">Incoming Documents</a>
+                            </li>
+                            <li>
+                                <a href="PendingDocuments.jsp">Pending Documents</a>
+                            </li>
+                            <li>
+                                <a href="ForwardedDocuments.jsp">Forwarded Documents</a>
+                            </li>
+                        </ul>
+                    </li>
+                   
+                    
+                  
+            </div>
+            <!-- #Menu -->
+        
+        </aside>
+        <!-- #END# Left Sidebar -->
+       
+    </section>
+
+    <section class="content">
+        <div class="">
+          
+            <!-- Input -->
+            <div class="row clearfix">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+		
+                   <form  method="post" action="adding.jsp"> <!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
+                       
+                        <div class="header">
+                            <h2>
+                                Add Document
+                                <small>Add your document here for tracking.</small>
+                            </h2>
+                         
+                        </div>
+                        <div class="body">
+						
+                         
+                            <div class="row clearfix">
+                                <div class="col-sm-6">
+								   <h2 class="card-inside-title">Date</h2>
+                                    <div class="form-group">
+                                     
+                                            <h1><span type="text" class="form-control" id="date"> </span></h1>
+                                    
+                                    </div>
+                                
+                                </div>
+								
+								    <div class="col-sm-6">
+										<h2 class="card-inside-title">CTS</h2>
+										<div class="form-group">
+											<div class="form-line">
+												<span  class="form-control" ><span class="track" id="date1" ></span><span id="lol"><span></span></span> </span>
+												<input type="hidden" id="tracknum"  name="CTS" class="form-control" />
+												<input type="hidden" id="typ"  name="type" class="form-control"  />
+                                                <input  type="hidden" id="date2" name="date" class="form-control"  /> 
+											</div>
+										</div>
+									</div>
+									
+								     <div class="col-sm-12">
+										<h2 class="card-inside-title">Document Type</h2>
+											<select class="form-control show-tick" id="js-select2" required>
+												<option value="">-- Please select --</option>
+												<option value="AF">Ace Form</option>
+												<option value="CF">Completion Form</option>
+												<option value="R0">R-0 Form</option>
+												
+											</select>
+									</div>
+									
+
+								
+									<div class="col-sm-12">
+									<h2 class="card-inside-title">Description</h2>
+										<div class="form-group">
+											<div class="form-line">
+                                            <textarea rows="4" class="form-control no-resize" name="desc" placeholder="Please type what you want..."></textarea>
+											</div>
+										</div>
+									</div>
+                           
+						   <div class="col-sm-5">
+						
+							</div>
+							<div class="col-sm-7">
+							 <button class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+							</div>
+							
+							</div>
+                        </div>
+						
+							 
+
+						</form>
+                    </div>
+                </div>
+            </div>
+		</div>
+            <!-- #END# Input -->
+          
+       
+       
+    </section>
+
+    <!-- Jquery Core Js -->
+    <script src="trackkk/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="trackkk/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="trackkk/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="trackkk/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="trackkk/plugins/node-waves/waves.js"></script>
+
+    <!-- Autosize Plugin Js -->
+    <script src="trackkk/plugins/autosize/autosize.js"></script>
+
+    <!-- Moment Plugin Js -->
+    <script src="trackkk/plugins/momentjs/moment.js"></script>
+
+    <!-- Bootstrap Material Datetime Picker Plugin Js -->
+    <script src="trackkk/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+
+    <!-- Bootstrap Datepicker Plugin Js -->
+    <script src="trackkk/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+    <!-- Custom Js -->
+    <script src="trackkk/js/admin.js"></script>
+    <script src="trackkk/js/pages/forms/basic-form-elements.js"></script>
+
+    <!-- Demo Js -->
+    <script src="trackkk/js/demo.js"></script>
+	
+	<!-- FOR PUTTING DOC TYPE ON TRACKING NUMBER DISPLAY (SPAN)-->
+<script>
+    
+  let a,b=1,c=1;
+ //if the values in each doc type is null, initialize 1 into everything
+    if(localStorage.getItem("AFnum")===null || localStorage.getItem("CFnum")===null || localStorage.getItem("R0num")===null){
+   localStorage.setItem("AFnum",1);   
+   localStorage.setItem("CFnum",1);  
+   localStorage.setItem("R0num",1);  
+
+  }
+  //else they get their previous INTEGER values INTO STRING
+  //use localStorage command in F12 console to get the values in each items
+  //localStorage.clear() in F12 console to clear each variables stroed values
+else{
+    
+     localStorage.setItem("AFnum",parseInt(localStorage.getItem("AFnum"))); 
+      localStorage.setItem("CFnum",parseInt(localStorage.getItem("CFnum"))); 
+       localStorage.setItem("R0num",parseInt(localStorage.getItem("R0num"))); 
+}
+
+$('#js-select2').on('change', function() {
+         
+   var choice = $("#js-select2").val();
+  
+       let AFnums = parseInt(localStorage.getItem("AFnum"));
+       let CFnums = parseInt(localStorage.getItem("CFnum"));
+       let R0nums = parseInt(localStorage.getItem("R0num"));
+        if (choice === "AF"){
+           
+           if(AFnums <10){
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>00"+AFnums+"</span></span>");    
+        }
+        else if(AFnums >=10 && AFnums <100){
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>0"+AFnums+"</span></span>");  
+        }
+        else{
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>"+AFnums+"</span></span>");  
+        }
+    
+        }
+        
+        
+        if (choice === "CF"){
+                if(CFnums <10){
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>00"+CFnums+"</span></span>");    
+        }
+        else if(CFnums >=10 && CFnums <100){
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>0"+CFnums+"</span></span>");  
+        }
+        else{
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>"+CFnums+"</span></span>");  
+        }
+    }
+    
+    
+        if (choice === "R0"){
+                 if(R0nums <10){
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>00"+R0nums+"</span></span>");    
+        }
+        else if(R0nums >=10 && R0nums <100){
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>0"+R0nums+"</span></span>");  
+        }
+        else{
+            $("#lol").replaceWith("<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>"+R0nums+"</span></span>");  
+        }
+    }
+});
+
+     $('form').on('submit', function() {
+         
+      var choice = $("#js-select2").val();
+     if (choice=== "AF"){       localStorage.setItem("AFnum",parseInt(localStorage.getItem("AFnum"))+1);}
+    if (choice=== "CF"){        localStorage.setItem("CFnum",parseInt(localStorage.getItem("CFnum"))+1);}
+    if (choice=== "R0"){        localStorage.setItem("R0num",parseInt(localStorage.getItem("R0num"))+1);}
+    e.preventDefault();// will stop the form submission
+  
+        
+});
+
+//RESETS THE NUMBER OF EACH DOCTYPE EVERY MIDNIGHT
+var midnight = "0:00:00";
+var now = null;
+
+setInterval(function () {
+    now = moment().format("H:mm:ss");
+    if (now === midnight) {
+           localStorage.setItem("AFnum",1);   
+   localStorage.setItem("CFnum",1);  
+   localStorage.setItem("R0num",1);  
+    }
+    $("#time").text(now);
+}, 1000);
+</script>
+
+
+<!-- FOR TRACKING NUMBER GOING TO INPUT TAG-->
+<script>
+    $('#js-select2').on('change', function() {
+var values = $(".track").map(function() {
+    return $(this).text();
+}).get().join("");
+$("#tracknum").val(values);
+
+var values = $("#type").map(function() {
+    return $(this).text();
+}).get().join("");
+$("#typ").val(values);
+
+
+var valuess = $("#date").map(function() {
+    return $(this).text();
+}).get().join("");
+$("#date2").val(valuess);
+
+});
+
+
+    </script>
+	
+	<script>
+	n =  new Date();
+y = n.getFullYear();
+m = n.getMonth() + 1;
+d = n.getDate();
+document.getElementById("date").innerHTML = y + "-" + m + "-" + d;
+document.getElementById("date1").innerHTML = y + "-" + m + "-" + d;
+</script>
+
+
+ <!-- COPYRIGHT 2016 - 2017 - AdminBSB - Material Design Version: 1.0.5  -->
+                 
+             
+</body>
+</html>

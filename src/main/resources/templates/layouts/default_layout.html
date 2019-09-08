@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:security="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="UTF-8">
+	<meta
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+		name="viewport">
+	<title></title>
+	
+	<!-- GENERAL STYLES --><!-- GENERAL STYLES -->
+	<!-- Google Fonts -->
+	<link
+		href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext"
+		rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" type="text/css">
+	
+	<!-- Bootstrap Core Css -->
+	<link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+	
+	<!-- Waves Effect Css -->
+	<link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+	
+	<!-- Animation Css -->
+	<link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+	
+	<!-- Wait Me Css -->
+	<link href="/plugins/waitme/waitMe.css" rel="stylesheet" />
+	
+	
+	<!-- Custom Css -->
+	<link href="/css/style.css" rel="stylesheet">
+	
+	<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+	<link href="/css/themes/all-themes.css" rel="stylesheet" />
+	
+	<!-- LOCAL LAYOUT STYLE -->
+	<link href="/css/local/layout.css" rel="stylesheet"/>
+	<!-- LOCAL STYLES --><!-- LOCAL STYLES -->
+	
+
+<!--     Google Fonts
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    Bootstrap Core Css
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    Waves Effect Css
+    <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    Animation Css
+    <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    Custom Css
+    <link href="/css/style.css" rel="stylesheet">
+
+    AdminBSB Themes. You can choose a theme from css/themes instead of get all themes
+    <link href="/css/themes/all-themes.css" rel="stylesheet" />
+    
+     LOCAL LAYOUT STYLE 
+	<link href="/css/local/layout.css" rel="stylesheet"/>
+	LOCAL STYLES --><!-- LOCAL STYLES
+	<th:block layout:fragment="local-styles">
+		
+    </th:block> -->
+</head>
+<body class="theme-orange">
+
+	<div th:replace="fragments/page-loader::page-loader">
+		<!-- PAGE LOADER DIV WILL BE SWAPPED HERE -->
+	</div>
+	
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    
+    <nav th:replace="fragments/navbar::navbar">
+    	<!-- NAVBAR WILL BE SWAPPED HERE -->
+    </nav>
+    
+    <section th:replace="fragments/sidebar::sidebar">
+    	<!--SIDEBAR WILL BE SWAPPED HERE -->
+    </section>
+    
+   
+    <section layout:fragment="content">
+    	<!--RETURNED HTMLs WILL BE SWAPPED HERE -->
+    </section>
+    <!-- Jquery Core Js -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core Js -->
+    <script src="/plugins/bootstrap/js/bootstrap.js"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="/plugins/node-waves/waves.js"></script>
+
+    <!-- Custom Js -->
+    <script src="/js/admin.js"></script>
+    <!-- Demo Js -->
+    <script src="/js/demo.js"></script>
+    
+    <th:block layout:fragment="local-scripts">
+    </th:block>
+</body>
+</html>
