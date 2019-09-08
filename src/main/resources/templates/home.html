@@ -36,6 +36,7 @@
 						</div>
 						<div class="content">
 							<div class="text">TRACK DOCUMENTS</div>
+							 <div class="number count-to" data-from="0" th:data-to="${documentTot}" data-speed="1000" data-fresh-interval="1"></div>
 						</div>
 					</div>
 				</div>
@@ -49,7 +50,7 @@
 						</div>
 						<div class="content">
 							<div class="text">PENDING DOCUMENTS</div>
-
+							<div class="number count-to" data-from="0" th:data-to="${pendingDocument}" data-speed="1000" data-fresh-interval="1"></div>
 						</div>
 					</div>
 				</div>
@@ -62,7 +63,7 @@
 						</div>
 						<div class="content">
 							<div class="text">INCOMING DOCUMENTS</div>
-						</div>
+							<div class="number count-to" data-from="0" th:data-to="${incomingDocument}" data-speed="1000" data-fresh-interval="1"></div>
 					</div>
 				</div>
 			</div>
@@ -72,11 +73,36 @@
 			</div>
 			Authenticated user roles:
 			<div sec:authentication="principal.authorities"></div>
+			
 	</section>
 
 	<th:block layout:fragment="local-scripts">
 		<!-- LOCAL SCRIPTS -->
 		<script src="/js/local/home.js"></script>
+			    <!-- Jquery CountTo Plugin Js -->
+	    <script src="/plugins/jquery-countto/jquery.countTo.js"></script>
+		<script>
+			$(function() {
+				//Widgets count
+				$('.count-to').countTo();
+
+				//Sales count to
+				$('.sales-count-to')
+						.countTo(
+								{
+									formatter : function(value, options) {
+										return '$'
+												+ value
+														.toFixed(2)
+														.replace(
+																/(\d)(?=(\d\d\d)+(?!\d))/g,
+																' ').replace(
+																'.', ',');
+									}
+								});
+
+			});
+		</script>
 	</th:block>
 </body>
 </html>

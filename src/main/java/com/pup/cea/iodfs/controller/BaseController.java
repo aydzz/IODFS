@@ -18,9 +18,31 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.pup.cea.iodfs.model.UserInfo;
+import com.pup.cea.iodfs.service.DocumentService;
+import com.pup.cea.iodfs.service.UserInfoService;
+
 
 @Controller
 public class BaseController {
+	
+
+	
+	@Autowired
+	DocumentService docService;
+	@Autowired
+	UserInfoService userInfoService;
+	
+	private Authentication auth;
+	private UserInfo userInfo;
+	
+	public Authentication getAuth() {
+		return SecurityContextHolder.getContext().getAuthentication();
+	}
+	public UserInfo getUserInfo() {
+		return userInfoService.findByUsername(getAuth().getName());
+	}
+	
 	@RequestMapping("/")
 	public String index() {
 		return "redirect:/home";
@@ -56,7 +78,12 @@ public class BaseController {
 		}
 	}
 	@RequestMapping("/home")
-	public String home() {
+	public String home(Model model) {
+		
+		model.addAttribute("documentTot",docService.findAll().size());
+		model.addAttribute("pendingDocument",docService.findByOfficeAndStatus(getUserInfo().getOffice(), "PENDING").size());
+		model.addAttribute("incomingDocument",docService.findIncoming(getUserInfo().getOffice(), "FORWARDED").size());
+	
 		return "home";
 	}
 	@RequestMapping("/logout-success")

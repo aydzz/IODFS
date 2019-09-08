@@ -18,6 +18,7 @@ public class DocumentService {
 	
 	public void save(Document document) {
 		docRepo.save(document);
+		
 	}
 	public List<Document> findAll(){
 		return docRepo.findAll();

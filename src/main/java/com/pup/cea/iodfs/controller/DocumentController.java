@@ -51,6 +51,7 @@ public class DocumentController {
 	public String trackDocuments(Model model) {
 		
 		model.addAttribute("documentList",docService.findAll());
+		
 		return "documents/trackDocuments";
 	}
 	@RequestMapping("/add")
