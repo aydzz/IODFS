@@ -65,8 +65,8 @@
 												required>
 												<option value="">-- Please select --</option>
 												<th:block th:each="office: ${officeList}">
-													<th:block th:if="${office.officename != #authentication.principal.office}">
-														<option th:text="${office.officename}" th:value="${office.officename}"></option>
+													<th:block th:if="${office.officecode != #authentication.principal.office}">
+														<option th:text="${office.officename}" th:value="${office.officecode}"></option>
 													</th:block>
 												</th:block>
 											</select>

@@ -1,3 +1,7 @@
 .sidebar .user-info {
 	background: url("/images/default-user-bg.jpg") no-repeat no-repeat !important;
 }
+
+.container-fluid .navbar{
+	background-color:black !important;
+}

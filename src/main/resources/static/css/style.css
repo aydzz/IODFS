@@ -1,4 +1,16 @@
-﻿/* Navbar ====================================== */
+/*custom css */
+.topbar{
+	background-color:white !important;
+}
+
+body{
+	background-color:white !important;
+}
+
+
+
+
+/* Navbar ====================================== */
 @import url(materialize.css);
 .navbar {
   font-family: "Roboto", sans-serif;
@@ -1966,7 +1978,7 @@
     color: #fff !important; }
 
 .bg-grey {
-  background-color: #9E9E9E !important;
+  background-color: #0080ff!important;
   color: #fff; }
   .bg-grey .content .text,
   .bg-grey .content .number {

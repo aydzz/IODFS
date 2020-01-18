@@ -37,6 +37,10 @@ public class CurrentUser implements UserDetails {
 		public String getEmail() {
 			return userInfo.getEmail();
 		}
+		
+	
+	  public String getFullname() { return userInfo.getFullname(); }
+	 
 
 
 		@Override

@@ -10,56 +10,70 @@
 
     <!-- Animation Css -->
     <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Morris Css -->
+    <link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
     </th:block>
 </head>
 <body>
 	<section class="content" layout:fragment="content">
-		<h1> You are in the ADMINISTRATOR HOME</h1>
+<!-- 		<h1> You are in the ADMINISTRATOR HOME</h1> -->
 		 <!-- Widgets -->
             <div class="row clearfix">
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-pink hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons">playlist_add_check</i>
+                            <i class="material-icons">folder</i>
                         </div>
                         <div class="content">
-                            <div class="text">NEW TASKS</div>
-                            <div class="number count-to" data-from="0" data-to="125" data-speed="15" data-fresh-interval="20"></div>
+                            <div class="text">DOCUMENTS</div>
+                            <div class="number count-to" data-from="0" th:data-to="${documentTot}" data-speed="15" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-cyan hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons">help</i>
+                            <i class="material-icons">person</i>
                         </div>
                         <div class="content">
-                            <div class="text">NEW TICKETS</div>
-                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="text">USERS</div>
+                            <div class="number count-to" data-from="0" th:data-to="${userTot}"  data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-light-green hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons">forum</i>
+                            <i class="material-icons">domain</i>
                         </div>
                         <div class="content">
-                            <div class="text">NEW COMMENTS</div>
-                            <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="text">OFFICES</div>
+                            <div class="number count-to" data-from="0" th:data-to="${officeTot}" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box bg-orange hover-expand-effect">
                         <div class="icon">
-                            <i class="material-icons">person_add</i>
+                            <i class="material-icons">format_list_numbered</i>
                         </div>
                         <div class="content">
-                            <div class="text">NEW VISITORS</div>
-                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                            <div class="text">DOCUMENT TYPES</div>
+                            <div class="number count-to" data-from="0" th:data-to="${typeTot}" data-speed="1000" data-fresh-interval="20"></div>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-12">
+
+                   <div class="card">
+                       <div class="header">
+                           <h2>DOCUMENT SUMMARY</h2>
+                       </div>
+                       <div class="body">
+                           <div id="bar_chart" class="graph"></div>
+                       </div>
+                   </div>
+                <!-- #END# Bar Chart -->
                 </div>
             </div>
             <!-- #END# Widgets -->
@@ -71,6 +85,9 @@
 	    <script src="/plugins/jquery-countto/jquery.countTo.js"></script>
 		<script>
 			$(function() {
+				var pending = [[${pendingCount}]];
+				var forwarded = [[${forwardedCount}]];
+				var released = [[${releasedCount}]];
 				//Widgets count
 				$('.count-to').countTo();
 
@@ -88,9 +105,32 @@
 																'.', ',');
 									}
 								});
+				
+				Morris.Bar({
+		            element: 'bar_chart',
+		            data: [{
+		                x: 'Pending',
+		                y: pending ,
+		            }, {
+		                    x: 'Forwarded',
+		                    y: forwarded,
+		                }, {
+		                    x: 'Released',
+		                    y: released,
+
+		                }],
+		            xkey: 'x',
+		            ykeys: ['y'],
+		            labels: ['Count'],
+		            barColors: ['rgb(233, 30, 99)', 'rgb(0, 188, 212)', 'rgb(0, 150, 136)'],
+		        });
 
 			});
+			
 		</script>
+		    <!-- Morris Plugin Js -->
+    <script src="/plugins/raphael/raphael.min.js"></script>
+    <script src="/plugins/morrisjs/morris.js"></script>
 	</th:block>	
 </body>
 <!-- /.content-wrapper -->

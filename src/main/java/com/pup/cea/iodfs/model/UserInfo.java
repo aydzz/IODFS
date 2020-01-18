@@ -15,8 +15,10 @@ public class UserInfo {
 	private long id;
 	private String username;
 	private String name;
+	private String lname;
 	private String email;
 	private String office;
+	private String fullname;
 	
 	public long getId() {
 		return id;
@@ -36,6 +38,14 @@ public class UserInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getLname() {
+		return lname;
+	}
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -47,6 +57,12 @@ public class UserInfo {
 	}
 	public void setOffice(String office) {
 		this.office = office;
+	}
+	public String getFullname() {
+		return fullname;
+	}
+	public void setFullname(String fullname) {
+		this.fullname = name + " " + lname;
 	}
 	
 

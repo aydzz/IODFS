@@ -18,4 +18,9 @@ public interface DocumentRepository extends JpaRepository<Document,Long> {
 	@Query(value="SELECT * FROM document u WHERE u.forwarded_office = :forwarded and u.status = :status",nativeQuery = true)
 	List<Document> findIncoming(@Param("forwarded")String forwarded_office,
 			 					 @Param("status") String status);
+	
+	@Query(value="SELECT * FROM document u WHERE u.status LIKE :string",nativeQuery = true)
+	List<Document> findByStatusWildCard(@Param("string") String string);
+		
+
 }

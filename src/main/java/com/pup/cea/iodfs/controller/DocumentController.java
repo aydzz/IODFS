@@ -21,6 +21,7 @@ import com.pup.cea.iodfs.model.Document;
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.service.DocumentService;
 import com.pup.cea.iodfs.service.OfficeService;
+import com.pup.cea.iodfs.service.TypeService;
 import com.pup.cea.iodfs.service.UserInfoService;
 
 @Controller
@@ -34,6 +35,8 @@ public class DocumentController {
 	UserInfoService userInfoService;
 	@Autowired 
 	OfficeService officeService;
+	@Autowired
+	TypeService typeService;
 	
 	//This is the longer process. Pwede kasing kunin na from userDetails pero di ko alam paano.
 	//Gumamit nalang ulit ako ng service at repo.
@@ -59,6 +62,8 @@ public class DocumentController {
 		Document documents = new Document();
 		
 		model.addAttribute("documentObject",documents);
+		
+		model.addAttribute("typeList",typeService.findAll());
 		
 		return "documents/addDocuments";
 	}

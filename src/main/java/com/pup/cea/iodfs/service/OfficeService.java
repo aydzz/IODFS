@@ -17,5 +17,13 @@ public class OfficeService {
 		return officeRepo.findAll();
 	}
 	
+	public void saveOffice(Office office) {
+		officeRepo.save(office);
+	}
+	
+	public Office findOffice(Long id) {
+		return officeRepo.findById(id).get();
+	}
+	
 
 }

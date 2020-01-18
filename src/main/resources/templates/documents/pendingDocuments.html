@@ -46,7 +46,7 @@
 												<td th:text="${documents.trackingnum}"></td>
 												<td th:text="${documents.doctype}"></td>
 												<td th:text="${documents.date_received}"></td>
-												<td>
+												<td align="center">
 													<div style="padding-left: 20px">
 														<a th:href="@{'/documents/forward/'+${documents.trackingnum}}">
 															<button class="btn btn-primary waves-effect" type="button">
@@ -54,12 +54,15 @@
 																Forward
 															</button>
 														</a>
+														
+														<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 														<a th:href="@{'/documents/release/'+${documents.trackingnum}}">
 														<button class="btn bg-orange waves-effect" type="button">
 														<i class="material-icons">send</i>
 															Release
 														</button>
 														</a>
+														</th:block>
 												
 													</div>
 												</td>

@@ -33,5 +33,10 @@ public class DocumentService {
 		return docRepo.findIncoming(forwarded_office, status);
 	}
 	
+	public List<Document> findByStatusWildcard(String string){
+		return docRepo.findByStatusWildCard(string);
+		
+	}
+	
 	
 }

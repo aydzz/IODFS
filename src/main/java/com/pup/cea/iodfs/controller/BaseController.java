@@ -59,18 +59,24 @@ public class BaseController {
 		Collection<? extends GrantedAuthority> authorities =((UserDetails)principal).getAuthorities();
 		boolean isAdmin = authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
 		boolean isUser =  authorities.contains(new SimpleGrantedAuthority("ROLE_USER"));
+		//TEST
+		boolean isOffice =  authorities.contains(new SimpleGrantedAuthority("ROLE_OFFICE"));
+		//TEST
 		
 		System.out.println("YOU ARE IN /check-role");
 		System.out.println("AUTHENTICATED USER'S NAME: " + auth.getName());
 		System.out.println("IS AUTHENTICATED: " + auth.isAuthenticated());
 		System.out.println("CONTAINS USER ROLE: " + authorities.contains(new SimpleGrantedAuthority("ROLE_USER")));
+		//TEST
+		System.out.println("CONTAINS OFFICE ROLE: " + authorities.contains(new SimpleGrantedAuthority("ROLE_OFFICE")));
+		//TEST
 		System.out.println("CONTAINS ADMIN ROLE: " + authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
 		
 		if(isAdmin) {
 			return "redirect:/administrator/home";
 		}
-		else if(isUser) {
-			return "redirect:/home";
+		else if(isUser || isOffice) { //TESTTTTT
+			return "redirect:/home"; 
 		}
 		else {
 			//role is non existent

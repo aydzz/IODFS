@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Add Document</title>
+
+<th:block layout:fragment="local-styles">
+    <!-- Bootstrap Select Css -->
+   <link href="/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+    <!-- Sweetalert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+</th:block>
+</head>
+<body>
+	<section class="content" layout:fragment="content">
+		<div class="">
+
+			<!-- Input -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+
+						<form th:object="${userObject}"  th:action="@{/administrator/save}" method="post">
+							<!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
+							
+							<input th:field="*{id}" type="hidden">  
+							<div class="header">
+								<h2>
+									Add User <small>Add another user for the system.</small>
+								</h2>
+
+							</div>
+							<div class="body">
+								<div class="row clearfix">
+							
+							<div class="col-sm-12">
+							<div class="col-sm-6">
+								  <label for="email_address">First Name</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input th:field="*{name}" type="text" class="form-control login-textfield" placeholder="Enter your name" />
+                                    </div>
+                                </div>
+                                </div>
+                                
+                                <div class="col-sm-6">
+								  <label for="email_address">Last Name</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input th:field="*{lname}" type="text" class="form-control login-textfield" placeholder="Enter your Lastname" />
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                                
+                                
+                                
+							<div class="col-sm-12">
+							<!-- <div class="col-sm-6">
+								  <label for="email_address">Office</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input  th:field="*{office}" type="text" class="form-control login-textfield" placeholder="Enter your Office" />
+                                    </div>
+                                </div>
+                                </div> -->
+                                
+                                <div class="col-sm-6">
+									<h2 class="card-inside-title">Office</h2>
+										<select th:field="*{office}" class="form-control show-tick" required>
+											<option  value="">-- Please select --</option>
+											<th:block th:each="office: ${officeList}">
+												<option th:text="${office.officename}" th:value="${office.officecode}"></option>
+											</th:block>
+											
+										</select>
+								</div>
+                                
+                                
+								<div class="col-sm-6">
+								  <label for="email_address">Email</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input th:field="*{email}" type="email" class="form-control login-textfield" placeholder="Enter your email" />
+                                    </div>
+                                </div>
+                                </div>
+                                </div>
+                             
+                                <div class="col-sm-12">
+                                	<div class="col-sm-6">
+								  <label for="email_address">Username</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input th:field="*{username}" type="text" class="form-control login-textfield" placeholder="Enter your Username" />
+                                    </div>
+                                </div>
+                                </div>
+                                
+                               	<!-- <div class="col-sm-6">
+									<h2 class="card-inside-title">Role</h2>
+										<select name = "role" id = "role" class="form-control show-tick" required>
+											<option  value="">-- Please select --</option>
+											<option value="ADMIN">Administrator </option>
+											<option value="USER">User</option>
+										</select>
+								</div> -->
+								<th:block th:if="${#request.requestURI == '/administrator/addUser'}">
+								 <div class="col-sm-6">
+                                <label for="password">Password</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input   name="password" type="password" id="password" class="form-control login-textfield" placeholder="Enter your Password" />
+                                    </div>
+                                </div>
+                                </div>
+                                 </div>
+                                 </th:block>
+                                 
+                                
+                                
+                                 <!-- <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                <label for="password">Password</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input   name="password" type="password" id="password" class="form-control login-textfield" placeholder="Enter your Password" />
+                                    </div>
+                                </div>
+                                </div>
+                                
+                                 
+                                  <div class="col-sm-6">
+                                <label for="password">Confirm Password</label>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input name="password" type="password" id="password" class="form-control login-textfield" placeholder="Enter your password">
+                                    </div>
+                                </div>
+                                </div> 
+                                
+                               
+                                
+                                
+                                </div> -->
+                                
+                                
+                         
+                             
+                                
+                                
+                                
+
+									<div class="col-sm-5"></div>
+									<div class="col-sm-7">
+										<button id="saveDocBtn" class="btn btn-primary waves-effect" type="submit" data-type="success">SUBMIT</button>
+									</div>
+
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- #END# Input -->
+	</section>
+
+	<th:block layout:fragment="local-scripts">
+		<!-- Autosize Plugin Js -->
+	    <script src="/plugins/autosize/autosize.js"></script>
+	     <!-- Select Plugin Js -->
+    	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
+   	    <!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+    	<script>
+    		$(function(){
+    			 $('#saveDocBtn').on('click', function () {
+    				 var type = $(this).data('type');
+    			        if (type === 'success') {
+    			            showSuccessMessage();
+    			        }
+    			 });
+    		});
+    			 
+ 			 function showSuccessMessage() {
+			    swal("Good job!", "You clicked the button!", "success");
+			}
+    	</script>
+	    <script>
+	    	$(function(){
+	    		//Textarea auto growth
+	    	    autosize($('textarea.auto-growth'));
+	    	})
+	    </script>
+		
+	</th:block>
+</body>
+<!-- /.content-wrapper -->
+
+</html>
