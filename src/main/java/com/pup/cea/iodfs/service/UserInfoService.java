@@ -40,7 +40,18 @@ public class UserInfoService {
 		return userInfoRepo.findById(id).get();
 	}
 	
+	public List<UserInfo> findByUnname(String username){
+		return userInfoRepo.findByUnname(username);
+	}
+	
 	/*FOR USER LOGIN REPO*/
+	
+	public List<UserLogin> findAlls(){
+		return userLoginRepos.findAll();
+	}
+	
+	
+	
 	public void saves(UserLogin user_login) {
 		userLoginRepos.save(user_login);
 		
@@ -48,8 +59,13 @@ public class UserInfoService {
 	public UserLogin findUser(Long id) {
 		return userLoginRepos.findById(id).get();
 	}
-	public UserLogin findUser(String username) {
+	public UserLogin findUsername(String username) {
 		return userLoginRepos.findByUsername(username);
 	}
+	
+	public List<UserLogin> findByUname(String username){
+		return userLoginRepos.findByUname(username);
+	}
+	
 
 }

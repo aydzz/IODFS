@@ -4,8 +4,8 @@
 		<!-- User Info -->
 		<div class="user-info">
 			<div class="image">
-				<!-- <img src="/images/pup-logo.png" width="48" height="48" alt="User"> -->
-				<br><br>
+				<img src="/images/pup-logo.png" width="48" height="48" alt="User"> 
+				
 			</div>
 			<div class="info-container">
 				<div sec:authentication="principal.fullname" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
@@ -14,9 +14,16 @@
 					<i class="material-icons" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
 					<ul class="dropdown-menu pull-right">
-						<li><a href="javascript:void(0);"
+					<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+						<li><a th:href="@{/documents/profilePage}"
 							class=" waves-effect waves-block"><i class="material-icons">person</i>Profile</a></li>
 						<li role="separator" class="divider"></li>
+						</th:block>
+						<th:block th:if="${#authorization.expression('hasRole(''ROLE_OFFICE'')')}">
+						<li><a th:href="@{/documents/profilePage}"
+							class=" waves-effect waves-block"><i class="material-icons">person</i>Profile</a></li>
+						<li role="separator" class="divider"></li>
+						</th:block>
 						<li><a th:href="@{/logout}"
 							class=" waves-effect waves-block"><i class="material-icons">input</i>Sign
 								Out</a></li>
@@ -45,7 +52,12 @@
 						<span>Home</span>
 					</a>
 				</li>
-				<li th:classappend="${#request.requestURI.startsWith('/administrator') ? 'active':''}" class="">
+				<li th:classappend="${#request.requestURI == '/administrator/users' ||
+									  #request.requestURI == '/administrator/type/view' ||
+									  #request.requestURI == '/administrator/offices/view' ||											
+									  #request.requestURI == '/administrator/userLogs' ||
+									  #request.requestURI == '/administrator/history'										
+									  													? 'active':''}" class="">
 					<a href="javascript:void(0);" class="menu-toggle"> 
 						<i class="material-icons">folder</i> 
 						<span>Administrator</span>
@@ -53,8 +65,10 @@
 					<ul class="ml-menu">
 						<li th:classappend="${#request.requestURI.startsWith('/administrator/users') ? 'active':''}" class="">
 						<a href="/administrator/users">Users</a></li>
-						<li><a href="/administrator/type/view">Document Type</a></li>
-						<li><a href="/administrator/offices/view">Offices</a></li>
+						<li th:classappend="${#request.requestURI.startsWith('/administrator/type/view') ? 'active':''}"><a href="/administrator/type/view">Document Type</a></li>
+						<li th:classappend="${#request.requestURI.startsWith('/administrator/offices/view') ? 'active':''}"><a href="/administrator/offices/view">Offices</a></li>
+						<li th:classappend="${#request.requestURI.startsWith('/administrator/userLogs') ? 'active':''}"><a href="/administrator/userLogs">User Logs</a></li>
+						<li th:classappend="${#request.requestURI.startsWith('/administrator/history') ? 'active':''}"><a href="/administrator/history">History</a></li>
 						<!-- <li><a href="#">Document</a></li> -->
 					</ul>
 				</li>

@@ -23,11 +23,9 @@ public class Document{
 	private String current_office;
 	private String forwarded_office;
 	private String status;
+	private String remark;
 	
-	
-	public Document() {
 
-    }
 	public long getId() {
 		return id;
 	}
@@ -91,5 +89,12 @@ public class Document{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }

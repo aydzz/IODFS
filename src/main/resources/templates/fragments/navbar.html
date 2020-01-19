@@ -2,11 +2,31 @@
 <nav class="navbar" th:fragment="navbar">
 	<div class="container-fluid topbar">
 		<div class="navbar-header">
-			<a href="javascript:void(0);" class="navbar-toggle collapsed"
+		<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+			<a  class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar-collapse"
 				aria-expanded="false"></a> <a href="javascript:void(0);"
-				class="bars"></a> <a class="navbar-brand" href="#">Inter-Office
+				class="bars"></a> <a class="navbar-brand" th:href="@{/home}">Inter-Office
 				Document Flow System</a>
+		</th:block>
+		
+		<th:block th:if="${#authorization.expression('hasRole(''ROLE_OFFIC E'')')}">
+			<a  class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar-collapse"
+				aria-expanded="false"></a> <a href="javascript:void(0);"
+				class="bars"></a> <a class="navbar-brand" th:href="@{/home}">Inter-Office
+				Document Flow System</a>
+		</th:block>
+		
+		<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+			<a  class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar-collapse"
+				aria-expanded="false"></a> <a href="javascript:void(0);"
+				class="bars"></a> <a class="navbar-brand" th:href="@{/administrator/home}">Inter-Office
+				Document Flow System</a>
+		</th:block>	
+				
+				
 		</div>
 
 	</div>

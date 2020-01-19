@@ -18,24 +18,24 @@
 			<!-- Basic Examples -->
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="card">
+					<div class="card" >
 						<div class="header">
 							<h2>
 								TRACK DOCUMENTS <small>Track your document here. </small>
 							</h2>
 
 						</div>
-						<div class="body">
-							<div class="table-responsive">
+						<div class="body" >
+							<div class="table-responsive" >
 								<table id="trackDocTbl"class="table table-bordered table-striped table-hover dataTable">
 									<thead>
 										<tr>
 											<th>CTS</th>
-											<th>Document Type</th>
+											<th>Type</th>
 											<th>Current Office</th>
-											<th>Date Received</th>
-											<th>Source Office</th>
+											<th>Date Received</th>											
 											<th>Status</th>
+											<th>Remarks</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -44,9 +44,10 @@
 										<td th:text="${documents.doctype}"></td>
 										<td th:text="${documents.current_office}"></td>
 										<td th:text="${documents.date_received}"></td>
-										<td th:text="${documents.source_office}"></td>
 										<td th:text="${documents.status}"></td>
+										<td th:text="${documents.remark}"></td>
 									</tr>
+									
 										
 									</tbody>
 								</table>

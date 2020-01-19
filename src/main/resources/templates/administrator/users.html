@@ -42,32 +42,34 @@
 								<table id="trackDocTbl"class="table table-bordered table-striped table-hover dataTable">
 									<thead>
 										<tr>
-											<th>Name</th>
+											<th>First Name</th>
+											<th>Last Name</th>
 											<th>Username</th>
 											<th>Office</th>
 											<th>Email</th>
-											<th>Actions</th>
+											<!--  <th>Actions</th> -->
 										
 										</tr>
 									</thead>
 									<tbody>
 									<tr th:each="administrator: ${userList}">
 										<td th:text="${administrator.name}"></td>
+										<td th:text="${administrator.lname}"></td>
 										<td th:text="${administrator.username}"></td>
 										<td th:text="${administrator.office}"></td>
 										<td th:text="${administrator.email}"></td>
-										<td align="center">
+										<!-- <td align="center">
 											<a th:href="@{'/administrator/user/'+${administrator.id}+'/edit'}">
 												<button type="button" class="btn btn-xs btn-warning waves-effect">
 			                                    	<i class="material-icons">mode_edit</i>
 			                                	</button>
 											</a>
-			                                <!-- <a th:href="@{'/administrator/user/'+${administrator.id}+'/remove'}">
+			                               <a th:href="@{'/administrator/user/'+${administrator.id}+'/remove'}">
 			                                	<button type="button" class="btn btn-xs btn-danger waves-effect">
 			                                    	<i class="material-icons">delete</i>
 			                                	</button>
-			                                </a> -->
-										</td>
+			                                </a>
+										</td> -->
 									
 									</tr>
 										

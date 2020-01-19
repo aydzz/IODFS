@@ -1,5 +1,10 @@
 body{
-	background-color:#ffffdf!important;
+	background:maroon;
+	color: gold;
+
+}
+.home {
+	background: white !important;
 }
 .row {
 	color:gray;
@@ -8,4 +13,27 @@ body{
 	background:transparent;
 	padding:10px !important;
 	color:black;
+}
+
+.card{
+	background: #696969 !important;
+	
+}
+
+.card .header{
+	background: #B20000 !important;
+	color: gold !important;
+}
+
+.card .header h2{
+
+	color: gold !important;
+}
+.card .body1{
+	background:white !important;
+}
+
+.padding-0{
+    padding-right:0;
+    padding-left:0;
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,9 +27,11 @@ import com.pup.cea.iodfs.model.security.UserLogin;
 import com.pup.cea.iodfs.model.Type;
 import com.pup.cea.iodfs.service.CounterService;
 import com.pup.cea.iodfs.service.DocumentService;
+import com.pup.cea.iodfs.service.HistoryService;
 import com.pup.cea.iodfs.service.OfficeService;
 import com.pup.cea.iodfs.service.TypeService;
 import com.pup.cea.iodfs.service.UserInfoService;
+import com.pup.cea.iodfs.service.UserLogsService;
 
 @Controller
 @RequestMapping("/administrator")
@@ -44,6 +47,10 @@ public class AdministratorController {
 	TypeService typeService;
 	@Autowired
 	CounterService counterService;
+	@Autowired
+	UserLogsService	userLogsService;
+	@Autowired
+	HistoryService	historyService;
 	
 
 	
@@ -91,9 +98,10 @@ public class AdministratorController {
 	public String addUser(Model model) {
 		
 		UserInfo user= new UserInfo();
+	
+		
 		
 		model.addAttribute("userObject",user);
-		
 		model.addAttribute("officeList",officeService.findAll());
 	
 		return "administrator/addUser";
@@ -102,8 +110,9 @@ public class AdministratorController {
 	@RequestMapping("/save")
 	public String saveUserInfo(@ModelAttribute("userObject")UserInfo user, 
 							   @RequestParam String username, 
-							   @RequestParam String password,
-							   @RequestParam String role) {
+							   @RequestParam String password
+							   ) {
+		try {
 		//Initial Other Settings
 		UserLogin users = new UserLogin();
 		//all newly added document would have pending status
@@ -118,17 +127,28 @@ public class AdministratorController {
 		
 		userInfoService.save(user);
 		userInfoService.saves(users);
+		}catch (DataIntegrityViolationException e) {
+			
+	        return "redirect:/administrator/addUser";
+	    }
 		return "redirect:/administrator/users";
 	}
+	
+	
 /*ADZZ LATEST EDITS*/
 	@RequestMapping("/user/{userId}/edit")
 	public String editUser(Model model,
 						   @PathVariable("userId")Long userId) {
 		UserInfo userInfo = userInfoService.findUserInfo(userId);
 		System.out.println(userInfo.getLname());
+	
+	
 		
 		model.addAttribute("userObject",userInfo);
+		
 		model.addAttribute("officeList",officeService.findAll());
+		
+		
 		
 		return "administrator/addUser";
 	}
@@ -149,14 +169,21 @@ public class AdministratorController {
 	}
 	@RequestMapping("/offices/save")
 	public String saveOffice(@ModelAttribute("officeObject")Office office) {
-		
+		try {
 		officeService.saveOffice(office);
-		
+		}catch (DataIntegrityViolationException e) {
+			
+	        return "redirect:/administrator/offices/add";
+	    }
 		return "redirect:/administrator/offices/view";
 	}
 	@RequestMapping("/offices/{officeId}/edit")
 	public String editOffice(@PathVariable("officeId")Long officeId, Model model) {
 		model.addAttribute("officeObject",officeService.findOffice(officeId));
+		
+		
+		
+		
 		return "administrator/addOffice";
 	}
 	//TYPE
@@ -175,14 +202,37 @@ public class AdministratorController {
 		return "administrator/addType";
 	}
 	@RequestMapping("/type/save")
-	public String saveDocType(@ModelAttribute("typeObject")Type type) {
-		
+	public String saveDocType(@ModelAttribute("typeObject")Type type, Model model) {
+		try {
 		typeService.save(type);
+		}catch (DataIntegrityViolationException e) {
+			model.addAttribute("message", "Error! Duplicate Entry!");
+	        return "redirect:/administrator/type/add";
+	    }
 		return "redirect:/administrator/type/view";
 	}
 	@RequestMapping("/type/{typeId}/edit")
 	public String editDocType(@PathVariable("typeId")Long typeId, Model model) {
 		model.addAttribute("typeObject",typeService.findDocType(typeId));
 		return "administrator/addType";
+	}
+	
+	//adzz
+	
+	
+	@RequestMapping("/userLogs")
+	public String userLogs(Model model) {
+		
+	model.addAttribute("userLogs",userLogsService.findAll());
+		
+		return "administrator/userLogs";
+	}
+	
+	@RequestMapping("/history")
+	public String history(Model model) {
+		
+	model.addAttribute("history",historyService.findAll());
+		
+		return "administrator/history";
 	}
 }

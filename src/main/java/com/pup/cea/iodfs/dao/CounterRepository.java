@@ -13,4 +13,9 @@ import com.pup.cea.iodfs.model.Type;
 public interface CounterRepository extends JpaRepository<Counter,Long> {
 	Counter findByCtr(String ctr);
 	
+
+@Query(value="SELECT ctr FROM counter u WHERE u.doc_abbrev = :docType",nativeQuery = true)
+List<Counter> findCtr(@Param("docType")String docType);
+
+	
 }

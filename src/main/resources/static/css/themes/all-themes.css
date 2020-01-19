@@ -1,4 +1,4 @@
-﻿.theme-red .navbar {
+.theme-red .navbar {
   background-color: #F44336; }
 
 .theme-red .navbar-brand {
@@ -632,13 +632,13 @@
   background-color: #FF9800; }
 
 .theme-orange .navbar-brand {
-  color: #fff; }
+  color:#337ab7; }
   .theme-orange .navbar-brand:hover {
-    color: #fff; }
+   color:#337ab7;  }
   .theme-orange .navbar-brand:active {
-    color: #fff; }
+    color:#337ab7; }
   .theme-orange .navbar-brand:focus {
-    color: #fff; }
+   color:#337ab7;  }
 
 .theme-orange .nav > li > a {
   color: #fff; }

@@ -49,9 +49,7 @@
 						</table>
 						<div class="body">
 							<form method="post" th:action="@{'/documents/release/'+${document.trackingnum}+'/execute'}" id="form1">
-								<input type="hidden" id="ITO" name="result" /> <input
-									type="hidden" name="CTS"
-									value="<!-- CTS OF THE DOCUMENT BEING RELEASED-->" />
+								<input type="hidden" id="ITO" name="result" /> 
 								<div class="row clearfix">
 
 									<div class="col-lg-12">
@@ -68,11 +66,11 @@
 									</div>
 									<div class="col-lg-3"></div>
 									<div class="col-lg-6">
-										<h2 class="card-inside-title">Description</h2>
+										<h2 class="card-inside-title">Remarks</h2>
 										<div class="form-group">
 											<div class="form-line">
 												<textarea rows="4" class="form-control no-resize"
-													name="desc" placeholder="Please type what you want..."></textarea>
+													name="remark" placeholder="Please type what you want..."></textarea>
 											</div>
 										</div>
 									</div>
@@ -84,7 +82,7 @@
 											<button class="btn btn-primary waves-effect"
 												onclick="showPromptMessage()" type="button">SUBMIT</button>
 
-											<a href="PendingDocuments.jsp"><button
+											<a href="/documents/pending"><button
 													class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
 											
 										</div>
