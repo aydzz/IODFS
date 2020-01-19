@@ -9,10 +9,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pup.cea.iodfs.test.analytics.ChartData;
+import com.pup.cea.iodfs.test.analytics.MorrisBody;
+import com.pup.cea.iodfs.test.analytics.MorrisData;
+import com.pup.cea.iodfs.test.analytics.MorrisService;
+import com.pup.cea.iodfs.test.analytics.ResponseBody;
+
 import javax.validation.Valid;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,9 +32,12 @@ public class Controller {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
+	
+	@Autowired 
+	MorrisService morrisService;
 
 	@PostMapping("/api/login")
-   public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody LoginForm loginForm, Errors errors) {
+   public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody LoginForm loginForm, Errors errors) throws ParseException {
 
 		LoginForm loginFormB = new LoginForm();
 		
@@ -49,7 +60,7 @@ public class Controller {
        }
        
        
-       List<User> users = userService.login(loginFormB);
+       List<User> users = userService.login(loginForm);
        if (users.isEmpty()) {
            result.setMsg("no user found!");
        } else {
@@ -57,10 +68,25 @@ public class Controller {
            result.setAnotherMessage("TANGINA MO");
        }
        result.setResult(users);
-
-       //return ResponseEntity.ok(result);
+       
        return ResponseEntity.ok(result);
        
 
    }
+	@PostMapping("/api/getChartData")
+	public ResponseEntity<?> getChartData() throws Exception{
+		
+		MorrisBody body = new MorrisBody();
+		List<MorrisData> list = new ArrayList<>();
+		
+		list = morrisService.propagateMorrisData();
+		
+		
+		body.setChartData(list);
+		body.setMessage("Morris Data is READY!");
+		
+		
+		return ResponseEntity.ok(body) ;
+	}
+	
 }

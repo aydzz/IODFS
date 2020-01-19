@@ -3,98 +3,246 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
-	<link rel="stylesheet" href="/plugins/sweetalert/sweetalert.css"/>
+<link
+	href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet" type="text/css">
+
+<!-- Bootstrap Core Css -->
+<link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+<!-- Waves Effect Css -->
+<link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+
+<!-- Animation Css -->
+<link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+
+<!-- Wait Me Css -->
+<link href="/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+
+<!-- Custom Css -->
+<link href="/css/style.css" rel="stylesheet">
+
+<!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+<link href="/css/themes/all-themes.css" rel="stylesheet" />
+
+<!-- LOCAL LAYOUT STYLE -->
+<link href="/css/local/layout.css" rel="stylesheet" />
+<link rel="icon" type="image/ico" href="/images/logo/iods.png" />
+<!--  <link rel="icon" type="image/png" href="location/image.png" /> -->
+<!-- LOCAL STYLES -->
+<!-- LOCAL STYLES -->
+<meta charset="UTF-8">
+
+
+<!-- Animation Css -->
+<link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+<!-- Morris Css -->
+<link href="/plugins/morrisjs/morris.css" rel="stylesheet" />
+<!-- local css -->
+<link rel="stylesheet" href="/css/local/login.css" />
+
 </head>
 <body>
-	<h1> This is a body for Sample Dynamic Pages</h1>
+	<h1>This is a body for Sample Dynamic Pages</h1>
 	<ul>
-		<li>
-			<a href = "/dynamic/table">Dynamic Table</a>
-		</li>
+		<li><a href="/dynamic/table">Dynamic Table</a></li>
 	</ul>
-	
+
 	<!-- SAMPLE AJAX FORM -->
 	<div class="container" style="min-height: 500px">
- 
-    <div class="starter-template">
-        <h1>Spring Boot Thymeleaf AJAX Example</h1>        
- 
-        <form class="form-horizontal" id="login-form">
-            <div class="form-group form-group-lg">
-                <label class="col-sm-2 control-label">Username</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="username"/>
-                </div>
-            </div>
- 
-			<div class="form-group form-group-lg">
-                <label class="col-sm-2 control-label">Password</label>
-                <div class="col-sm-6">
-                    <input type="password" class="form-control" id="password"/>
-                </div>
-            </div>
- 
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-6">
-                    <button type="submit" id="bth-login"
-                            class="btn btn-primary btn-lg">Login
-                    </button>
-                </div>
-            </div>
-        </form>
- 
-	<div id="feedback"></div>
-    </div>
- 
-</div>
-    <!-- Jquery Core Js -->
-    <script src="/plugins/jquery/jquery.min.js"></script>
-    <script src="/plugins/sweetalert/sweetalert.min.js"></script>
+
+		<div class="starter-template">
+			<h1>Spring Boot Thymeleaf AJAX Example</h1>
+
+			<form class="form-horizontal" id="login-form">
+				<div class="form-group form-group-lg">
+					<label class="col-sm-2 control-label">Username</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" id="username" />
+					</div>
+				</div>
+
+				<div class="form-group form-group-lg">
+					<label class="col-sm-2 control-label">Password</label>
+					<div class="col-sm-6">
+						<input type="password" class="form-control" id="password" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-6">
+						<button type="submit" id="bth-login"
+							class="btn btn-primary btn-lg">Login</button>
+					</div>
+				</div>
+			</form>
+
+			<div id="feedback"></div>
+
+			<div>
+
+				<!-- Line Chart -->
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>ADDED DOCUMENTS IN THE PAST WEEK</h2>
+							<ul class="header-dropdown m-r--5">
+								<li class="dropdown"><a href="javascript:void(0);"
+									class="dropdown-toggle" data-toggle="dropdown" role="button"
+									aria-haspopup="true" aria-expanded="false"> <i
+										class="material-icons">more_vert</i>
+								</a>
+									<ul class="dropdown-menu pull-right">
+										<li><a href="javascript:void(0);">Action</a></li>
+										<li><a href="javascript:void(0);">Another action</a></li>
+										<li><a href="javascript:void(0);">Something else here</a></li>
+									</ul></li>
+							</ul>
+						</div>
+						<div class="body">
+							<div id="line_chart" class="graph"></div>
+						</div>
+					</div>
+				</div>
+				<!-- #END# Line Chart -->
+
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+	<!-- Jquery Core Js -->
+	<script src="/plugins/jquery/jquery.min.js"></script>
+
+	<!-- Bootstrap Core Js -->
+	<script src="/plugins/bootstrap/js/bootstrap.js"></script>
+
+	<!-- Slimscroll Plugin Js -->
+	<script src="/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+	<!-- Waves Effect Plugin Js -->
+	<script src="/plugins/node-waves/waves.js"></script>
+
+	<!-- Custom Js -->
+	<script src="/js/admin.js"></script>
+	<!-- Demo Js -->
+	<script src="/js/demo.js"></script>
+
+	<!-- Jquery CountTo Plugin Js -->
+	<script src="/plugins/jquery-countto/jquery.countTo.js"></script>
+
+	<!-- Morris Plugin Js -->
+	<script src="/plugins/raphael/raphael.min.js"></script>
+	<script src="/plugins/morrisjs/morris.js"></script>
+
+
+	<!-- LINE GRAPH SCRIPT -->
 	<script>
-	$(document).ready(function () {
-	    $("#login-form").submit(function (event) {
-	 
-	        //stop submit the form event. Do this manually using ajax post function
-	        event.preventDefault();
-	 
-	        var loginForm = {}
-	        loginForm["username"] = $("#username").val();
-	        loginForm["password"] = $("#password").val();
-	 
-	        $("#btn-login").prop("disabled", true);
-	        
-	        $.ajax({
-	            type: "POST",
-	            contentType: "application/json",
-	            url: "/api/login",
-	            data: JSON.stringify(loginForm),
-	            dataType: 'json',
-	            cache: false,
-	            timeout: 600000,
-	            success: function (data) {
-	            	var json = "<h4>Ajax Response</h4><pre>"
-	                    + JSON.stringify(data,null, 1) + "TANGINA ITO PA:" + data.anotherMessage + "</pre>";
-	                $('#feedback').html(json);
-	 
-	                console.log("SUCCESS : ", data);
-	                $("#btn-login").prop("disabled", false);
-	            },
-	            error: function (e) {
-	 
-	                var json = "<h4>Ajax Response Error</h4><pre>"
-	                    + e.responseText + "</pre>";
-	                $('#feedback').html(json);
-	 
-	                console.log("ERROR : ", e);
-	                $("#btn-login").prop("disabled", false);
-	 
-	            }
-	        });
-	        
-	    });
-	 
-	});
+		$(function() {
+			$.ajax({
+				type : "POST",
+				contentType : "application/json",
+				url : "/api/getChartData",
+/* 				data : null */
+				dataType : 'json',
+				cache : false,
+				timeout : 600000,
+				success : function(data) {
+					
+					getMorris('line_chart',data);
+					
+					console.log("SUCCESS : ", data);
+					$("#btn-login").prop("disabled", false);
+				},
+				error : function(e) {	
+
+					console.log("ERROR : ", e);
+					$("#btn-login").prop("disabled", false);
+
+				}
+			});
+			
+		});
+
+		function getMorris(element, data) {
+		        Morris.Line({
+		            element: element,
+		            data: data.chartData,
+		            xkey: 'period',
+		            ykeys: ['licensed', 'sorned'],
+		            labels: ['Licensed', 'Off the road'],
+		            lineColors: ['rgb(233, 30, 99)', 'rgb(0, 188, 212)'],
+		            lineWidth: 3,
+		            xLabels:["day"],
+		            parseTime: true
+		        }); 
+		}
 	</script>
-	
+
+	<script>
+		$(document).ready(
+				function() {
+					var jsonC;
+					$("#login-form").submit(
+							function(event) {
+
+								//stop submit the form event. Do this manually using ajax post function
+								event.preventDefault();
+
+								var loginForm = {}
+								loginForm["username"] = $("#username").val();
+								loginForm["password"] = $("#password").val();
+
+								$("#btn-login").prop("disabled", true);
+
+								$.ajax({
+									type : "POST",
+									contentType : "application/json",
+									url : "/api/getChartData",
+									data : JSON.stringify(loginForm),
+									dataType : 'json',
+									cache : false,
+									timeout : 600000,
+									success : function(data) {
+										
+										/* var json = "<h4>Ajax Response</h4><pre>" + JSON.stringify(data, null, 1) + "TANGINA ITO PA:"
+												+ data.anotherMessage + "</pre>"; */
+												
+										/* $('#feedback').html(json); */
+
+										var jsonC = "<h4>Ajax Response</h4><pre>" + JSON.stringify(data, null, 1) + "</pre>";
+
+										$('#feedback').html(jsonC);
+										
+										console.log("SUCCESS : ", data);
+										$("#btn-login").prop("disabled", false);
+									},
+									error : function(e) {
+										var json = "<h4>Ajax Response Error</h4><pre>" + e.responseText + "</pre>";
+										$('#feedback').html(json);
+
+										console.log("ERROR : ", e);
+										$("#btn-login").prop("disabled", false);
+
+									}
+								});
+
+							});
+
+				});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+
+		});
+	</script>
+
 </body>
 </html>
