@@ -51,7 +51,6 @@ public class UserInfoService {
 	}
 	
 	
-	
 	public void saves(UserLogin user_login) {
 		userLoginRepos.save(user_login);
 		

@@ -25,6 +25,20 @@ public class UserLogsService {
 		return userLogsRepos.findAll();
 	}
 	
+	//added for ops that is not defined in the SQL Script
+	//dito muna hanggat di pa nalalagayan sa SQL
+	public UserLogs findByCts(String cts) {
+		return userLogsRepos.findByCts(cts);
+	}
+	
+	public UserLogs findById(long id) {
+		return userLogsRepos.findById(id).get();
+	}
+	
+	public void saveUserLog(UserLogs userLog) {
+		userLogsRepos.save(userLog);
+	}
+	
 
 
 }

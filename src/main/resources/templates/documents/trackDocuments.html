@@ -35,7 +35,7 @@
 											<th>Current Office</th>
 											<th>Date Received</th>											
 											<th>Status</th>
-											<th>Remarks</th>
+											<th>Email Address</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -45,10 +45,8 @@
 										<td th:text="${documents.current_office}"></td>
 										<td th:text="${documents.date_received}"></td>
 										<td th:text="${documents.status}"></td>
-										<td th:text="${documents.remark}"></td>
+										<td th:text="${documents.emailAddress}"></td>
 									</tr>
-									
-										
 									</tbody>
 								</table>
 							</div>
@@ -74,6 +72,7 @@
 		<script>
 		$(function () {
 		    $('#trackDocTbl').DataTable({
+		    	order: [3,'desc'],
 		        responsive: true,
 		        scrollY:'30vh'    
 		    });

@@ -36,19 +36,18 @@
 											<th>Current Office</th>
 											<th>Date Received</th>
 											<th>Source Office</th>
+											<th>Email Address</th>
 									
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="documents,counter: ${documentList}" th:if="${counter.index >= counter.size-1}" >
-												
-												<td th:text="${documents.trackingnum}"></td>
-										<td th:text="${documents.doctype}"></td>
-										<td th:text="${documents.current_office}"></td>
-										<td th:text="${documents.date_received}"></td>
-										<td th:text="${documents.source_office}"></td>
-								
-				
+											<tr th:each="document,counter: ${documentList}" th:if="${counter.index >= counter.size-1}" >
+												<td th:text="${document.trackingnum}"></td>
+												<td th:text="${document.doctype}"></td>
+												<td th:text="${document.current_office}"></td>
+												<td th:text="${document.date_received}"></td>
+												<td th:text="${document.source_office}"></td>
+												<td th:text="${document.emailAddress}"></td>
 											</tr>
 										</tbody>
 									</table>

@@ -4,17 +4,13 @@
                 layout:decorate="~{layouts/default_layout}">
 <head>
     <meta charset="UTF-8">
-    <title>Document History</title>
+    <title>Profile Page</title>
 
     <th:block layout:fragment="local-styles">
 
     <!-- Animation Css -->
     <link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
     </th:block>
-    
-  
-    
-    
 </head>
 <body class="theme-orange">
 	<section class="content" layout:fragment="content">
@@ -25,46 +21,72 @@
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
-					<div class="header">
+						<div class="header">
 						
-							<h2>
-								Document History <small>List of completed documents. </small>
-							</h2>
-								
-							
-					
+							<h2 class="col-sm-12">
+								Profile Page
+							</h2>z
 						</div>
 						
 									
 									
 									
 						<div class="body">
-							      <div class="table-responsive">
-                                <table class="table table-bordered table-striped table-hover dataTable js-exportable">
-                                    <thead>
-                                        <tr>
-                                           <th>DATE</th>
-											<th>CTS</th>
-											<th>DOCUMENT TYPE</th>
-											<th>BY</th>
-											<th>STATUS</th>
-                                        </tr>
-                                    </thead>
-                                   
-                                    <tbody>
-                                      
-                                        <tr th:each="history: ${history}">
-										<td th:text="${history.Date}"></td>
-										<td th:text="${history.cts}"></td>
-										<td th:text="${history.doctype}"></td>
-										<td th:text="${history.office}"></td>
-										<td th:text="${history.status}"></td>
+							<div class="table-responsive">
+								<table class="table table-bordered table-striped table-hover dataTable">
+									<thead>
+										<tr>
+											<th>First Name</th>
+											<th>Middle Name</th>
+											<th>Last Name</th>
+										</tr>
+									</thead>
+									<tbody>
+								
+										<tr th:each="user: ${userInfoList}">
+									<td th:text="${user.name}"></td>
+									<td ></td>
+										<td th:text="${user.lname}"></td>
 									
 									</tr>
-                                    </tbody>
-                                </table>
-                            </div>
-							
+									</tbody>
+									
+										<thead>
+										<tr>
+											<th>Office</th>
+											<th>E-mail</th>
+											<th>Username</th>
+										
+										</tr>
+									</thead>
+									<tbody>
+											<tr th:each="user: ${userInfoList}">
+									<td th:text="${user.office}"></td>
+									<td th:text="${user.email}"></td>
+										<td th:text="${user.username}"></td>
+										
+									</tr>
+									
+									
+									
+										<tr th:each="userlogin: ${userLoginList}">
+															
+										<td align="center">
+											<a th:href="@{'/documents/profile/'+${userlogin.id}+'/edit'}">
+												<button type="button" class="btn btn-xs btn-warning waves-effect"> Change Password
+			                                    	<i class="material-icons">mode_edit</i>
+			                                	</button>
+											</a>
+			        
+										</td>
+									
+									</tr>
+									</tbody>
+								
+								
+								
+								
+							</div>
 						</div>
 					</div>
 				</div>
@@ -83,26 +105,17 @@
 	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/vfs_fonts.js}"></script>
 	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
     	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
-    	<script th:src="@{/js/pages/tables/jquery-datatable.js}"></script>
+    	
 		<script>
 		$(function () {
 		    $('#trackDocTbl').DataTable({
-		    	order: [0,'desc'],
 		        responsive: true,
-		        scrollY:'30vh'  
-		      
+		        scrollY:'30vh'    
 		    });
 		});
 		</script>
-
-
-
-
 	</th:block>
 </body>
 <!-- /.content-wrapper -->
-
-
-
 
 </html>

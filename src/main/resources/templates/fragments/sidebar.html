@@ -2,10 +2,9 @@
 	<!-- Left Sidebar -->
 	<aside id="leftsidebar" class="sidebar">
 		<!-- User Info -->
-		<div class="user-info">
+		<div class="user-info" style="background: url(/images/default-user-bg.jpg) no-repeat no-repeat;">
 			<div class="image">
 				<img src="/images/pup-logo.png" width="48" height="48" alt="User"> 
-				
 			</div>
 			<div class="info-container">
 				<div sec:authentication="principal.fullname" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
@@ -54,9 +53,7 @@
 				</li>
 				<li th:classappend="${#request.requestURI == '/administrator/users' ||
 									  #request.requestURI == '/administrator/type/view' ||
-									  #request.requestURI == '/administrator/offices/view' ||											
-									  #request.requestURI == '/administrator/userLogs' ||
-									  #request.requestURI == '/administrator/history'										
+									  #request.requestURI == '/administrator/offices/view'									
 									  													? 'active':''}" class="">
 					<a href="javascript:void(0);" class="menu-toggle"> 
 						<i class="material-icons">folder</i> 
@@ -67,9 +64,19 @@
 						<a href="/administrator/users">Users</a></li>
 						<li th:classappend="${#request.requestURI.startsWith('/administrator/type/view') ? 'active':''}"><a href="/administrator/type/view">Document Type</a></li>
 						<li th:classappend="${#request.requestURI.startsWith('/administrator/offices/view') ? 'active':''}"><a href="/administrator/offices/view">Offices</a></li>
+						<!-- <li><a href="#">Document</a></li> -->
+					</ul>
+				</li>
+				<li th:classappend="${#request.requestURI == '/administrator/userLogs' ||
+									  #request.requestURI == '/administrator/history'										
+									  													? 'active':''}" class="">		  													
+					<a href="javascript:void(0);" class="menu-toggle"> 
+						<i class="material-icons">folder</i> 
+						<span>Logs</span>
+					</a>
+					<ul class="ml-menu">
 						<li th:classappend="${#request.requestURI.startsWith('/administrator/userLogs') ? 'active':''}"><a href="/administrator/userLogs">User Logs</a></li>
 						<li th:classappend="${#request.requestURI.startsWith('/administrator/history') ? 'active':''}"><a href="/administrator/history">History</a></li>
-						<!-- <li><a href="#">Document</a></li> -->
 					</ul>
 				</li>
 				</th:block>
@@ -99,9 +106,20 @@
 						<span>My Documents</span>
 					</a>
 					<ul class="ml-menu">
-						<li><a href="/documents/incoming">Incoming Documents</a></li>
-						<li><a href="/documents/pending">Pending Documents</a></li>
-						<li><a href="/documents/forwarded">Forwarded Documents</a>
+						<li><a href="/documents/incoming">
+							Incoming Documents
+							<span class="badge bg-teal"></span>
+							</a>
+						</li>
+						<li><a href="/documents/pending">
+							Pending Documents
+							<span class="badge bg-teal"></span>
+							</a>
+						</li>
+						<li><a href="/documents/forwarded">
+							Forwarded Documents
+							<span class="badge bg-teal"></span>
+							</a>
 						</li>
 					</ul>
 				</li>
@@ -145,6 +163,18 @@
 			</ul>
 		</div>
 		<!-- #Menu -->
+
+		<!-- Footer -->
+		<div class="legal">
+			<div class="copyright">
+				&copy; 2019 - 2020<a href="/home" style="color:grey !important"> InterOffice<b style = "color: gold">DTS</b></a>.
+			</div>
+			<div class="version">
+				<b>Version: </b> 1.0.0
+			</div>
+		</div>
+		<!-- #Footer -->
+
 
 	</aside>
 	<!-- #END# Left Sidebar -->

@@ -11,6 +11,7 @@ import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.model.security.UserLogin;
 
 public interface UserLoginRepository extends JpaRepository<UserLogin,Long>{
+	
 	public UserLogin findByUsername (String username);
 	
 	@Query(value="SELECT * FROM user_login u WHERE u.username = :username",nativeQuery = true)

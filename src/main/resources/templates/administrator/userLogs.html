@@ -22,18 +22,10 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
-						
 							<h2>
 								User Logs<small>Logs of everything the users did</small>
 							</h2>
-								
-							
-						
-						</div>
-						
-									
-									
-									
+						</div>		
 						<div class="body">
 							<div class="table-responsive">
 								<table id="trackDocTbl"class="table table-bordered table-striped table-hover dataTable">
@@ -42,8 +34,7 @@
 											<th>DATETIME</th>
 											<th>CTS</th>
 											<th>ACTION</th>
-										
-											
+											<th>REMARK</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -51,10 +42,8 @@
 										<td th:text="${logs.datetime}"></td>
 										<td th:text="${logs.cts}"></td>
 										<td th:text="${logs.action}"></td>
-									
-									
+										<td th:text="${logs.remark}"></td>
 									</tr>
-										
 									</tbody>
 								</table>
 							</div>
@@ -80,11 +69,12 @@
 		<script>
 		$(function () {
 		    $('#trackDocTbl').DataTable({
+		    	order: [0,'desc'],
 		        responsive: true,
 		        scrollY:'30vh'    
 		    });
 		});
-		</script> -->
+		</script>
 	</th:block>
 </body>
 <!-- /.content-wrapper -->

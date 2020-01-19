@@ -2,15 +2,14 @@
 <nav class="navbar" th:fragment="navbar">
 	<div class="container-fluid topbar">
 		<div class="navbar-header">
-		<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+		<th:block sec:authorize="hasAuthority('ROLE_OFFICE')">
 			<a  class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar-collapse"
 				aria-expanded="false"></a> <a href="javascript:void(0);"
 				class="bars"></a> <a class="navbar-brand" th:href="@{/home}">Inter-Office
 				Document Flow System</a>
 		</th:block>
-		
-		<th:block th:if="${#authorization.expression('hasRole(''ROLE_OFFIC E'')')}">
+		<th:block sec:authorize="hasAuthority('ROLE_USER')">
 			<a  class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar-collapse"
 				aria-expanded="false"></a> <a href="javascript:void(0);"

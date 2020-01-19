@@ -1,0 +1,9 @@
+body{
+	background:maroon !important;
+	color: gold;
+
+}
+[type="checkbox"].filled-in:checked.chk-col-pink + label:after {
+  border: 2px solid gold !important;
+  background-color: gold !important; 
+ }

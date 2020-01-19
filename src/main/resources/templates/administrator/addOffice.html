@@ -22,7 +22,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 
-						<form  th:object = "${officeObject}" th:action="@{/administrator/offices/save}" method="POST">
+						<form  id="add-office-form" th:object = "${officeObject}" th:action="@{/administrator/offices/save}" method="POST">
 						
 							<input type = "hidden" th:field = "*{id}">
 							<div class="header">
@@ -38,7 +38,7 @@
 										<h2 class="card-inside-title">Office Code</h2>
 										<div class="form-group form-float">
 											<div class="form-line">
-												<input th:field="*{officecode}" placeholder="Office Code" type="text"  class="form-control" minlength="2" maxlength="16" pattern="^[_A-z0-9]*((-|\s)*[_A-z0-9])*$"/>
+												<input th:field="*{officecode}" placeholder="Office Code" type="text"  class="form-control" minlength="2" maxlength="16" pattern="^[_A-z0-9]*((-|\s)*[_A-z0-9])*$" required/>
 												<div class="help-info">No special characters allowed</div>
 												
 											</div>
@@ -49,7 +49,7 @@
 										<h2 class="card-inside-title">Office Description</h2>
 										<div class="form-group form-float">
 											<div class="form-line">
-												<input th:field="*{officename}" placeholder="Office Description" type="text"  class="form-control" minlength="6" maxlength="64" pattern="^[_A-z0-9]*((-|\s)*[_A-z0-9])*$"/>
+												<input th:field="*{officename}" placeholder="Office Description" type="text"  class="form-control" minlength="6" maxlength="64" pattern="^[_A-z0-9]*((-|\s)*[_A-z0-9])*$" required/>
 												<div class="help-info">No special characters allowed</div>
 												
 											</div>
@@ -82,6 +82,38 @@
     	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
    	    <!-- SweetAlert Plugin Js -->
     	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+    	<!-- Jquery Validation Plugin Css -->
+    	<script src="/plugins/jquery-validation/jquery.validate.js"></script>
+    	<!-- JQuery Steps Plugin Js -->
+    	<script src="/plugins/jquery-steps/jquery.steps.js"></script>
+    	
+    	<script>
+		$(function () {
+		    $('#add-office-form').validate({
+		        rules: {
+		            'officename': {
+		                required: true,
+		                minlength:5,
+		                maxlength:30,
+		            },
+		            'officecode': {
+		                required: true,
+		                minlength:2,
+		                maxlength:10
+		            }
+		        },
+		        highlight: function (input) {
+		            $(input).parents('.form-line').addClass('error');
+		        },
+		        unhighlight: function (input) {
+		            $(input).parents('.form-line').removeClass('error');
+		        },
+		        errorPlacement: function (error, element) {
+		            $(element).parents('.form-group').append(error);
+		        }
+		    });
+		});
+		</script>
     	<!--<script>
     	
     		$(function(){
