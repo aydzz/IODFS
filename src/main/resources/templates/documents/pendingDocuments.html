@@ -35,8 +35,11 @@
 										<thead>
 											<tr>
 												<th>Tracking No.</th>
-												<th>Document Type</th>
+												<th>Type</th>
 												<th>Date Received</th>
+												<th>Description</th>
+												<th>From</th>
+												<th>Remarks</th>
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -46,6 +49,9 @@
 												<td th:text="${documents.trackingnum}"></td>
 												<td th:text="${documents.doctype}"></td>
 												<td th:text="${documents.date_received}"></td>
+												<td th:text="${documents.description}"></td>
+												<td th:text="${documents.source_office}"></td>
+												<td th:text="${documents.remark}"></td>
 												<td align="center">
 													<div style="padding-left: 20px">
 														<a th:href="@{'/documents/forward/'+${documents.trackingnum}}">
@@ -66,9 +72,12 @@
 												
 													</div>
 												</td>
+												
 											</tr>
+									
 										</tbody>
 									</table>
+								
 								</form>
 							</div>
 						</div>

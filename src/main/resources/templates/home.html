@@ -19,7 +19,9 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6 col-md-6"  data-link="documents/add">
-					<div class="info-box bg-pink hover-expand-effect hover-zoom-effect">
+					
+					<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+					<div class="info-box bg-gray hover-expand-effect hover-zoom-effect">
 						<div class="icon">
 							<i class="material-icons">note_add</i>
 						</div>
@@ -27,10 +29,16 @@
 							<div class="text">ADD DOCUMENT</div>
 						</div>
 					</div>
+					</th:block>
+
+
 
 				</div>
+				
+				
+				<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 				<div class="col-lg-6 col-md-6"  data-link="documents/track">
-					<div class="info-box bg-cyan hover-expand-effect hover-zoom-effect">
+					<div class="info-box bg-gray hover-expand-effect hover-zoom-effect">
 						<div class="icon">
 							<i class="material-icons">track_changes</i>
 						</div>
@@ -40,11 +48,26 @@
 						</div>
 					</div>
 				</div>
+				</th:block>
+					<th:block th:if="${#authorization.expression('hasRole(''ROLE_OFFICE'')')}">
+				<div class="col-lg-12 col-md-12"  data-link="documents/track">
+					<div class="info-box bg-gray hover-expand-effect hover-zoom-effect">
+						<div class="icon">
+							<i class="material-icons">track_changes</i>
+						</div>
+						<div class="content">
+							<div class="text">TRACK DOCUMENTS</div>
+							 <div class="number count-to" data-from="0" th:data-to="${documentTot}" data-speed="1000" data-fresh-interval="1"></div>
+						</div>
+					</div>
+				</div>
+				</th:block>
+				
 
 			</div>
 			<div class="row">
 				<div class="col-lg-6 col-md-6" data-link="documents/pending">
-					<div class="info-box bg-light-green hover-expand-effect hover-zoom-effect">
+					<div class="info-box bg-maroon hover-expand-effect hover-zoom-effect">
 						<div class="icon">
 							<i class="material-icons">access_time</i>
 						</div>
@@ -57,7 +80,7 @@
 				<div class="col-lg-6 col-md-6"  data-link="documents/incoming">
 
 					<div
-						class="info-box bg-orange hover-expand-effect hover-zoom-effect">
+						class="info-box bg-maroon hover-expand-effect hover-zoom-effect">
 						<div class="icon">
 							<i class="material-icons">description</i>
 						</div>
@@ -68,7 +91,9 @@
 				</div>
 			</div>
 		</div>
-			<!-- <div th:text="${#authentication.principal.office}">
+		
+		<!--  
+			 <div th:text="${#authentication.principal.username}">
   				
 			</div>
 			Authenticated user roles:

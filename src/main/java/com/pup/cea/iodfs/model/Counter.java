@@ -13,11 +13,12 @@ public class Counter {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
-	@Column(unique=true)
+
 	private int ctr;
+	@Column(unique=true)
 	private String docAbbrev;
 	
-	public Counter() {	}
+
 	
 	public long getId() {
 		return id;

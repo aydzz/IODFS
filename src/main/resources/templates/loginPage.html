@@ -1,13 +1,13 @@
 ﻿﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Log-in | CPE Document Flow System</title>
-    <!-- Favicon-->
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
+    <link rel="icon" type="image/ico" href="/images/logo/iods-icon.ico" />
+ 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -30,8 +30,13 @@
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="/css/themes/all-themes.css" rel="stylesheet" />
     
-    <!-- LOCAL SCRIPT -->
+    <!-- Sweetalert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    
+    <!-- LOCAL Styles -->
     <link href="/css/local/login.css" rel="stylesheet"/>
+    <link rel="icon" type="image/png" href="/images/logo/iods.png" />
+    
 </head>
 
 <body>
@@ -61,41 +66,49 @@
     
  
         <div class="">
-            <div align="center">
-            	<img src="/images/pup-logo.png" width="150" height="150"  />
-            </div>
+        
+      
             <!-- Vertical Layout -->
-            <div align="center" class="row clearfix">
-			 <h1 style="font-size:64px">Inter-Office <br> Document Flow System</h1>
-			 <br><br>
+            <br>
+            <div align="center" class="row clearfix mx-0">
+			
 			   <div class="col-lg-4 col-md-3 col-sm-3 col-xs-3"></div>
                 <div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
 			
                
 				
-                    <div class="">
+                    <div class="card">
                       
-                        <div class="body">
+                        <div class="body body1">
+                         <div align="center">
+            	<!-- <img src="/images/pup-logo1.png" width="100" height="100"  /> -->
+            	<img src="/images/logo/iods.png" width="100" height="100"  />
+            	<h4>Inter-Office Document Flow and Tracking System</h4>
+            </div>
+            <br>
+            <h4>SIGN IN</h4>
+            
                             <form method="post" action="login">
                                 <label for="email_address">Username</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input name="username" type="text" id="email_address" class="form-control login-textfield" placeholder="Enter your username">
+                                        <input name="username" type="text" id="email_address" class="form-control login-textfield" placeholder="Enter your username" maxlength="15" minlength="4" pattern="^[a-zA-Z0-9]*$" required />
                                     </div>
                                 </div>
+                               
                                 <label for="password">Password</label>
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <input name="password" type="password" id="password" class="form-control login-textfield" placeholder="Enter your password">
+                                        <input name="password"  type="password" id="password" class="form-control login-textfield" placeholder="Enter your password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required/>
                                     </div>
                                 </div>
-
-                                <input type="checkbox" id="remember_me" class="filled-in">
-                                <label for="remember_me">Remember Me</label>
+								
+								<!-- Needs sessions -->
+                                <!-- <input type="checkbox" id="remember_me" class="filled-in">
+                                <label for="remember_me">Remember Me</label> -->
                                 <br>
-	                                
-                                
-                                <button type="submit" class="btn bg-grey m-t-15 waves-effect">LOGIN</button>
+                                <button type="submit" class="btn bg-blue-grey m-t-15 waves-effect">LOGIN</button>
+                               
                             </form>
                         </div>
                     </div>
@@ -114,9 +127,6 @@
     <!-- Bootstrap Core Js -->
     <script src="/plugins/bootstrap/js/bootstrap.js"></script>
 
-    <!-- Select Plugin Js -->
-    <script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
     <!-- Slimscroll Plugin Js -->
     <script src="/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
 
@@ -125,9 +135,11 @@
 
     <!-- Custom Js -->
     <script src="/js/admin.js"></script>
-
     <!-- Demo Js -->
     <script src="/js/demo.js"></script>
+    
+    <!-- SweetAlert Plugin Js -->
+   	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
 </body>
 
 </html>

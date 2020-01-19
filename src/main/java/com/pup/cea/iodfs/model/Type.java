@@ -17,7 +17,7 @@ public class Type {
 	private String docType;
 	private String docAbbrev;
 	
-	public Type() {	}
+
 	
 	public long getId() {
 		return id;

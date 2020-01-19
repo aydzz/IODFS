@@ -3,11 +3,13 @@ package com.pup.cea.iodfs.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pup.cea.iodfs.model.Document;
+import com.pup.cea.iodfs.model.Office;
 import com.pup.cea.iodfs.model.UserInfo;
+import com.pup.cea.iodfs.model.security.UserLogin;
 import com.pup.cea.iodfs.service.DocumentService;
 import com.pup.cea.iodfs.service.OfficeService;
 import com.pup.cea.iodfs.service.TypeService;
@@ -68,7 +72,7 @@ public class DocumentController {
 		return "documents/addDocuments";
 	}
 	@RequestMapping("/save")
-	public String saveDocument(@ModelAttribute("documentObject")Document document) {
+	public String saveDocument(@ModelAttribute("documentObject")Document document, Model model) {
 		//Initial Other Settings
 		document.setCurrent_office(getUserInfo().getOffice());
 		document.setSource_office(getUserInfo().getOffice());
@@ -77,7 +81,7 @@ public class DocumentController {
 		document.setStatus("PENDING");
 		//overriding the fetched date value from view
 		Date date = new Date(); // this object contains the current date value
-		SimpleDateFormat formatter = new SimpleDateFormat("MMMMM dd, yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		document.setDate_received(formatter.format(date));
 		
 		System.out.println(getAuth().getName());
@@ -85,12 +89,35 @@ public class DocumentController {
 		
 		docService.save(document);
 		
-		return "redirect:/documents/track";
+		model.addAttribute("documentList",docService.findAll());
+		
+
+		
+		return "redirect:/documents/ctsPage";
 	}
+
+	@RequestMapping("/ctsPage")
+	public String ctsPage(Model model) {
+		
+		model.addAttribute("documentList",docService.findAll());
+		
+		return "documents/ctsPage";
+	}
+	
+	
+	
 	@RequestMapping("/incoming")
 	public String incomingDocuments(Model model) {
 		model.addAttribute("documentList",docService.findIncoming(getUserInfo().getOffice().toString(), "FORWARDED"));
 		return "documents/incomingDocuments";
+		
+		/*
+		 * 	
+	@Query(value="SELECT * FROM document u WHERE u.forwarded_office = :forwarded and u.status = :status",nativeQuery = true)
+	List<Document> findIncoming(@Param("forwarded")String forwarded_office,
+			 					 @Param("status") String status);
+	
+		 */
 	}
 	@RequestMapping("/pending")
 	public String pendingDocuments(Model model) {
@@ -145,7 +172,7 @@ public class DocumentController {
 		Document document = docService.findByTrackingnum(trackingnum);
 		document.setStatus("FORWARDED");
 		document.setForwarded_office(req.getParameter("destination"));
-		
+		document.setRemark(req.getParameter("remark"));
 		docService.save(document);
 		return "redirect:/documents/pending";
 	}
@@ -156,8 +183,34 @@ public class DocumentController {
 		document.setStatus("RELEASED:"+req.getParameter("result"));
 		document.setCurrent_office(null);
 		document.setForwarded_office(null);
-		document.setDescription(req.getParameter("desc"));
+		document.setRemark(req.getParameter("remark"));
 		docService.save(document);
 		return "redirect:/documents/pending";
 	}
+	
+	
+	@RequestMapping("/profilePage")
+	public String Profile(Model model) {
+		model.addAttribute("userLoginList",userInfoService.findByUname(getUserInfo().getUsername().toString()));
+		model.addAttribute("userInfoList",userInfoService.findByUnname(getUserInfo().getUsername().toString()));
+		System.out.println(getUserInfo().getUsername().toString());
+	return "documents/profilePage";
+	}
+	
+	
+	@RequestMapping("/profile/save")
+	public String saveProfile(@ModelAttribute("userLoginObject")UserLogin user_login) {
+		
+		userInfoService.saves(user_login);
+		
+		return "redirect:/home";
+	}
+	
+	
+	@RequestMapping("/profile/{userloginid}/edit")
+	public String changePassword(@PathVariable("userloginid")Long userloginid,Model model) {
+		model.addAttribute("userLoginObject",userInfoService.findUser(userloginid));
+		return "documents/changePassword";
+	}
+	
 }

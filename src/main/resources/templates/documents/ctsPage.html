@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{layouts/default_layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Details</title>
+
+<th:block layout:fragment="local-styles">
+	<!-- JQuery DataTable Css -->
+	<link
+		href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css"
+		rel="stylesheet">
+</th:block>
+</head>
+<body>
+	<section class="content" layout:fragment="content">
+		<div class="">
+	
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card">
+						<div class="header">
+							<h2>DOCUMENT HAS BEEN ADDED<small>View the added document details</small></h2>
+						</div>
+						<div class="body">
+							<div class="table-responsive">
+								
+									
+									
+									<table id="incomingDocTbl" class="table table-bordered table-striped table-hover dataTable">
+										<thead>
+											<tr>
+											<th>CTS</th>
+											<th>Document Type</th>
+											<th>Current Office</th>
+											<th>Date Received</th>
+											<th>Source Office</th>
+									
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="documents,counter: ${documentList}" th:if="${counter.index >= counter.size-1}" >
+												
+												<td th:text="${documents.trackingnum}"></td>
+										<td th:text="${documents.doctype}"></td>
+										<td th:text="${documents.current_office}"></td>
+										<td th:text="${documents.date_received}"></td>
+										<td th:text="${documents.source_office}"></td>
+								
+				
+											</tr>
+										</tbody>
+									</table>
+								
+								
+									<div class="col-lg-12 col-sm-3 ">
+
+										<div class="col-lg-5 col-sm-4 "></div>
+										<div>
+											<a href="/documents/add"><button
+													class="btn btn-primary waves-effect" type="button">ADD DOCUMENT</button></a>
+
+											<a href="/documents/track"><button
+													class="btn btn-primary waves-effect" type="button">TRACK DOCUMENT</button></a>
+											
+										</div>
+
+									</div>
+								
+								
+								
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</section>
+
+	<th:block layout:fragment="local-scripts">
+	    <!-- Jquery DataTable Plugin Js -->
+	  
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.flash.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/jszip.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/pdfmake.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/vfs_fonts.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
+    	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
+    	
+		<script>
+		$(function () {
+		    $('#incomingDocTbl').DataTable({
+		        responsive: true,
+		        scrollY:'30vh'    
+		    });
+		});
+		</script>
+	</th:block>
+</body>
+<!-- /.content-wrapper -->
+
+</html>

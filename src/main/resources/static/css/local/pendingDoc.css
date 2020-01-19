@@ -5,3 +5,7 @@ button i {
 	font-size:14px !important;
 }
 
+.tableheight{
+	   height:500px;
+    overflow-y:auto;
+}

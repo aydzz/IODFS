@@ -23,7 +23,7 @@
 					<div class="card">
 
 						<form  th:object = "${officeObject}" th:action="@{/administrator/offices/save}" method="POST">
-							<!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
+						
 							<input type = "hidden" th:field = "*{id}">
 							<div class="header">
 								<h2>
@@ -36,10 +36,10 @@
 							
 							<div class="col-sm-6">
 										<h2 class="card-inside-title">Office Code</h2>
-										<div class="form-group">
+										<div class="form-group form-float">
 											<div class="form-line">
-												<input th:field="*{officecode}" placeholder="Office Code" type="text"  class="form-control" />
-												
+												<input th:field="*{officecode}" placeholder="Office Code" type="text"  class="form-control" minlength="2" maxlength="16" pattern="^[_A-z0-9]*((-|\s)*[_A-z0-9])*$"/>
+												<div class="help-info">No special characters allowed</div>
 												
 											</div>
 										</div>
@@ -47,10 +47,10 @@
 									
 							<div class="col-sm-6">
 										<h2 class="card-inside-title">Office Description</h2>
-										<div class="form-group">
+										<div class="form-group form-float">
 											<div class="form-line">
-												<input th:field="*{officename}" placeholder="Office Description" type="text"  class="form-control" />
-												
+												<input th:field="*{officename}" placeholder="Office Description" type="text"  class="form-control" minlength="6" maxlength="64" pattern="^[_A-z0-9]*((-|\s)*[_A-z0-9])*$"/>
+												<div class="help-info">No special characters allowed</div>
 												
 											</div>
 										</div>
@@ -60,6 +60,9 @@
 									<div class="col-sm-5"></div>
 									<div class="col-sm-7">
 										<button id="saveDocBtn" class="btn btn-primary waves-effect" type="submit" data-type="success">SUBMIT</button>
+										<a href="/administrator/offices/view"><button
+													class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
+									
 									</div>
 
 								</div>
@@ -79,7 +82,8 @@
     	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
    	    <!-- SweetAlert Plugin Js -->
     	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
-    	<script>
+    	<!--<script>
+    	
     		$(function(){
     			 $('#saveDocBtn').on('click', function () {
     				 var type = $(this).data('type');
@@ -98,7 +102,7 @@
 	    		//Textarea auto growth
 	    	    autosize($('textarea.auto-growth'));
 	    	})
-	    </script>
+	    </script>-->
 		
 	</th:block>
 </body>

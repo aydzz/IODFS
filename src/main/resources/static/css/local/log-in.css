@@ -1,0 +1,328 @@
+body {
+  background: url("../content/images/log-in-bg.jpg") no-repeat center;
+  background-size: cover;
+}
+
+/* --- MODALS --- */
+
+/* ACTIVE USER */
+.active-user { margin-top: 10px; }
+.active-user > img {
+  float: left;
+  width: 60px; height: 60px;
+  margin-bottom: 10px;
+  border: 3px solid #DFDFDF;
+  border-radius: 60px;
+}
+.user-info {
+  width: 290px; 
+  margin-left: 70px; padding: 2.5px;
+  text-align: center;
+  border-bottom: 3px solid #606060;
+}
+#active-user-name, #active-user-type { font-weight: bold; }
+.active-user > button {
+  float: right;
+  margin: 5px 0 0 10px !important; padding: 2.5px 10px;
+  background: #3771A1; color: white;
+  border-radius: 5px;
+}
+#cancel {
+  background: none;
+  color: #A0A0A0;
+}
+#cancel:hover {
+  opacity: 1;
+  background: #E0E0E0;
+  color: #606060;
+}
+
+
+
+/* LOG IN CONTAINER */
+.log-in {
+  z-index: 1;
+  width: 500px;
+  background: #FFFFFF;
+}
+
+
+
+/* HEADER */
+.log-in-header {
+  position: relative;
+  width: 460px; height: 125px;
+  margin: 10px 20px; padding: 10px 60px 15px;
+  border-bottom: 5px solid #000000;
+}
+#pup-logo {
+  float: left; clear: both;
+  width: 100px; height: 100px;
+  margin-right: 10px;
+}
+.log-in-header-title {
+  width: 340px; height: 100px;
+  padding: 10px 0;
+  font-size: 20px;
+}
+.log-in-header-title::first-line { font-size: 32px; font-weight: bold; }
+
+
+
+/* CONTENT */
+.log-in-form {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  margin-top: 25px; /* header height - footer height / 2 + 5 */
+}
+.log-in-form > * { float: left; width: 100%; }
+
+/* HEAD */
+.log-in-form-header { height: 50px; margin-bottom: 5px; }
+#ia-logo {
+  float: left; clear: both;
+  width: 50px; height: 50px;
+}
+.line-blue {
+  width: 220px; height: 12px;
+  margin-left: 60px;
+  background: #3771A1;
+}
+.line-yellow {
+  width: 220px; height: 6px;
+  margin: 4px 0 0 60px;
+  background: #FFD242;
+}
+.log-in-form-header-title {
+  width: 220px;
+  margin: 4px 0 0 60px;
+  text-align: center; font-size: 16px; font-weight: bold;
+  border-bottom: solid 3px #606060;
+}
+
+/* LOG IN FORM */
+.input-username, .input-password, .input-logIn {
+  width: 280px; height: 40px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+#pass-visibility {
+  position: absolute; top: 50%; right: 15px;
+  transform: translateY(-50%);
+  width: 20px; height: 20px;
+  opacity: 0.8;
+}
+.input-logIn { overflow: hidden; }
+#logInLoader { background: none; animation: none; }
+.user-warn, .pass-warn  {
+  position: absolute; top: 50%; right: 15px;
+  transform: translateY(-50%);
+  display: none; z-index: 99;
+}
+#username, #password, #log-in {
+  width: 100%; height: 100%;
+  padding: 10px 20px;
+  border: solid 1px #606060;
+  border-radius: 10px;
+}
+#username:focus, #password:focus {
+  border-color: #3771A1;
+  box-shadow: 0 0 4px 1px rgba(37, 71, 101, 0.6);
+}
+.msg-box-login {
+  padding: 10px 0 0;
+  display: none;
+  color: #800000; text-align: center;
+}
+#log-in {
+  background: #175181;
+  color: white;
+  border: none;
+}
+.remember-me, .reset-password {
+  padding: 5px;
+  text-align: center;
+}
+.remember-me > label, .reset-password > a { transition: color 0.25s; }
+.remember-me > label:hover, .reset-password > a:hover { color: #175181; }
+#open-reset-password { text-decoration: underline; cursor: pointer; }
+
+
+
+
+/* RESET PASSWORD FORM */
+.reset-password-form { 
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 460px;
+  display: none;
+  text-align: center;
+}
+.reset-password-form > * { float: left; width: 100%; }
+.reset-password-form-head {
+  position: relative;
+  padding: 15px 0;
+  background: #175181;
+  color: white; font-size: 16px;
+}
+#back-reset-password {
+  position: absolute; top: 0; left: 0;
+  width: 60px; height: 100%;
+  transition: background 0.5s;
+}
+#back-reset-password:hover { background: #3771A1; }
+#back-reset-password > div {
+  position: relative; top: 35%;
+  width: 15px; height: 15px;
+}#back-reset-password > div:hover { opacity: 1; }
+.reset-password-from-msg {
+  margin-bottom: 10px; padding: 10px 0;
+  color: #606060;
+}
+.input-email, .send-email {
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 10px; /* SAME AS CHILD INPUT ELEMENT */
+}
+.email-warn {
+  position: absolute; top: 50%; right: 15px;
+  transform: translateY(-50%);
+  display: none; z-index: 99;
+}
+#email, #send-email {
+  width: 100%; height: 100%;
+  padding: 10px 20px;
+  border: 1px solid #606060;
+  border-radius: 10px;
+}
+#email:focus{
+  border-color: #175181;
+  box-shadow: 0 0 4px 1px rgba(17, 51, 81, 0.6);
+}
+.msg-box-email {
+  padding: 0 0 10px;
+  display: none;
+  color: #800000; text-align: center;
+}
+#send-email {
+  background: #3771A1;
+  color: white;
+  border: none;
+}
+.reset-password-form-footer {
+  font-size: 12px; color: #606060;
+}
+.reset-password-form-footer > a { font-weight: bold; }
+
+/* RESET SUCCESSFUL */
+.reset-password-success {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 460px;
+  display: none;
+  text-align: center;
+}
+.reset-password-success-head {
+  padding: 20px 10px;
+  font-size: 28px; color: seagreen;
+}
+.reset-password-success-msg {
+  padding: 10px;
+  color: #303030;
+}
+.reset-password-success-foot {
+  padding: 5px 10px;
+  color: #909090;
+}
+#backToLogin {
+  color: #3771A1; font-weight: bold;
+}
+
+
+
+/* FOOTER */
+.log-in-footer, .footer-filler {
+  position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 85px;
+  font-size: 12px;
+  background: #175181;
+  color: white; text-align: center;
+}
+.log-in-footer > .wrapper { width: 100%; height: 100%; }
+.log-in-footer img {
+  position: relative; top: -15px;
+  width: 35px; height: 35px;
+  border: 3px solid #FFFFFF;
+  border-radius: 30px;
+}
+.footer-links { margin-top: -10px; }
+.footer-links a { margin: 0 5px; }
+#active-branch {
+  font-size: 16px;
+  font-weight: bold;
+}
+#active-branch:hover { text-decoration: none; cursor: default; }
+.copyright, .footer-filler > div {
+  position: absolute; bottom: 0;
+  width: 100%;
+  padding: 5px 0;
+  background: #074171;
+  font-size: 12px;
+}
+
+
+
+
+
+/* TOGGLE CLASS */
+.input-error {
+  border: 1.5px solid #800000 !important; color: #400000;
+}
+
+
+
+
+
+/* STRIPES */
+.white {
+  width: 8%;
+  margin-left: -4%;
+  background: #FFFFFF;
+}
+.maroon {
+  width: 60px;
+  margin-left: 30px;
+  background: #800000;
+}
+.gold {
+  width: 30px;
+  margin-left: 15px;
+  background: #FED142;
+}
+
+
+/* QUOTES BLOCK */
+.transparent {
+  position: absolute; top: 0; right: 0;
+  /* width is automatically computed through js */
+}
+.transparent > .wrapper { width: 100%; height: 100%; }
+.quotes {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  margin: 0 auto; padding-bottom: 50px;
+  font-size: 24px; color: white;
+  text-align: justify;
+  border-bottom: 5px solid white;
+}
+.quotes:before {
+  content: '"';
+  font-size: 48px;
+}
+.author { display: none;
+  padding: 5px 0;
+  font-size: 18px; font-style: italic;
+  text-align: right;
+}

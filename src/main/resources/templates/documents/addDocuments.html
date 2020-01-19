@@ -10,8 +10,7 @@
     <!-- Bootstrap Select Css -->
    <link href="/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
     <!-- Sweetalert Css -->
-    <!-- <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" /> -->
-   	<link href = "/plugins/sweetalert-new/dist/sweetalert.css" rel="stylesheet"/>
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 </th:block>
 </head>
 <body>
@@ -49,20 +48,14 @@
 									</div>
 
 									<div class="col-sm-6">
-										<h2 class="card-inside-title">CTS</h2>
+										<h2 class="card-inside-title">Office</h2>
 										<div class="form-group">
 											<div class="form-line">
-												<span class="form-control">
-													<span class="track" id="date1">
-													</span>
-													<span id="lol">
-														<span>
-														</span>
-													</span> 
-												</span> 
+												
 												<input th:field="*{trackingnum}" type="hidden" id="tracknum" name="cts" class="form-control" />
 												<input type="hidden" id="typ" name="type" class="form-control" /> 
 												<input th:field="*{date_received}"type="hidden" id="date2" name="date" class="form-control" />
+												<input th:text="${#authentication.principal.office}" type="hidden" id="tracknum" name="cts" class="form-control" />
 												
 													
 											</div>
@@ -87,11 +80,12 @@
 
 									<div class="col-sm-5"></div>
 									<div class="col-sm-7">
-										<button id="saveDocBtn" onclick="showPromptMessage()" class="btn btn-primary waves-effect" type="submit" data-type="success">SUBMIT</button>
+										<button id="saveDocBtn" class="btn btn-primary waves-effect" type="submit" data-type="success">SUBMIT</button>
 									</div>
 
 								</div>
 							</div>
+					
 						</form>
 					</div>
 				</div>
@@ -106,375 +100,17 @@
 	     <!-- Select Plugin Js -->
     	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
    	    <!-- SweetAlert Plugin Js -->
-    	<!-- <script src="/plugins/sweetalert/sweetalert.min.js"></script> -->
-    	<script src="/plugins/sweetalert-new/dist/sweetalert.js"></script>
-    	<script>
-	    	function showPromptMessage() {
-	    		
-	
-	    		var form = $('#documentForm');
-				var choice = $("saveDocBtn").val();
-				if (choice !== "") {
-    				
-					//This is the former sweet alerts on the web app
-					/*  swal({
-    					  title: 'Success!',
-    					  text: 'Submitted Document.',
-    					  type: 'success',
-    					  showCancelButton: false,
-    					  confirmButtonColor: '#07e651',
-    					  confirmButtonText: 'Confirm',
-    					  cancelButtonText: 'No'
-    					},function(inputValue) {
-    						if (inputValue === true){	
-    							form.submit()
-    						}
-    						
-    						
-    					}); */
-    					
-  					//This is the new Sweet alert popo up on the web app
-					swal("Click on either the button or outside the modal.")
-					.then((value) => {
-					  swal("You submitted a form")
-					  form.submit()
-					});
-				}
-			}
-    	</script>
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
     	
-    	<script>
-    		/* $(function(){
-    			var form = $('#documentForm');
-    			 $('#saveDocBtn').on('click', function (e) {
-    				 
-    				 e.preventDefault();
-    				 swal({
-    					  title: 'Success!',
-    					  text: 'Submitted Document.',
-    					  type: 'success',
-    					  showCancelButton: false,
-    					  confirmButtonColor: '#07e651',
-    					  confirmButtonText: 'Confirm',
-    					  cancelButtonText: 'No.'
-    					},function(inputValue) {
-    						if (inputValue === true){	
-    							form.submit()
-    						}	
-    					}); */
-
-    			 /* swal({
-    			      title: "Are you sure?",
-    			      text: "You will not be able to recover this imaginary file!",
-    			      icon: "warning",
-    			      buttons: [
-    			        'No, cancel it!',
-    			        'Yes, I am sure!'
-    			      ],
-    			      dangerMode: true,
-    			    }).then(function(isConfirm) {
-    			      if (isConfirm) {
-    			        swal({
-    			          title: 'Shortlisted!',
-    			          text: 'Candidates are successfully shortlisted!',
-    			          icon: 'success'
-    			        }).then(function() {
-    			          form.submit(); // <--- submit form programmatically
-    			        });
-    			      } else {
-    			        swal("Cancelled", "Your imaginary file is safe :)", "error");
-    			      }
-    			    })
-    			}); */
-    					
-    					/* .then(() => {
-    					  if (result.value) {
-    					    $("#docForm").submit();
-    					    alert("sadsaasdsa");
-    					  } else {
-    					    // result.dismiss can be 'cancel', 'overlay', 'esc' or 'timer'
-    					  }
-    					}); */
-    			        
-    	/* 		 });
-    		});
-    			  */
- 			 
-    	</script>
+    	
+   
 	    <script>
 	    	$(function(){
 	    		//Textarea auto growth
 	    	    autosize($('textarea.auto-growth'));
 	    	})
 	    </script>
-	<script>
-			let a, b = 1, c = 1;
-			//if the values in each doc type is null, initialize 1 into everything
-			if (localStorage.getItem("AFnum") === null
-					|| localStorage.getItem("CFnum") === null
-					|| localStorage.getItem("R0num") === null
-					|| localStorage.getItem("OVRLDnum") === null
-					|| localStorage.getItem("PETITIONnum") === null
-					|| localStorage.getItem("MOAnum") === null) {
-				localStorage.setItem("AFnum", 1);
-				localStorage.setItem("CFnum", 1);
-				localStorage.setItem("R0num", 1);
-				localStorage.setItem("OVRLDnum", 1);
-				localStorage.setItem("PETITIONnum", 1);
-				localStorage.setItem("MOAnum", 1);
 
-			}
-			//else they get their previous INTEGER values INTO STRING
-			//use localStorage command in F12 console to get the values in each items
-			//localStorage.clear() in F12 console to clear each variables stroed values
-			else {
-				localStorage.setItem("AFnum", parseInt(localStorage
-						.getItem("AFnum")));
-				localStorage.setItem("CFnum", parseInt(localStorage
-						.getItem("CFnum")));
-				localStorage.setItem("R0num", parseInt(localStorage
-						.getItem("R0num")));
-				localStorage.setItem("OVRLDnum", parseInt(localStorage
-						.getItem("OVRLDnum")));
-				localStorage.setItem("PETITIONnum", parseInt(localStorage
-						.getItem("PETITIONnum")));
-				localStorage.setItem("MOAnum", parseInt(localStorage
-						.getItem("MOAnum")));
-			}
-
-			$('#selDocType')
-					.on(
-							'change',
-							function() {
-
-								var choice = $("#selDocType").val();
-
-								let AFnums = parseInt(localStorage
-										.getItem("AFnum"));
-								let CFnums = parseInt(localStorage
-										.getItem("CFnum"));
-								let R0nums = parseInt(localStorage
-										.getItem("R0num"));
-								let OVRLDnums = parseInt(localStorage
-										.getItem("OVRLDnum"));
-								let PETITIONnums = parseInt(localStorage
-										.getItem("PETITIONnum"));
-								let MOAnums = parseInt(localStorage
-										.getItem("MOAnum"));
-								if (choice === "AF") {
-
-									if (AFnums < 10) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>00"
-																+ AFnums
-																+ "</span></span>");
-									} else if (AFnums >= 10 && AFnums < 100) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>0"
-																+ AFnums
-																+ "</span></span>");
-									} else {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>AF</span><span class='track'>-</span><span class='track'>"
-																+ AFnums
-																+ "</span></span>");
-									}
-
-								}
-
-								if (choice === "CF") {
-									if (CFnums < 10) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>00"
-																+ CFnums
-																+ "</span></span>");
-									} else if (CFnums >= 10 && CFnums < 100) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>0"
-																+ CFnums
-																+ "</span></span>");
-									} else {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>CF</span><span class='track'>-</span><span class='track'>"
-																+ CFnums
-																+ "</span></span>");
-									}
-								}
-
-								if (choice === "R0") {
-									if (R0nums < 10) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>00"
-																+ R0nums
-																+ "</span></span>");
-									} else if (R0nums >= 10 && R0nums < 100) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>0"
-																+ R0nums
-																+ "</span></span>");
-									} else {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>R0</span><span class='track'>-</span><span class='track'>"
-																+ R0nums
-																+ "</span></span>");
-									}
-								}
-								
-								if (choice === "OVRLD") {
-
-									if (OVRLDnums < 10) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>OVRLD</span><span class='track'>-</span><span class='track'>00"
-																+ OVRLDnums
-																+ "</span></span>");
-									} else if (OVRLDnums >= 10 && OVRLDnums < 100) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>OVRLD</span><span class='track'>-</span><span class='track'>0"
-																+ OVRLDnums
-																+ "</span></span>");
-									} else {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>OVRLD</span><span class='track'>-</span><span class='track'>"
-																+ OVRLDnums
-																+ "</span></span>");
-									}
-
-								}
-								
-								if (choice === "PETITION") {
-
-									if (PETITIONnums < 10) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>PETITION</span><span class='track'>-</span><span class='track'>00"
-																+ PETITIONnums
-																+ "</span></span>");
-									} else if (PETITIONnums >= 10 && PETITIONnums < 100) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>PETITION</span><span class='track'>-</span><span class='track'>0"
-																+ PETITIONnums
-																+ "</span></span>");
-									} else {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>PETITION</span><span class='track'>-</span><span class='track'>"
-																+ PETITIONnums
-																+ "</span></span>");
-									}
-
-								}
-								
-								
-								if (choice === "MOA") {
-
-									if (MOAnums < 10) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>MOA</span><span class='track'>-</span><span class='track'>00"
-																+ MOAnums
-																+ "</span></span>");
-									} else if (MOAnums >= 10 && MOAnums < 100) {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>MOA</span><span class='track'>-</span><span class='track'>0"
-																+ MOAnums
-																+ "</span></span>");
-									} else {
-										$("#lol")
-												.replaceWith(
-														"<span id='lol'><span class='track'>-</span><span class='track' id='type'>MOA</span><span class='track'>-</span><span class='track'>"
-																+ MOAnums
-																+ "</span></span>");
-									}
-
-								}
-							});
-
-			$('form').on(
-					'submit',
-					function() {
-
-						var choice = $("#selDocType").val();
-						if (choice === "AF") {
-							localStorage.setItem("AFnum", parseInt(localStorage
-									.getItem("AFnum")) + 1);
-						}
-						if (choice === "CF") {
-							localStorage.setItem("CFnum", parseInt(localStorage
-									.getItem("CFnum")) + 1);
-						}
-						if (choice === "R0") {
-							localStorage.setItem("R0num", parseInt(localStorage
-									.getItem("R0num")) + 1);
-						}
-						if (choice === "OVRLD") {
-							localStorage.setItem("OVRLDnum", parseInt(localStorage
-									.getItem("OVRLDnum")) + 1);
-						}
-						if (choice === "PETITION") {
-							localStorage.setItem("PETITIONnum", parseInt(localStorage
-									.getItem("PETITIONnum")) + 1);
-						}
-						if (choice === "MOA") {
-							localStorage.setItem("MOAnum", parseInt(localStorage
-									.getItem("MOAnum")) + 1);
-						}
-						e.preventDefault();// will stop the form submission
-
-					});
-
-			//RESETS THE NUMBER OF EACH DOCTYPE EVERY MIDNIGHT
-			var midnight = "0:00:00";
-			var now = null;
-
-			setInterval(function() {
-				now = moment().format("H:mm:ss");
-				if (now === midnight) {
-					localStorage.setItem("AFnum", 1);
-					localStorage.setItem("CFnum", 1);
-					localStorage.setItem("R0num", 1);
-					localStorage.setItem("OVRLDnum", 1);
-					localStorage.setItem("PETITIONnum", 1);
-					localStorage.setItem("MOAnum", 1);
-				}
-				$("#time").text(now);
-			}, 1000);
-		</script>
-
-
-		<!-- FOR TRACKING NUMBER GOING TO INPUT TAG-->
-		<script>
-			$('#selDocType').on('change', function() {
-				var values = $(".track").map(function() {
-					return $(this).text();
-				}).get().join("");
-				$("#tracknum").val(values);
-
-				var values = $("#type").map(function() {
-					return $(this).text();
-				}).get().join("");
-				$("#typ").val(values);
-
-				var valuess = $("#date").map(function() {
-					return $(this).text();
-				}).get().join("");
-				$("#date2").val(valuess);
-
-			});
-		</script>
 
 		<script>
 			n = new Date();

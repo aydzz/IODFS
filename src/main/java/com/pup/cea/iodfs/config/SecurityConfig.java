@@ -48,6 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .successForwardUrl("/check-role")
+                
+                //ADDED FOR LOGIN FAILURE -- REMOVE IF ERROR PERSISTS
+                .failureUrl("/login?error=true")
+                .permitAll()
+                //ADDED FOR LOGIN FAILURE
                 .and()
                 .logout()
                 .invalidateHttpSession(true)

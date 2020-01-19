@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.service.DocumentService;
@@ -48,8 +49,19 @@ public class BaseController {
 		return "redirect:/home";
 	}
 	@RequestMapping("/login")
-	public String login() {
-		return "loginPage";
+	public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+		
+		
+		//PASSING THE MESSAGE TO THE PAGE
+		//JS cant Read the Expression [[${errorMessage}]] it returns an error!
+		/*
+		 String errorMessage = null;
+		 
+		 if(error != null) {
+			 errorMessage = "Username or Password is incorrect !!";
+		 }
+		 model.addAttribute("errorMessage", errorMessage);*/
+		 return "loginPage";
 	}
 	@RequestMapping("/check-role")
 	public String checkRole() {
