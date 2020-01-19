@@ -25,7 +25,9 @@ public class Document{
 	private String status;
 	private String remark;
 	
-
+	@Column(name="email_address")
+	private String emailAddress;
+	
 	public long getId() {
 		return id;
 	}
@@ -96,5 +98,12 @@ public class Document{
 
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
 	}
 }

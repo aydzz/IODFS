@@ -22,7 +22,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 
-						<form  th:object = "${typeObject}" th:action="@{/administrator/type/save}" method="POST">
+						<form  id="add-doc-type" th:object = "${typeObject}" th:action="@{/administrator/type/save}" method="POST">
 							<!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
 							
 					
@@ -83,6 +83,38 @@
     	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
    	    <!-- SweetAlert Plugin Js -->
     	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+    	<!-- Jquery Validation Plugin Css -->
+    	<script src="/plugins/jquery-validation/jquery.validate.js"></script>
+    	<!-- JQuery Steps Plugin Js -->
+    	<script src="/plugins/jquery-steps/jquery.steps.js"></script>
+    	
+    	<script>
+		$(function () {
+		    $('#add-doc-type').validate({
+		        rules: {
+		            'docAbbrev': {
+		                required: true,
+		                minlength:5,
+		                maxlength:30,
+		            },
+		            'docType': {
+		                required: true,
+		                minlength:2,
+		                maxlength:10
+		            }
+		        },
+		        highlight: function (input) {
+		            $(input).parents('.form-line').addClass('error');
+		        },
+		        unhighlight: function (input) {
+		            $(input).parents('.form-line').removeClass('error');
+		        },
+		        errorPlacement: function (error, element) {
+		            $(element).parents('.form-group').append(error);
+		        }
+		    });
+		});
+		</script>
     	<!--  
     	<script>
     		$(function(){

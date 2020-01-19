@@ -77,6 +77,33 @@
                    </div>
                 <!-- #END# Bar Chart -->
                 </div>
+                
+               
+                <!-- Line Chart -->
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>ADDED DOCUMENTS IN THE PAST WEEK</h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                            <div id="line_chart" class="graph"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #END# Line Chart -->
+                
             </div>
             <!-- #END# Widgets -->
 	</section>
@@ -85,6 +112,12 @@
 	<th:block layout:fragment="local-scripts">
 		    <!-- Jquery CountTo Plugin Js -->
 	    <script src="/plugins/jquery-countto/jquery.countTo.js"></script>
+	    
+	    <!-- Morris Plugin Js -->
+   		<script src="/plugins/raphael/raphael.min.js"></script>
+    	<script src="/plugins/morrisjs/morris.js"></script>
+    	
+    	<!-- BAR GRAPH -->
 		<script>
 			$(function() {
 				var pending = [[${pendingCount}]];
@@ -130,9 +163,75 @@
 			});
 			
 		</script>
-		    <!-- Morris Plugin Js -->
-    <script src="/plugins/raphael/raphael.min.js"></script>
-    <script src="/plugins/morrisjs/morris.js"></script>
+		
+		<!-- LINE CHART -->
+		<script>
+			$(function() {
+				getMorris('line', 'line_chart');
+			});
+			
+			
+			function getMorris(type, element) {
+			    if (type === 'line') {
+			        Morris.Line({
+			            element: element,
+			            data: [{
+			                'period': '2011 Q2',
+			                'licensed': 3407,
+			                'sorned': 660,
+		                    'Anotha_one': 100
+			            }, {
+			                    'period': '2011 Q1',
+			                    'licensed': 3351,
+			                    'sorned': 629,
+			                    'Anotha_one': 100
+			                }, {
+			                    'period': '2011 Q3',
+			                    'licensed': 3269,
+			                    'sorned': 618,
+			                    'Anotha_one': 100
+			                }, {
+			                    'period': '2010 Q1',
+			                    'licensed': 3246,
+			                    'sorned': 661,
+			                    'Anotha_one': 100
+			                }, {
+			                    'period': '2009 Q4',
+			                    'licensed': 3171,
+			                    'sorned': 676,
+			                    'Anotha_one': 100
+			                }, {
+			                    'period': '2008 Q4',
+			                    'licensed': 3155,
+			                    'sorned': 681,
+			                    'Anotha_one': 100
+			                }, {
+			                    'period': '2007 Q4',
+			                    'licensed': 3226,
+			                    'sorned': 620,
+			                    'Anotha_one': 10000
+			                }, {
+			                    'period': '2006 Q4',
+			                    'licensed': 3245,
+			                    'sorned': null,
+			                    'Anotha_one': 100
+			                }, {
+			                    'period': '2005 Q4',
+			                    'licensed': 3289,
+			                    'sorned': null,
+			                    'Anotha_one': 0
+			                }],
+			            xkey: 'period',
+			            ykeys: ['licensed', 'sorned','Anotha_one'],
+			            labels: ['Licensed', 'Off the road','Anotha_one'],
+			            lineColors: ['rgb(233, 30, 99)', 'rgb(0, 188, 212)','rgb(10, 188, 212)'],
+			            lineWidth: 2
+			        });
+			    } 
+			}
+		</script>
+		
+    
 	</th:block>	
 </body>
 <!-- /.content-wrapper -->

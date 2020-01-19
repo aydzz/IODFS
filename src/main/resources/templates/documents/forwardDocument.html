@@ -53,8 +53,10 @@
 						<div class="body">
 
 
-							<form method="post" th:action="@{'/documents/forward/'+${document.trackingnum}+'/execute'}" id="form1">
-								<input type="hidden" id="ITO" name="destination" /> 
+							<!-- <form method="post" th:action="@{'/documents/forward/'+${document.trackingnum}+'/execute'}" id="form1"> -->
+							<form id="form1">
+								<input type="hidden" id="ITO" name="destination" />
+								<input type="hidden" id="trackingnumber" th:value="${document.trackingnum}"/>
 
 								<div class="row clearfix">
 
@@ -78,7 +80,7 @@
 										<div class="form-group">
 											<div class="form-line">
 												<textarea rows="4" class="form-control no-resize"
-													name="remark" placeholder="Please type what you want..."></textarea>
+													id = "remark" name="remark" placeholder="Please type what you want..."></textarea>
 											</div>
 										</div>
 									</div>
@@ -90,8 +92,10 @@
 
 										<div class="col-lg-5"></div>
 										<div>
-											<button class="btn btn-primary waves-effect"
-												onclick="showPromptMessage()" type="button">SUBMIT</button>
+											<!-- <button class="btn btn-primary waves-effect"
+												onclick="showPromptMessage()" type="button">SUBMIT</button> -->
+												
+												<button id="forwardDocButton" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
 
 											<a href="/documents/pending"><button
 													class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
@@ -117,7 +121,7 @@
    	  	<!-- SweetAlert Plugin Js -->
     	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
 		<script>
-			function showPromptMessage() {
+			/* function showPromptMessage() {
 
 				var form = $('#form1');
 				var choice = $("#js-select2").val();
@@ -133,7 +137,89 @@
 
 					});
 				}
-			}
+			} */
+		</script>
+		
+		<script>
+		$(document).ready(function () {
+		    $("#form1").submit(function (event) {
+		    	
+		    	 
+		        //stop submit the form event. Do this manually using ajax post function
+		        event.preventDefault();
+		      
+		 
+		        var forwardDocumentForm = {}
+		        forwardDocumentForm["destination"] = $("#js-select2").val();
+		        forwardDocumentForm["remark"] = $("#remark").val();
+		        forwardDocumentForm["trackingNumber"] = $("#trackingnumber").val();
+		 
+		        $("#forwardDocButton").prop("disabled", true);
+		        
+		        $.ajax({
+		            type: "POST",
+		            contentType: "application/json",
+		            url: "/documents/forward/ajaxecute",
+		            data: JSON.stringify(forwardDocumentForm),
+		            dataType: 'json',
+		            cache: false,
+		            timeout: 600000,
+		            success: function (data) {
+		            	/* var json = "<h4>Ajax Response</h4><pre>"
+		                    + JSON.stringify(data,null, 1) + "anoMessage" + data.anotherMessage + "</pre>";
+		                $('#feedback').html(json); */
+		                
+		                //SWEET ALERT DIALOG
+		                swal({
+							  title: "Success",
+							  text: "Document " + $("#trackingnumber").val() + " has been forwarded.",
+							  type: "success",
+							  showCancelButton: false,
+							  confirmButtonClass: "primary",
+							  confirmButtonText: "Confirm",
+							  closeOnConfirm: false
+							},
+							function(){
+								var url = "/home";
+								$(location).attr('href',url);
+							});	 
+		                
+		                console.log("SUCCESS : ", data);
+		                
+		                //should stay disabled so that the submission would not be duplicated
+		                $("#forwardDocButton").prop("disabled", true);
+		            },
+		            error: function (e) {
+		 
+		                /* var json = "<h4>Ajax Response Error</h4><pre>"
+		                    + e.responseText + "</pre>";
+		                $('#feedback').html(json); */
+		                
+		              //SWEET ALERT DIALOG ERROR
+		                swal({
+		      			  title: "Failure",
+		      			  text: "Error forwarding document: " + $("#trackingnumber").val(),
+		      			  type: "error",
+		      			  showCancelButton: false,
+		      			  confirmButtonClass: "btn-danger",
+		      			  confirmButtonText: "Confirm",
+		      			  closeOnConfirm: false
+		      			},
+		      			function(){
+		      				var url = "/home";
+		      				$(location).attr('href',url);
+		      			});
+		                
+		                
+		                console.log("ERROR : ", e);
+		                $("#btn-login").prop("disabled", false);
+		 
+		            }
+		        });
+		        
+		    });
+		 
+		});
 		</script>
 
 		<script>

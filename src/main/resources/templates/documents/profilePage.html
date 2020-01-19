@@ -1,120 +1,324 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-                layout:decorate="~{layouts/default_layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default_layout}">
 <head>
-    <meta charset="UTF-8">
-    <title>Profile Page</title>
+<meta charset="UTF-8">
+<title>Profile Page</title>
 
-    <th:block layout:fragment="local-styles">
+<th:block layout:fragment="local-styles">
 
-    <!-- Animation Css -->
-    <link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-    </th:block>
+	<!-- Animation Css -->
+	<link
+		href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css"
+		rel="stylesheet">
+	<style>
+		.nav-tabs.tab-col-gold > li > a:before{
+			border-bottom: 2px solid gold !important;
+		}
+		.input-group .form-line:after{
+		    border-bottom: 0px solid #1f91f3 !important;
+		}
+	</style>
+	<!-- Sweetalert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+</th:block>
 </head>
 <body class="theme-orange">
 	<section class="content" layout:fragment="content">
-		<div class="">
-			<!--container fluid class-->
-			<div class="block-header"></div>
-			<!-- Basic Examples -->
-			<div class="row clearfix">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="card">
-						<div class="header">
-						
-							<h2 class="col-sm-12">
-								Profile Page
-							</h2>
-								
-						
-						</div>
-						
-									
-									
-									
-						<div class="body">
-							<div class="table-responsive">
-								<table class="table table-bordered table-striped table-hover dataTable">
-									<thead>
-										<tr>
-											<th>First Name</th>
-											<th>Middle Name</th>
-											<th>Last Name</th>
-										</tr>
-									</thead>
-									<tbody>
-								
-										<tr th:each="user: ${userInfoList}">
-									<td th:text="${user.name}"></td>
-									<td ></td>
-										<td th:text="${user.lname}"></td>
-									
-									</tr>
-									</tbody>
-									
-										<thead>
-										<tr>
-											<th>Office</th>
-											<th>E-mail</th>
-											<th>Username</th>
+		<div class="col-xs-12 col-sm-12">
+			<div class="card">
+				<div class="header">
+					<h2>
+						<span sec:authentication="principal.fullname">NAME OF THE USER</span>
+						<small>Showing your account details</small>
+					</h2>
+				</div>
+				<div class="body">
+					<div>
+						<ul class="nav nav-tabs tab-col-gold" role="tablist">
+							<li role="presentation" class="active">
+								<a href="#profile_settings"
+								aria-controls="settings" role="tab" data-toggle="tab">
+									<i class="material-icons">face</i>
+								</a>
+							</li>
+							<li role="presentation">
+								<a href="#change_password_settings"
+								aria-controls="settings" role="tab" data-toggle="tab">
+								<i class="material-icons">vpn_key</i>
+								</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div role="tabpanel" class="tab-pane fade in active"
+								id="profile_settings">
+								<br>
+								<!-- ALL THE USER INFO LIST -->
+								<div th:each="user: ${userInfoList}">
+									<div class="row clear-fix">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<b>First Name</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control date"
+														placeholder="First Name" th:value="${user.name}" disabled>
+												</div>
+											</div>
+										</div>
+
+										<!-- <div class="col-lg-4 col-md-6 col-sm-12">
+										<b>Middle Name</b>
+										<div class="input-group">
+											<span class="input-group-addon"> <i
+												class="material-icons">person</i>
+											</span>
+											<div class="form-line">
+												<input type="text" class="form-control date"
+													placeholder="Middle Name" disabled>
+											</div>
+										</div>
+									</div> -->
+
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<b>Last Name</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control date"
+														placeholder="Last Name" th:value="${user.lname}" disabled>
+												</div>
+											</div>
+										</div>
 										
-										</tr>
-									</thead>
-									<tbody>
-											<tr th:each="user: ${userInfoList}">
-									<td th:text="${user.office}"></td>
-									<td th:text="${user.email}"></td>
-										<td th:text="${user.username}"></td>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<b>Office</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">business</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control date"
+														placeholder="Last Name" th:value="${user.office}" disabled>
+												</div>
+											</div>
+										</div>
 										
-									</tr>
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<b>Email</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">email</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control date"
+														placeholder="Last Name" th:value="${user.email}" disabled>
+												</div>
+											</div>
+										</div>
+										
+										<div class="col-sm-12 col-md-6 col-lg-6">
+											<b>Username</b>
+											<div class="input-group">
+												<span class="input-group-addon"> <i
+													class="material-icons">person</i>
+												</span>
+												<div class="form-line">
+													<input type="text" class="form-control date"
+														placeholder="Last Name" th:value="${user.username}" disabled>
+												</div>
+											</div>
+										</div>
+										
+										
+										
+
+									</div>
 									
-									
-									
-										<tr th:each="userlogin: ${userLoginList}">
-															
-										<td align="center">
-											<a th:href="@{'/documents/profile/'+${userlogin.id}+'/edit'}">
-												<button type="button" class="btn btn-xs btn-warning waves-effect"> Change Password
-			                                    	<i class="material-icons">mode_edit</i>
-			                                	</button>
-											</a>
-			        
-										</td>
-									
-									</tr>
-									</tbody>
-								
-								
-								
-								
+
+								</div>
+							</div>
+							<div role="tabpanel" class="tab-pane fade in"
+								id="change_password_settings">
+								<form id="edit_password_form" class="form-horizontal">
+									<div class="form-group">
+										<label for="old_password" class="col-sm-3 control-label">Old
+											Password</label>
+										<div class="col-sm-9">
+											<div class="form-line">
+												<input type="password" class="form-control" id="old_password"
+													name="old_password" placeholder="Old Password" required>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="new_password" class="col-sm-3 control-label">New
+											Password</label>
+										<div class="col-sm-9">
+											<div class="form-line">
+												<input type="password" class="form-control" id="new_password"
+													name="new_password" placeholder="New Password" required>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="confirm_password" class="col-sm-3 control-label">New
+											Password (Confirm)</label>
+										<div class="col-sm-9">
+											<div class="form-line">
+												<input type="password" class="form-control"
+													id="confirm_password" name="confirm_password"
+													placeholder="Confirm Password" required>
+											</div>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<div class="col-sm-offset-3 col-sm-9">
+											<button id="submit_button" type="submit" class="btn btn-danger">Change Password</button>
+										</div>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
+
 	</section>
 
 	<th:block layout:fragment="local-scripts">
-	    <!-- Jquery DataTable Plugin Js -->
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/jquery.dataTables.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.flash.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/jszip.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/pdfmake.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/vfs_fonts.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
-    	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
-    	
+	
+		<!-- Jquery Validation Plugin Css -->
+    	<script src="/plugins/jquery-validation/jquery.validate.js"></script>
+    	<!-- JQuery Steps Plugin Js -->
+    	<script src="/plugins/jquery-steps/jquery.steps.js"></script>
+    	<!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
+		
+			
+		<!-- FORM VALIDATION -->
 		<script>
 		$(function () {
-		    $('#trackDocTbl').DataTable({
-		        responsive: true,
-		        scrollY:'30vh'    
+		    $('#edit_password_form').validate({
+		        rules: {
+		        	'old_password': {
+		                required: true,
+		                minlength:8
+		            },
+		            'new_password': {
+		                required: true,
+		                minlength:8
+		            },
+		            'confirm_password': {
+		                required: true,
+		                minlength:8,
+		                equalTo: "#new_password"
+		            }
+		        },
+		        highlight: function (input) {
+		            $(input).parents('.form-line').addClass('error');
+		            $("#submit_button").prop("disabled", true);
+		        },
+		        unhighlight: function (input) {
+		            $(input).parents('.form-line').removeClass('error');
+		            $("#submit_button").prop("disabled", false);
+		        },
+		        errorPlacement: function (error, element) {
+		            $(element).parents('.col-sm-9').append(error);
+		            
+		        }
 		    });
 		});
+		</script>
+	
+		<script>
+			$(document).ready(function () {
+			    $("#edit_password_form").submit(function (event) {
+			 
+			        //stop submit the form event. Do this manually using ajax post function
+			        event.preventDefault();
+			 
+			        var passwordForm = {}
+			       	passwordForm["oldPassword"] = $("#old_password").val();
+			        passwordForm["newPassword"] = $("#new_password").val();
+			        passwordForm["confirmPassword"] = $("#confirm_password").val();
+			 
+			        $("#submit_button").prop("disabled", true);
+			        
+			        $.ajax({
+			            type: "POST",
+			            contentType: "application/json",
+			            url: "/api/changePassword",
+			            data: JSON.stringify(passwordForm),
+			            dataType: 'json',
+			            cache: false,
+			            timeout: 600000,
+			            success: function (data) {
+			      			if(data){
+			      				//SWEET ALERT DIALOG
+				                swal({
+									  title: "Success",
+									  text: "Password Changed Successfully!",
+									  type: "success",
+									  showCancelButton: false,
+									  confirmButtonClass: "primary",
+									  confirmButtonText: "Confirm",
+									  closeOnConfirm: false
+									},
+									function(){
+										var url = "/login?changedPassword=true";
+										$(location).attr('href',url);
+									});	 
+			      			}else{
+			      			//SWEET ALERT DIALOG ERROR
+				                swal({
+				      			  title: "Password Mismatch",
+				      			  text: "Please enter your old password.",
+				      			  type: "error",
+				      			  showCancelButton: false,
+				      			  confirmButtonClass: "btn-danger",
+				      			  confirmButtonText: "Ok",
+				      			  closeOnConfirm: true
+				      			});
+			      			}
+			      			
+			                console.log("SUCCESS : ", data);
+			                $("#submit_button").prop("disabled", false);
+			            },
+			            error: function (e) {
+			            	
+			            	//SWEET ALERT DIALOG ERROR
+			                swal({
+			      			  title: "Failure",
+			      			  text: "An error Occured!",
+			      			  type: "error",
+			      			  showCancelButton: false,
+			      			  confirmButtonClass: "btn-danger",
+			      			  confirmButtonText: "Confirm",
+			      			  closeOnConfirm: false
+			      			},
+			      			function(){
+			      				var url = "/home";
+			      				$(location).attr('href',url);
+			      			});
+			                console.log("ERROR : ", e);
+			                $("#submit_button").prop("disabled", false);
+			 
+			            }
+			        });
+			        
+			    });
+			 
+			});
 		</script>
 	</th:block>
 </body>

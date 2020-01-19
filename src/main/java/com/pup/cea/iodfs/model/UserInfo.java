@@ -1,5 +1,6 @@
 package com.pup.cea.iodfs.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -62,7 +63,7 @@ public class UserInfo {
 		return fullname;
 	}
 	public void setFullname(String fullname) {
-		this.fullname = name + " " + lname;
+		this.fullname = fullname;
 	}
 	
 

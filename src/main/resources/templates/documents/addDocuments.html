@@ -61,14 +61,31 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-sm-12">
-										<h2 class="card-inside-title">Document Type</h2>
-											<select th:field="*{doctype}" class="form-control show-tick" id="selDocType" required>
-												<option  value="">-- Please select --</option>
-												<option th:each="documents: ${typeList}" th:text="${documents.docType}" th:value="${documents.docAbbrev}"></option>
-											
-											</select>
-									</div>
+						
+									
+							
+										<div class="col-sm-12">
+											<div class="form-group">
+												<h2 class="card-inside-title">Document Type</h2>
+												<div class="form-line">
+													<select th:field="*{doctype}" class="form-control show-tick" id="selDocType" required>
+														<option  value="">-- Please select --</option>
+														<option th:each="documents: ${typeList}" th:text="${documents.docType}" th:value="${documents.docAbbrev}"></option>
+													
+													</select>
+												</div>
+											</div>
+										</div>
+										
+										<div class="col-sm-12">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">Student's Email Address</h2>
+														<input type="email" th:field="*{emailAddress}" class="form-control" placeholder="Enter a Student's Email Address" required/>
+												</div>
+											</div>
+										</div>
+										
 									<div class="col-sm-12">
 										<h2 class="card-inside-title">Description</h2>
 										<div class="form-group">
@@ -102,6 +119,45 @@
    	    <!-- SweetAlert Plugin Js -->
     	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
     	
+    	<!-- Jquery Validation Plugin Css -->
+    	<script src="/plugins/jquery-validation/jquery.validate.js"></script>
+    	<!-- JQuery Steps Plugin Js -->
+    	<script src="/plugins/jquery-steps/jquery.steps.js"></script>
+		
+		<script>
+		$(function () {
+		    $('#documentForm').validate({
+		        rules: {
+		            'selDocType': {
+		                required: true
+		            },
+		            'emailAddress': {
+		                required: true
+		            },
+		            
+		            'description': {
+		            	
+		            }
+		        },
+		        highlight: function (input) {
+		            $(input).parents('.form-line').addClass('error');
+		        },
+		        unhighlight: function (input) {
+		            $(input).parents('.form-line').removeClass('error');
+		        },
+		        errorPlacement: function (error, element) {
+		            $(element).parents('.form-group').append(error);
+		            $(element).parents('.validate-this').append(error);
+		        }
+		    });
+		    
+		   	
+		    if($('#selDocType').val()!=""){
+		    	 $('#selDocType').parents('.form-line').removeClass('error');
+		    }
+		});
+		</script>
+    	
     	
    
 	    <script>
@@ -111,14 +167,15 @@
 	    	})
 	    </script>
 
-
+		
+		<!-- FOR DATE GENERATION -->
 		<script>
 			n = new Date();
 			y = n.getFullYear();
 			m = n.getMonth() + 1;
 			d = n.getDate();
 			document.getElementById("date").innerHTML = y + "-" + m + "-" + d;
-			document.getElementById("date1").innerHTML = y + "-" + m + "-" + d;
+			/* document.getElementById("date1").innerHTML = y + "-" + m + "-" + d; */
 		</script>
 		
 

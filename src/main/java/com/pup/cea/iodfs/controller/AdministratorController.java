@@ -119,16 +119,16 @@ public class AdministratorController {
 		//overriding the fetched date value from view
 		users.setUsername(username);
 		/* users.setRole(role); */
-		
-		users.setPassword(passwordEncoder().encode(password));
+		user.setFullname(user.getName() + " " + user.getLname());
+		users.setPassword(password);
 		users.setRole("USER");
 		System.out.println(getAuth().getName());
 		System.out.println(getUserInfo().getOffice());
 		
 		userInfoService.save(user);
 		userInfoService.saves(users);
+	
 		}catch (DataIntegrityViolationException e) {
-			
 	        return "redirect:/administrator/addUser";
 	    }
 		return "redirect:/administrator/users";
@@ -141,9 +141,6 @@ public class AdministratorController {
 						   @PathVariable("userId")Long userId) {
 		UserInfo userInfo = userInfoService.findUserInfo(userId);
 		System.out.println(userInfo.getLname());
-	
-	
-		
 		model.addAttribute("userObject",userInfo);
 		
 		model.addAttribute("officeList",officeService.findAll());
@@ -218,8 +215,6 @@ public class AdministratorController {
 	}
 	
 	//adzz
-	
-	
 	@RequestMapping("/userLogs")
 	public String userLogs(Model model) {
 		

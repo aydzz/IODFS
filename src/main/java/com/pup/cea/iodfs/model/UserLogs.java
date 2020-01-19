@@ -18,7 +18,9 @@ public class UserLogs {
 	private String action;
 	private String destination;
 	private String datetime;
+	private String remark;
 	
+
 	public long getId() {
 		return id;
 	}
@@ -57,6 +59,12 @@ public class UserLogs {
 	}
 	public void setDatetime(String datetime) {
 		this.datetime = datetime;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 

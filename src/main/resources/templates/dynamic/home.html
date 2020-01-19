@@ -3,6 +3,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Home</title>
+	<link rel="stylesheet" href="/plugins/sweetalert/sweetalert.css"/>
 </head>
 <body>
 	<h1> This is a body for Sample Dynamic Pages</h1>
@@ -11,6 +12,89 @@
 			<a href = "/dynamic/table">Dynamic Table</a>
 		</li>
 	</ul>
+	
+	<!-- SAMPLE AJAX FORM -->
+	<div class="container" style="min-height: 500px">
+ 
+    <div class="starter-template">
+        <h1>Spring Boot Thymeleaf AJAX Example</h1>        
+ 
+        <form class="form-horizontal" id="login-form">
+            <div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label">Username</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="username"/>
+                </div>
+            </div>
+ 
+			<div class="form-group form-group-lg">
+                <label class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" id="password"/>
+                </div>
+            </div>
+ 
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" id="bth-login"
+                            class="btn btn-primary btn-lg">Login
+                    </button>
+                </div>
+            </div>
+        </form>
+ 
+	<div id="feedback"></div>
+    </div>
+ 
+</div>
+    <!-- Jquery Core Js -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/sweetalert/sweetalert.min.js"></script>
+	<script>
+	$(document).ready(function () {
+	    $("#login-form").submit(function (event) {
+	 
+	        //stop submit the form event. Do this manually using ajax post function
+	        event.preventDefault();
+	 
+	        var loginForm = {}
+	        loginForm["username"] = $("#username").val();
+	        loginForm["password"] = $("#password").val();
+	 
+	        $("#btn-login").prop("disabled", true);
+	        
+	        $.ajax({
+	            type: "POST",
+	            contentType: "application/json",
+	            url: "/api/login",
+	            data: JSON.stringify(loginForm),
+	            dataType: 'json',
+	            cache: false,
+	            timeout: 600000,
+	            success: function (data) {
+	            	var json = "<h4>Ajax Response</h4><pre>"
+	                    + JSON.stringify(data,null, 1) + "TANGINA ITO PA:" + data.anotherMessage + "</pre>";
+	                $('#feedback').html(json);
+	 
+	                console.log("SUCCESS : ", data);
+	                $("#btn-login").prop("disabled", false);
+	            },
+	            error: function (e) {
+	 
+	                var json = "<h4>Ajax Response Error</h4><pre>"
+	                    + e.responseText + "</pre>";
+	                $('#feedback').html(json);
+	 
+	                console.log("ERROR : ", e);
+	                $("#btn-login").prop("disabled", false);
+	 
+	            }
+	        });
+	        
+	    });
+	 
+	});
+	</script>
 	
 </body>
 </html>

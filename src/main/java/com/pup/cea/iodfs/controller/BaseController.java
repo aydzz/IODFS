@@ -5,34 +5,47 @@ package com.pup.cea.iodfs.controller;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.service.DocumentService;
+import com.pup.cea.iodfs.service.NotificationService;
 import com.pup.cea.iodfs.service.UserInfoService;
 
 
 @Controller
 public class BaseController {
 	
-
-	
+	/*
+	 * Use these to print error messages on console.
+	 * 			private Logger logger = LoggerFactory.getLogger(BaseController.class);
+	 * Requires try - catch( error )
+	 * 			logger.info("ERROR MESSAGE" + error.getMessage());
+	 */
 	@Autowired
 	DocumentService docService;
 	@Autowired
 	UserInfoService userInfoService;
+	@Autowired
+	NotificationService notificationService;
 	
 	private Authentication auth;
 	private UserInfo userInfo;
@@ -48,20 +61,29 @@ public class BaseController {
 	public String index() {
 		return "redirect:/home";
 	}
+	//LOG IN METHODS for REQUESTS
+	//FOR Refreshing log in!
 	@RequestMapping("/login")
-	public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+	public String login(@RequestParam(value = "error", required = false) String error, 
+						@RequestParam(value="changedPassword", required = false)String changePassword,
+						Model model,HttpSession session) {
 		
 		
 		//PASSING THE MESSAGE TO THE PAGE
 		//JS cant Read the Expression [[${errorMessage}]] it returns an error!
-		/*
-		 String errorMessage = null;
-		 
-		 if(error != null) {
-			 errorMessage = "Username or Password is incorrect !!";
+		
+		 boolean loginFailed = false;
+		 if(changePassword!= null) {
+			 session.invalidate();
 		 }
-		 model.addAttribute("errorMessage", errorMessage);*/
-		 return "loginPage";
+		 if(error != null) {
+			 loginFailed = true;
+		 }
+		 
+		 model.addAttribute("loginFailed", loginFailed);
+		
+		/*return "loginPage"; */
+		 return "loginPage2";
 	}
 	@RequestMapping("/check-role")
 	public String checkRole() {
