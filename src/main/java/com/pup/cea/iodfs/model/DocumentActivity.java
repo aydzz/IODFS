@@ -7,7 +7,8 @@ public class DocumentActivity {
 	private int transfer;
 	private int successfulTransfer;
 	private int creation;
-	
+	private int release;
+
 	public void setCreation(int creation) {
 		this.creation = creation;
 	}
@@ -38,6 +39,14 @@ public class DocumentActivity {
 	}
 	public int getCreation() {
 		return creation;
+	}
+	
+	
+	public int getRelease() {
+		return release;
+	}
+	public void setRelease(int release) {
+		this.release = release;
 	}
 	
 

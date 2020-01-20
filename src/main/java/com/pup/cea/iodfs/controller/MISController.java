@@ -1,6 +1,8 @@
 package com.pup.cea.iodfs.controller;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -21,13 +23,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pup.cea.iodfs.ajax.form.LineGraphRange;
 import com.pup.cea.iodfs.ajax.form.PasswordForm;
 import com.pup.cea.iodfs.ajax.response.DocumentActivityResponseBody;
+import com.pup.cea.iodfs.ajax.response.ReleasedDocumentResponseBody;
+import com.pup.cea.iodfs.model.ReleasedDocument;
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.model.security.UserLogin;
+import com.pup.cea.iodfs.service.DocumentService;
 import com.pup.cea.iodfs.service.UserInfoService;
 import com.pup.cea.iodfs.service.UserLogsService;
+import com.pup.cea.iodfs.test.analytics.ResponseBody;
 
 
 @Controller
@@ -38,6 +43,8 @@ public class MISController {
 	UserInfoService userInfoService;
 	@Autowired
 	UserLogsService userLogsService;
+	@Autowired
+	DocumentService documentService;
 	
 	//This is the longer process. Pwede kasing kunin na from userDetails pero di ko alam paano.
 	//Gumamit nalang ulit ako ng service at repo.
@@ -133,6 +140,32 @@ public class MISController {
 			return ResponseEntity.badRequest().body(e.getStackTrace().toString());
 		}
 		
+	}
+	
+	@PostMapping("/fetch-released-document")
+	public ResponseEntity<?> getReleasedDocumentData(){
+		ReleasedDocumentResponseBody body = new ReleasedDocumentResponseBody();
+		List<ReleasedDocument> list = new ArrayList<>();
+		
+		ReleasedDocument completed = new ReleasedDocument();
+		completed.setLabel("Completed");
+		completed.setValue(documentService.findByStatusWildcard("RELEASED:COMPLETED%").size());
+		list.add(completed);
+		
+		ReleasedDocument deficient = new ReleasedDocument();
+		deficient.setLabel("Deficient");
+		deficient.setValue(documentService.findByStatusWildcard("RELEASED:DEFICIENT%").size());
+		list.add(deficient);
+
+		ReleasedDocument rejected = new ReleasedDocument();
+		rejected.setLabel("Rejected");
+		rejected.setValue(documentService.findByStatusWildcard("RELEASED:REJECTED%").size());
+		list.add(rejected);
+		
+		body.setMessage("Data fetched successfully");
+		body.setList(list);
+
+		return ResponseEntity.ok(body);
 	}
 	
 	

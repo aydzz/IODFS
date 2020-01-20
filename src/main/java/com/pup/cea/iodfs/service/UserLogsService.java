@@ -77,6 +77,7 @@ public class UserLogsService {
 			docActivity.setCreation(findByActionWildCard("ADDED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
 			docActivity.setSuccessfulTransfer(findByActionWildCard("RECEIVED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
 			docActivity.setTransfer(findByActionWildCard("FORWARDED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
+			docActivity.setRelease(findByActionWildCard("RELEASED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
 			
 			list.add(docActivity);
 		}
