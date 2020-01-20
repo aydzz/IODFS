@@ -50,14 +50,14 @@ public class UserLogsService {
 	}
 	
 	//for fetching chart data
-	public List<UserLogs> findByAddedWildCard(String action){
-		return userLogsRepos.findByAddedWildCard(action);
+	public List<UserLogs> findByActionWildCard(String action, String date){
+		return userLogsRepos.findByActionWildCard(action, date);
 	}
 	public List<UserLogs> findByDateWildCard(String date){
 		return userLogsRepos.findByDateWildCard(date);
 	}
 	
-	public List<DocumentActivity> getChartData() throws ParseException{
+	public List<DocumentActivity> getChartData(int range) throws ParseException{
 		
 		List<DocumentActivity> list = new LinkedList<>();
 		Calendar calendar = Calendar.getInstance();
@@ -66,18 +66,20 @@ public class UserLogsService {
 		SimpleDateFormat iniDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat formatter = new SimpleDateFormat("MMMMM dd, yyyy"); 
 		
-		calendar.add(Calendar.DATE, -15);
+		calendar.add(Calendar.DATE, -range);
 		//DATE OPS
 		
-		for(int i=1;i<100;i++) {
+		for(int i=1;i<=range;i++) {
 			DocumentActivity docActivity = new DocumentActivity();
 			calendar.add(Calendar.DATE, 1);
 			docActivity.setDateOfActivity(iniDateFormatter.format(calendar.getTime()).toString());
-			docActivity.setNumberOfAction(100+(i*33));
+			docActivity.setNumberOfAction(findByDateWildCard(iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
+			docActivity.setCreation(findByActionWildCard("ADDED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
+			docActivity.setSuccessfulTransfer(findByActionWildCard("RECEIVED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
+			docActivity.setTransfer(findByActionWildCard("FORWARDED%",iniDateFormatter.format(calendar.getTime()).toString()+"%").size());
 			
 			list.add(docActivity);
 		}
-		
 		return list;
 	}
 	

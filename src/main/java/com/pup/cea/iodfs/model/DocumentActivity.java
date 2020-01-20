@@ -4,7 +4,13 @@ public class DocumentActivity {
 	
 	private String dateOfActivity;
 	private int numberOfAction;
+	private int transfer;
+	private int successfulTransfer;
+	private int creation;
 	
+	public void setCreation(int creation) {
+		this.creation = creation;
+	}
 	public String getDateOfActivity() {
 		return dateOfActivity;
 	}
@@ -16,6 +22,22 @@ public class DocumentActivity {
 	}
 	public void setNumberOfAction(int numberOfAction) {
 		this.numberOfAction = numberOfAction;
+	}
+	
+	public int getTransfer() {
+		return transfer;
+	}
+	public void setTransfer(int transfer) {
+		this.transfer = transfer;
+	}
+	public int getSuccessfulTransfer() {
+		return successfulTransfer;
+	}
+	public void setSuccessfulTransfer(int successfulTransfer) {
+		this.successfulTransfer = successfulTransfer;
+	}
+	public int getCreation() {
+		return creation;
 	}
 	
 

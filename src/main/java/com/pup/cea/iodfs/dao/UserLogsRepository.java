@@ -14,8 +14,8 @@ public interface UserLogsRepository extends JpaRepository<UserLogs,Long> {
 	UserLogs findByCts(String cts);
 	
 	
-	@Query(value="SELECT * FROM user_logs u WHERE u.action LIKE :string",nativeQuery = true)
-	List<UserLogs> findByAddedWildCard(@Param("string") String action);
+	@Query(value="SELECT * FROM user_logs u WHERE u.action LIKE :action AND u.datetime LIKE :date",nativeQuery = true)
+	List<UserLogs> findByActionWildCard(@Param("action") String action, @Param("date") String date);
 	
 	@Query(value="SELECT * FROM user_logs u WHERE u.datetime LIKE :string",nativeQuery = true)
 	List<UserLogs> findByDateWildCard(@Param("string") String date);

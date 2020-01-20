@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pup.cea.iodfs.ajax.form.LineGraphRange;
 import com.pup.cea.iodfs.ajax.form.PasswordForm;
 import com.pup.cea.iodfs.ajax.response.DocumentActivityResponseBody;
 import com.pup.cea.iodfs.model.UserInfo;
@@ -94,16 +98,40 @@ public class MISController {
 	}
 	
 	@PostMapping("/fetch-document-activity")
-	public ResponseEntity<?> getDocumentActivityData() throws ParseException{
-		
+	public ResponseEntity<?> getDocumentActivityData(@Valid @RequestBody String range, Errors errors ){
+		/* System.out.println("PASSED RANGE IS: " + lineGraphRange.getRange()); */
+		System.out.println("PASSED RANGE IS: " + range);
+		int rangeValue = 7;
 		DocumentActivityResponseBody body = new DocumentActivityResponseBody();
 		
-		
-		body.setActivityList(userLogsService.getChartData());
-		body.setMessage("DATA WAS FETCHED");
-		
-		//ACTIONS
-		return ResponseEntity.ok(body);
+		if(range !=null || range !="") {
+			 try {
+				 rangeValue = Integer.parseInt(range);
+			 }catch(NumberFormatException e) {
+				 return ResponseEntity.badRequest().body(e.getMessage());
+			 }
+		}
+		 if (errors.hasErrors()) {
+	    	 //convert the error errors to string format
+			 String errorMessage =  errors.getAllErrors() .stream().map(x -> x.getDefaultMessage())
+					  .collect(Collectors.joining(",")).toString();
+			 System.out.println(errorMessage);
+			 return ResponseEntity.badRequest().body(errorMessage);
+	       }
+	       
+		try {
+			body.setActivityList(userLogsService.getChartData(rangeValue));
+			body.setMessage("DATA WAS FETCHED");
+			/*
+			*	throw new Exception("Error persisted on AJAX Request");
+			*/
+			
+			return ResponseEntity.ok(body); 
+			
+			
+		}catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getStackTrace().toString());
+		}
 		
 	}
 	
