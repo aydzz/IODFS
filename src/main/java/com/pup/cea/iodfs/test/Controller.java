@@ -59,7 +59,6 @@ public class Controller {
 
        }
        
-       
        List<User> users = userService.login(loginForm);
        if (users.isEmpty()) {
            result.setMsg("no user found!");
@@ -75,16 +74,13 @@ public class Controller {
    }
 	@PostMapping("/api/getChartData")
 	public ResponseEntity<?> getChartData() throws Exception{
-		
 		MorrisBody body = new MorrisBody();
 		List<MorrisData> list = new ArrayList<>();
 		
 		list = morrisService.propagateMorrisData();
 		
-		
 		body.setChartData(list);
 		body.setMessage("Morris Data is READY!");
-		
 		
 		return ResponseEntity.ok(body) ;
 	}

@@ -148,7 +148,8 @@
 			$.ajax({
 				type : "POST",
 				contentType : "application/json",
-				url : "/api/getChartData",
+				/* url : "/api/getChartData", */
+				url :"/api/fetch-document-activity",
 /* 				data : null */
 				dataType : 'json',
 				cache : false,
@@ -173,11 +174,11 @@
 		function getMorris(element, data) {
 		        Morris.Line({
 		            element: element,
-		            data: data.chartData,
-		            xkey: 'period',
-		            ykeys: ['licensed', 'sorned'],
-		            labels: ['Licensed', 'Off the road'],
-		            lineColors: ['rgb(233, 30, 99)', 'rgb(0, 188, 212)'],
+		            data: data.activityList,
+		            xkey: 'dateOfActivity',
+		            ykeys: ['numberOfAction'],
+		            labels: ['Actions Taken'],
+		            lineColors: ['rgb(233, 30, 99)'],
 		            lineWidth: 3,
 		            xLabels:["day"],
 		            parseTime: true

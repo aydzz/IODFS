@@ -1,0 +1,78 @@
+
+IF the graph shows individual document activity
+*will show line graphs per document type
+Xkeys
+	-Date of ACTION
+YKEYS
+	-with various parameter
+		-DOCUMENT NAME
+			-NUMBER OF THE DOCUMENT
+
+IFthe graph shows the general DOCUMENT ACTIVITY without showing document type
+* will show a single line graph
+
+XKEY
+	-Date of ACTION
+YKEY
+	-number of document with actions committed.
+
+
+
+package com.pup.cea.iodfs.test.analytics.runnable;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.pup.cea.iodfs.model.DocumentActivity;
+import com.pup.cea.iodfs.service.UserLogsService;
+
+public class DateTesting {
+
+	public static void main(String args[]) throws Exception{
+		UserLogsService service = new UserLogsService();
+		
+		Calendar calendar = Calendar.getInstance();
+		
+
+		String sDate = "2020-01-10";
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("MMMMM dd, yyyy");  
+		
+		Date parsedDate = new SimpleDateFormat("yyyy-MM-dd").parse(sDate);
+		
+		Date sampleDate = new Date();
+		sampleDate.setMonth(0);
+		sampleDate.setDate(1);
+		sampleDate.setYear(2001);
+		
+		System.out.println("PARSED");
+		System.out.println(parsedDate);
+		System.out.println("PARSED WITH FORMATTER");
+		System.out.println(formatter.format(parsedDate));
+		System.out.println("SAMPLE DATE OBJECT");
+		System.out.println(formatter.format(sampleDate));
+		
+		Date currentDate = Calendar.getInstance().getTime();
+		SimpleDateFormat iniDateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		calendar.setTime(parsedDate);
+		calendar.add(Calendar.DATE, -100);
+		System.out.println(calendar.getTime());
+		System.out.println(iniDateFormatter.format(currentDate));
+		
+		Iterator<DocumentActivity> itr = service.getChartData().iterator();
+		
+		while(itr.hasNext()) {
+			DocumentActivity doc = itr.next();
+			System.out.println(doc.getDateOfActivity());
+			System.out.println(doc.getNumberOfAction());
+		}
+		
+		
+	}
+	
+
+}

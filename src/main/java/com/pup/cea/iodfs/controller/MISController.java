@@ -1,10 +1,12 @@
 package com.pup.cea.iodfs.controller;
 
+import java.text.ParseException;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,9 +19,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.pup.cea.iodfs.ajax.form.PasswordForm;
+import com.pup.cea.iodfs.ajax.response.DocumentActivityResponseBody;
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.model.security.UserLogin;
 import com.pup.cea.iodfs.service.UserInfoService;
+import com.pup.cea.iodfs.service.UserLogsService;
 
 
 @Controller
@@ -28,6 +32,8 @@ public class MISController {
 	
 	@Autowired
 	UserInfoService userInfoService;
+	@Autowired
+	UserLogsService userLogsService;
 	
 	//This is the longer process. Pwede kasing kunin na from userDetails pero di ko alam paano.
 	//Gumamit nalang ulit ako ng service at repo.
@@ -85,6 +91,20 @@ public class MISController {
 	    	   return ResponseEntity.badRequest().body(e.getStackTrace().toString());
 	       }
 	       
+	}
+	
+	@PostMapping("/fetch-document-activity")
+	public ResponseEntity<?> getDocumentActivityData() throws ParseException{
+		
+		DocumentActivityResponseBody body = new DocumentActivityResponseBody();
+		
+		
+		body.setActivityList(userLogsService.getChartData());
+		body.setMessage("DATA WAS FETCHED");
+		
+		//ACTIONS
+		return ResponseEntity.ok(body);
+		
 	}
 	
 	
