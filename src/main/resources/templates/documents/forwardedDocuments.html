@@ -43,8 +43,35 @@
 												<small>[[${document.description}]]</small>
 											</td>
 											<td>
-												<small>[[${document.doctype}]]</small>
-											</td>
+											<th:block  th:switch="${document.doctype}">
+												<th:block th:case="AF">
+													<span class="label bg-purple">
+														ACE FORM
+													</span>	
+												</th:block>
+												<th:block th:case="CF">
+													<span class="label bg-green">
+														COMPLETION FORM
+													</span>	
+												</th:block>
+												<th:block th:case="MOA">
+													<span class="label bg-orange">
+														MEMORANDUM OF AGREEMENT
+													</span>	
+												</th:block>
+												<th:block th:case="PET">
+													<span class="label bg-pink">
+														PETITION
+													</span>	
+												</th:block>
+												<th:block th:case="*">
+													<span class="label bg-grey">
+														[[${document.doctype}]]
+													</span>	
+												</th:block>
+											</th:block>
+											
+										</td>
 											<td>
 												<small>[[${document.forwarded_office}]]</small>
 											</td>

@@ -50,7 +50,34 @@
 													<small>[[${documents.trackingnum}]]</small>
 												</td>
 												<td>
-													<small>[[${documents.doctype}]]</small>
+													<th:block  th:switch="${documents.doctype}">
+														<th:block th:case="AF">
+															<span class="label bg-purple">
+																ACE FORM
+															</span>	
+														</th:block>
+														<th:block th:case="CF">
+															<span class="label bg-green">
+																COMPLETION FORM
+															</span>	
+														</th:block>
+														<th:block th:case="MOA">
+															<span class="label bg-orange">
+																MEMORANDUM OF AGREEMENT
+															</span>	
+														</th:block>
+														<th:block th:case="PET">
+															<span class="label bg-pink">
+																PETITION
+															</span>	
+														</th:block>
+														<th:block th:case="*">
+															<span class="label bg-grey">
+																[[${documents.doctype}]]
+															</span>	
+														</th:block>
+													</th:block>
+													
 												</td>
 												<td>
 													<small>[[${documents.date_received}]]</small>
