@@ -72,7 +72,7 @@
 															</span>	
 														</th:block>
 														<th:block th:case="*">
-															<span class="label bg-grey">
+															<span class="label bg-gray">
 																[[${documents.doctype}]]
 															</span>	
 														</th:block>
@@ -102,10 +102,10 @@
 														
 														<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 														<a th:href="@{'/documents/release/'+${documents.trackingnum}}">
-														<button class="btn bg-orange waves-effect" type="button">
-														<i class="material-icons">send</i>
-															Release
-														</button>
+															<button class="btn bg-orange waves-effect" type="button">
+															<i class="material-icons">send</i>
+																<small>Release</small>
+															</button>
 														</a>
 														</th:block>
 												

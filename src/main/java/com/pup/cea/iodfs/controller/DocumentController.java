@@ -228,7 +228,7 @@ public class DocumentController {
 		document.setRemark(req.getParameter("remark"));
 		docService.save(document);
 		return "redirect:/documents/pending";
-	}
+	}	
 	@RequestMapping("/release/{trackingnum}/execute")
 	public String executeReleaseDocument(HttpServletRequest req,
 										 @PathVariable("trackingnum")String trackingnum) {

@@ -73,7 +73,7 @@
 															</span>	
 														</th:block>
 														<th:block th:case="*">
-															<span class="label bg-grey">
+															<span class="label bg-gray">
 																[[${documents.doctype}]]
 															</span>	
 														</th:block>
@@ -94,8 +94,9 @@
 														
 													</a>-->
 													<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
-														<button onclick="showPromptMessage(this)" type="button" class="btn btn-xs btn-warning waves-effect">
-					                                    	<i class="material-icons">call_received</i> <small>Receive</small>
+														<button onclick="showPromptMessage(this)" type="button" class="btn btn-warning waves-effect">
+					                                    	<i class="material-icons">move_to_inbox</i>
+															<small>Receive</small>
 					                                	</button>
 													</a>
 												</td>

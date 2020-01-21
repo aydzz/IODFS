@@ -83,11 +83,9 @@
 
 										<div class="col-lg-5 col-sm-6 "></div>
 										<div>
-											<button class="btn btn-primary waves-effect"
-												onclick="showPromptMessage()" type="button">SUBMIT</button>
+											<button id="release-document-btn" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
 
-											<a href="/documents/pending"><button
-													class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
+											<a href="/documents/pending"><button class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
 											
 										</div>
 
@@ -116,6 +114,7 @@
     	<!-- JQuery Steps Plugin Js -->
     	<script src="/plugins/jquery-steps/jquery.steps.js"></script>
 		
+		<!-- FORM VALIDATION SCRIPT -->
 		<script>
 		$(function () {
 		    $('#form1').validate({
@@ -132,11 +131,38 @@
 		        },
 		        errorPlacement: function (error, element) {
 		            $(element).parents('.form-group').append(error);
-		        }
+		        },
+		        submitHandler: function(form) {
+		        	 swal({
+   					  title: "Release Document?",
+   					  text: "Document " + '[[${document.trackingnum}]]' + " would be Released as "+$("#js-select2").val(),
+   					  type: "warning",
+   					  showCancelButton: true,
+   					  confirmButtonClass: "btn-danger",
+   					  confirmButtonText: "Confirm",
+   					  cancelButtonText: "Cancel",
+   					  closeOnConfirm: false,
+   					  closeOnCancel: false
+   					},
+   					function(isConfirm) {
+   					  if (isConfirm) {
+   						form.submit();
+   					  } else {
+   					  	  swal({
+   					  		  title: "Release was Cancelled",
+   					  		  text: "Document " + "[[${document.trackingnum}]] " + "was not submitted.",
+   					  		  type: "error",
+   					  		  showConfirmButton: true,
+  					  	 	  closeOnConfirm: false
+   					  	  });
+   					    $("#release-document-btn").prop("disabled", false);
+   					  }
+   					});
+		            
+		          }
 		    });
 		});
 		</script>
-    
 		<script>
 			function showPromptMessage() {
 				var form = $('#form1');
@@ -154,6 +180,7 @@
 					});
 				}
 			}
+			
 		</script>
 		<script>
 			$('#js-select2').on('change', function() {

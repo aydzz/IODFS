@@ -13,8 +13,13 @@
 			<a  class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar-collapse"
 				aria-expanded="false"></a> <a href="javascript:void(0);"
-				class="bars"></a> <a class="navbar-brand" th:href="@{/home}">Inter-Office
+				class="bars"></a> 
+				<a class="navbar-brand" th:href="@{/home}">Inter-Office
 				Document Flow System</a>
+				
+					
+				
+				
 		</th:block>
 		
 		<th:block th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
