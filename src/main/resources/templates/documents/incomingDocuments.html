@@ -8,9 +8,9 @@
 
 <th:block layout:fragment="local-styles">
 	<!-- JQuery DataTable Css -->
-	<link
-		href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css"
-		rel="stylesheet">
+	<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+	<!-- Sweetalert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
 </th:block>
 </head>
 <body>
@@ -19,7 +19,7 @@
 			<!-- container fluid class -->
 
 			<!-- Basic Examples -->
-			<div class="row clearfix">
+			<div class="row clear-fix">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 						<div class="header">
@@ -27,7 +27,7 @@
 						</div>
 						<div class="body">
 							<div class="table-responsive">
-								<form method="post" action="incoming.jsp" id="form1">
+								<form method="post" id="form1">
 									<!-- kukuhanin nya yung data sa FORWARDED Database table, na WHERE office=CPE Department(kung CPE dept yung account)-->
 									<input type="hidden" id="ITO" name="CTS" />
 									<table id="incomingDocTbl" class="table table-bordered table-striped table-hover dataTable">
@@ -48,11 +48,34 @@
 													<small>[[${documents.trackingnum}]]</small>
 												</td>
 												<td>
-													<small>[[${documents.description}]]</small>
+													<th:block th:switch="${documents.description}">
+														<th:block th:case="''">
+															<span class="label bg-gray">
+																EMPTY DESCRIPTION
+															</span>	
+														</th:block>
+														<th:block th:case="null">
+															<span class="label bg-gray">
+																EMPTY DESCRIPTION
+															</span>	
+														</th:block>
+														<th:block th:case="*">
+															<th:block th:if ="${#strings.length(documents.description) > 20}">
+																	<span style="cursor: pointer" th:onclick="showLongDescription([[${documents.description}]])" class="label waves-effect bg-blue">
+																		CLICK HERE TO VIEW DESCRIPTION
+																	</span>	
+															</th:block>
+															<th:block th:unless = "${#strings.length(documents.description) > 20}">
+																	<small>[[${documents.description}]]</small>
+															</th:block>
+															
+														</th:block>
+													</th:block>
 												</td>
 												<td>
 													<th:block  th:switch="${documents.doctype}">
 														<th:block th:case="AF">
+															
 															<span class="label bg-purple">
 																ACE FORM
 															</span>	
@@ -84,7 +107,29 @@
 													<small>[[${documents.current_office}]]</small>
 												</td>
 												<td>
-													<small>[[${documents.remark}]]</small>
+													<th:block th:switch="${documents.remark}">
+														<th:block th:case="''">
+															<span class="label bg-gray">
+																EMPTY REMARK
+															</span>	
+														</th:block>
+														<th:block th:case="null">
+															<span class="label bg-gray">
+																EMPTY REMARK
+															</span>	
+														</th:block>
+														<th:block th:case="*">
+															<th:block th:if ="${#strings.length(documents.remark) > 20}">
+																	<span style="cursor: pointer" th:onclick="showLongRemark([[${documents.remark}]])" class="label waves-effect bg-cyan">
+																		CLICK HERE TO VIEW REMARK
+																	</span>	
+															</th:block>
+															<th:block th:unless = "${#strings.length(documents.remark) > 20}">
+																	<small>[[${documents.remark}]]</small>
+															</th:block>
+															
+														</th:block>
+													</th:block>
 												</td>
 												<td class="row clearfix js-sweetalert" align="center">
 												 <!-- 	<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
@@ -94,7 +139,7 @@
 														
 													</a>-->
 													<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
-														<button onclick="showPromptMessage(this)" type="button" class="btn btn-warning waves-effect">
+														<button type="button" class="btn btn-xs btn-warning waves-effect">
 					                                    	<i class="material-icons">move_to_inbox</i>
 															<small>Receive</small>
 					                                	</button>
@@ -116,15 +161,18 @@
 
 	<th:block layout:fragment="local-scripts">
 	    <!-- Jquery DataTable Plugin Js -->
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/jquery.dataTables.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.flash.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/jszip.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/pdfmake.min.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/vfs_fonts.js}"></script>
-	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
-    	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/jquery.dataTables.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+	    <script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    	<script type="text/javascript" src="/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    	
+ 	   	<!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
     	
 		<script>
 		$(function () {
@@ -134,6 +182,23 @@
 		        scrollY:'30vh'    
 		    });
 		});
+		</script>
+				<script>
+			function showLongDescription(desc){
+				swal({
+			        title: "Document Description",
+			        text: "<pre style='white-space:pre-wrap'>"+desc+"</pre>",
+			        html: true
+			    });
+			}
+			
+			function showLongRemark(rem){
+				swal({
+			        title: "Document Remark",
+			        text: "<pre style='white-space:pre-wrap'>"+rem+"</pre>",
+			        html: true
+			    });
+			}
 		</script>
 	</th:block>
 </body>

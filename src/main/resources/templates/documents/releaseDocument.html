@@ -41,7 +41,31 @@
 							<tbody>
 								<tr>
 									<td th:text="${document.trackingnum}"></td>
-									<td th:text="${document.description}"></td>
+									<td>
+										<th:block th:switch="${document.description}">
+										<th:block th:case="''">
+											<span class="label bg-gray">
+												EMPTY DESCRIPTION
+											</span>	
+										</th:block>
+										<th:block th:case="null">
+											<span class="label bg-gray">
+												EMPTY DESCRIPTION
+											</span>	
+										</th:block>
+										<th:block th:case="*">
+											<th:block th:if ="${#strings.length(document.description) > 20}">
+													<span style="cursor: pointer" th:onclick="showLongDescription([[${document.description}]])" class="label waves-effect bg-blue">
+														CLICK HERE TO VIEW DESCRIPTION
+													</span>	
+											</th:block>
+											<th:block th:unless = "${#strings.length(document.description) > 20}">
+													<small>[[${documents.description}]]</small>
+											</th:block>
+											
+										</th:block>
+									</th:block>
+									</td>
 									<td th:text="${document.doctype}"></td>
 									<td th:text="${document.date_received}"></td>
 								</tr>
@@ -181,6 +205,15 @@
 				}
 			}
 			
+		</script>
+		<script>
+			function showLongDescription(desc){
+				swal({
+			        title: "Document Description",
+			        text: "<pre style='white-space:pre-wrap'>"+desc+"</pre>",
+			        html: true
+			    });
+			}
 		</script>
 		<script>
 			$('#js-select2').on('change', function() {

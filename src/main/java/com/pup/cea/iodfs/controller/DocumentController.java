@@ -155,6 +155,7 @@ public class DocumentController {
 		
 		model.addAttribute("document",docService.findByTrackingnum(trackingnum));
 		model.addAttribute("officeList",officeService.findAll());
+		System.out.println(docService.findByTrackingnum(trackingnum).getDescription());
 		return "documents/forwardDocument";
 	}
 	@RequestMapping("/release/{trackingnum}")

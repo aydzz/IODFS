@@ -41,7 +41,30 @@
 							<tbody>
 								<tr>
 									<td th:text="${document.trackingnum}"></td>
-									<td th:text="${document.description}"></td>
+									<td>
+										<th:block th:switch="${document.description}">
+												<th:block th:case="''">
+													<span class="label bg-gray"> EMPTY DESCRIPTION </span>
+												</th:block>
+												<th:block th:case="null">
+													<span class="label bg-gray"> EMPTY DESCRIPTION </span>
+												</th:block>
+												<th:block th:case="*">
+													<th:block
+														th:if="${#strings.length(document.description) > 20}">
+														<span style="cursor: pointer"
+															th:onclick="showLongDescription([[${document.description}]])"
+															class="label waves-effect bg-blue"> CLICK HERE TO
+															VIEW DESCRIPTION </span>
+													</th:block>
+													<th:block
+														th:unless="${#strings.length(document.description) > 20}">
+															[[${document.description}]]
+													</th:block>
+	
+												</th:block>
+											</th:block>
+										</td>
 									<td th:text="${document.doctype}"></td>
 									<td th:text="${document.date_received}"></td>
 								</tr>
@@ -51,15 +74,12 @@
 
 
 						<div class="body">
-
-
 							<!-- <form method="post" th:action="@{'/documents/forward/'+${document.trackingnum}+'/execute'}" id="form1"> -->
 							<form id="form1">
 								<input type="hidden" id="ITO" name="destination" />
 								<input type="hidden" id="trackingnumber" th:value="${document.trackingnum}"/>
 
 								<div class="row clearfix">
-
 									<div class="col-lg-12">
 										<div class="col-lg-3"></div>
 										<div class="col-lg-6">
@@ -74,7 +94,7 @@
 											</select>
 										</div>
 									</div>
-											<div class="col-lg-3"></div>
+									<div class="col-lg-3"></div>
 									<div class="col-lg-6">
 										<h2 class="card-inside-title">Remarks</h2>
 										<div class="form-group">
@@ -85,17 +105,14 @@
 										</div>
 									</div>
 
-									<div class="col-lg-12 col-sm-3 ">
+									<div class="col-lg-12 col-sm-3 "></div>
 									
 									
 									<div class="col-lg-12 col-sm-7">
 
 										<div class="col-lg-5"></div>
 										<div>
-											<!-- <button class="btn btn-primary waves-effect"
-												onclick="showPromptMessage()" type="button">SUBMIT</button> -->
-												
-												<button id="forwardDocButton" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
+											<button id="forwardDocButton" class="btn btn-primary waves-effect" type="submit">SUBMIT</button>
 
 											<a href="/documents/pending"><button
 													class="btn btn-primary waves-effect" type="button">CANCEL</button></a>
@@ -120,25 +137,11 @@
     	<script src="/plugins/bootstrap-select/js/bootstrap-select.js"></script>
    	  	<!-- SweetAlert Plugin Js -->
     	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
-		<script>
-			/* function showPromptMessage() {
-
-				var form = $('#form1');
-				var choice = $("#js-select2").val();
-				if (choice !== "") {
-					swal({
-						title : "Document has been forwarded",
-						closeOnConfirm : true,
-						showCancelButton : false,
-						animation : "slide-from-top"
-					}, function(inputValue) {
-						if (inputValue === true)
-							form.submit();
-
-					});
-				}
-			} */
-		</script>
+		
+		    	<!-- Jquery Validation Plugin Css -->
+    	<script src="/plugins/jquery-validation/jquery.validate.js"></script>
+    	<!-- JQuery Steps Plugin Js -->
+    	<script src="/plugins/jquery-steps/jquery.steps.js"></script>
 		
 		<script>
 		$(document).ready(function () {
@@ -230,6 +233,16 @@
 				$("#ITO").val(choice);
 
 			});
+		</script>
+		
+		<script>
+			function showLongDescription(desc){
+				swal({
+			        title: "Document Description",
+			        text: "<pre style='white-space:pre-wrap'>"+desc+"</pre>",
+			        html: true
+			    });
+			}
 		</script>
 	</th:block>
 </body>

@@ -6,15 +6,17 @@
     <meta charset="UTF-8">
     <title>Pending Documents</title>
 
-<th:block layout:fragment="local-styles">
-	<!-- JQuery DataTable Css -->
-	<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-	<link href="/css/local/pendingDoc.css" rel="stylesheet">
-</th:block>
+	<th:block layout:fragment="local-styles">
+		<!-- JQuery DataTable Css -->
+		<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet"/>
+		<link href="/css/local/pendingDoc.css" rel="stylesheet"/>
+		<!-- Sweetalert Css -->
+	    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+	</th:block>
 </head>
 <body>
 	<section class="content" layout:fragment="content">
-		<div class="">
+		<div>
 			<!--container fluid class-->
 			<!-- Basic Examples -->
 			<div class="row clearfix">
@@ -83,15 +85,58 @@
 													<small>[[${documents.date_received}]]</small>
 												</td>
 												<td>
-													<small>[[${documents.description}]]</small>
+													<th:block th:switch="${documents.description}">
+														<th:block th:case="''">
+															<span class="label bg-gray">
+																EMPTY DESCRIPTION
+															</span>	
+														</th:block>
+														<th:block th:case="null">
+															<span class="label bg-gray">
+																EMPTY DESCRIPTION
+															</span>	
+														</th:block>
+														<th:block th:case="*">
+															<th:block th:if ="${#strings.length(documents.description) > 20}">
+																	<span style="cursor: pointer" th:onclick="showLongDescription([[${documents.description}]])" class="label waves-effect bg-blue">
+																		CLICK HERE TO VIEW DESCRIPTION
+																	</span>	
+															</th:block>
+															<th:block th:unless = "${#strings.length(documents.description) > 20}">
+																	<small>[[${documents.description}]]</small>
+															</th:block>
+															
+														</th:block>
+													</th:block>
 												</td>
 												<td>
 													<small>[[${documents.source_office}]]</small>
 												</td>
 												<td>
-													<small>[[${documents.remark}]]</small>
+													<th:block th:switch="${documents.remark}">
+														<th:block th:case="''">
+															<span class="label bg-gray">
+																EMPTY REMARK
+															</span>	
+														</th:block>
+														<th:block th:case="null">
+															<span class="label bg-gray">
+																EMPTY REMARK
+															</span>	
+														</th:block>
+														<th:block th:case="*">
+															<th:block th:if ="${#strings.length(documents.remark) > 20}">
+																	<span style="cursor: pointer" th:onclick="showLongRemark([[${documents.remark}]])" class="label waves-effect bg-cyan">
+																		CLICK HERE TO VIEW REMARK
+																	</span>	
+															</th:block>
+															<th:block th:unless = "${#strings.length(documents.remark) > 20}">
+																	<small>[[${documents.remark}]]</small>
+															</th:block>
+														</th:block>
+													</th:block>
 												</td>
-												<td align="center">
+												<td>
 													<div style="padding-left: 20px">
 														<a th:href="@{'/documents/forward/'+${documents.trackingnum}}">
 															<button class="btn btn-primary waves-effect" type="button">
@@ -128,6 +173,8 @@
 	</section>
 
 	<th:block layout:fragment="local-scripts">
+	<!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
 	    <!-- Jquery DataTable Plugin Js -->
 	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/jquery.dataTables.js}"></script>
 	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
@@ -139,6 +186,7 @@
 	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
     	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
     	
+  	   	
 		<script>
 		$(function () {
 		    $('#pendingDocTbl').DataTable({
@@ -146,7 +194,24 @@
 		    });
 		});
 		</script>
-
+		
+		<script>
+			function showLongDescription(desc){
+				swal({
+			        title: "Document Description",
+			        text: "<pre style='white-space:pre-wrap'>"+desc+"</pre>",
+			        html: true
+			    });
+			}
+			
+			function showLongRemark(rem){
+				swal({
+			        title: "Document Remark",
+			        text: "<pre style='white-space:pre-wrap'>"+rem+"</pre>",
+			        html: true
+			    });
+			}
+		</script>
 	</th:block>
 </body>
 <!-- /.content-wrapper -->

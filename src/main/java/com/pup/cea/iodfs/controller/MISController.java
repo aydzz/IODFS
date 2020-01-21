@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pup.cea.iodfs.ajax.form.PasswordForm;
 import com.pup.cea.iodfs.ajax.response.DocumentActivityResponseBody;
 import com.pup.cea.iodfs.ajax.response.ReleasedDocumentResponseBody;
+import com.pup.cea.iodfs.model.Document;
 import com.pup.cea.iodfs.model.ReleasedDocument;
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.model.security.UserLogin;
