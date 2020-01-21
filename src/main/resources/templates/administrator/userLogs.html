@@ -10,6 +10,8 @@
 
     <!-- Animation Css -->
     <link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    	<!-- Sweetalert Css -->
+    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     </th:block>
 </head>
 <body class="theme-orange">
@@ -42,7 +44,31 @@
 										<td th:text="${logs.datetime}"></td>
 										<td th:text="${logs.cts}"></td>
 										<td th:text="${logs.action}"></td>
-										<td th:text="${logs.remark}"></td>
+										<td>
+										<th:block th:switch="${logs.remark}">
+											<th:block th:case="''">
+												<span class="label bg-gray">
+													EMPTY REMARK
+												</span>	
+											</th:block>
+											<th:block th:case="null">
+												<span class="label bg-gray">
+													EMPTY REMARK
+												</span>	
+											</th:block>
+											<th:block th:case="*">
+												<th:block th:if ="${#strings.length(logs.remark) > 20}">
+														<span style="cursor: pointer" th:onclick="showLongRemark([[${logs.remark}]])" class="label waves-effect bg-cyan">
+															CLICK HERE TO VIEW REMARK
+														</span>	
+												</th:block>
+												<th:block th:unless = "${#strings.length(logs.remark) > 20}">
+														<small>[[${logs.remark}]]</small>
+												</th:block>
+												
+											</th:block>
+										</th:block>
+										</td>
 									</tr>
 									</tbody>
 								</table>
@@ -66,6 +92,8 @@
 	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
     	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
     	
+    		<!-- SweetAlert Plugin Js -->
+    	<script src="/plugins/sweetalert/sweetalert.min.js"></script>
 		<script>
 		$(function () {
 		    $('#trackDocTbl').DataTable({
@@ -74,6 +102,24 @@
 		        scrollY:'30vh'    
 		    });
 		});
+		</script>
+		
+		<script>
+			function showLongDescription(desc){
+				swal({
+			        title: "Document Description",
+			        text: "<pre style='white-space:pre-wrap'>"+desc+"</pre>",
+			        html: true
+			    });
+			}
+			
+			function showLongRemark(rem){
+				swal({
+			        title: "Document Remark",
+			        text: "<pre style='white-space:pre-wrap'>"+rem+"</pre>",
+			        html: true
+			    });
+			}
 		</script>
 	</th:block>
 </body>
