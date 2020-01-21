@@ -148,6 +148,9 @@
 		        errorPlacement: function (error, element) {
 		            $(element).parents('.form-group').append(error);
 		            $(element).parents('.validate-this').append(error);
+		        },
+		        valid: function() {
+		            alert('valid!')
 		        }
 		    });
 		    
@@ -157,6 +160,9 @@
 		    }
 		});
 		</script>
+		
+		<!-- SCRIPT FOR SWAL CONFIMARION -->
+		
     	
     	
    

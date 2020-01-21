@@ -46,18 +46,30 @@
 
 										<tbody>
 											<tr th:each="documents: ${documentList}">
-												<td th:text="${documents.trackingnum}"></td>
-												<td th:text="${documents.doctype}"></td>
-												<td th:text="${documents.date_received}"></td>
-												<td th:text="${documents.description}"></td>
-												<td th:text="${documents.source_office}"></td>
-												<td th:text="${documents.remark}"></td>
+												<td>
+													<small>[[${documents.trackingnum}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.doctype}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.date_received}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.description}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.source_office}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.remark}]]</small>
+												</td>
 												<td align="center">
 													<div style="padding-left: 20px">
 														<a th:href="@{'/documents/forward/'+${documents.trackingnum}}">
 															<button class="btn btn-primary waves-effect" type="button">
 															<i class="material-icons">forward</i>
-																Forward
+																<small>Forward</small>
 															</button>
 														</a>
 														

@@ -36,10 +36,18 @@
 									</thead>
 									<tbody>
 										<tr th:each="document: ${documentList}">
-											<td th:text="${document.trackingnum}">Tracking No.</td>
-											<td th:text="${document.description}">Description</td>
-											<td th:text="${document.doctype}">Document Type</td>
-											<td th:text="${document.forwarded_office}">To</td>
+											<td>
+												<small>[[${document.trackingnum}]]</small>
+											</td>
+											<td>
+												<small>[[${document.description}]]</small>
+											</td>
+											<td>
+												<small>[[${document.doctype}]]</small>
+											</td>
+											<td>
+												<small>[[${document.forwarded_office}]]</small>
+											</td>
 										</tr>
 									</tbody>
 								</table>

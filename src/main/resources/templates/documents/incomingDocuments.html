@@ -44,11 +44,21 @@
 										<tbody>
 											<tr th:each="documents: ${documentList}">
 												<!-- kukuhanin nya yung data sa FORWARDED Database table, na WHERE office=CPE Department(kung CPE dept yung account)-->
-												<td th:text="${documents.trackingnum}"></td>
-												<td th:text="${documents.description}"></td>
-												<td th:text="${documents.doctype}"></td>
-												<td th:text="${documents.current_office}"></td>
-												<td th:text="${documents.remark}"></td>
+												<td>
+													<small>[[${documents.trackingnum}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.description}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.doctype}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.current_office}]]</small>
+												</td>
+												<td>
+													<small>[[${documents.remark}]]</small>
+												</td>
 												<td class="row clearfix js-sweetalert" align="center">
 												 <!-- 	<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
 														<button class="btn btn-primary waves-effect PINDOT" onclick="showPromptMessage(this)" type="button">
@@ -58,7 +68,7 @@
 													</a>-->
 													<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
 														<button onclick="showPromptMessage(this)" type="button" class="btn btn-xs btn-warning waves-effect">
-					                                    	<i class="material-icons">call_received</i> Receive
+					                                    	<i class="material-icons">call_received</i> <small>Receive</small>
 					                                	</button>
 													</a>
 												</td>

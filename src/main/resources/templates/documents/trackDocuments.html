@@ -40,12 +40,56 @@
 									</thead>
 									<tbody>
 									<tr th:each="documents: ${documentList}">
-										<td th:text="${documents.trackingnum}"></td>
-										<td th:text="${documents.doctype}"></td>
-										<td th:text="${documents.current_office}"></td>
-										<td th:text="${documents.date_received}"></td>
-										<td th:text="${documents.status}"></td>
-										<td th:text="${documents.emailAddress}"></td>
+										<td>
+											<small>[[${documents.trackingnum}]]</small>
+										</td>
+										<td>
+											<small>[[${documents.doctype}]]</small>
+										</td>
+										<td>
+											<small>[[${documents.current_office}]]</small>
+										</td>
+										<td>
+											<small>[[${documents.date_received}]]</small>
+										</td>
+										<td>
+											<th:block  th:switch="${documents.status}">
+												<th:block th:case="PENDING">
+													<span class="label bg-amber">
+														[[${documents.status}]]
+													</span>	
+												 </th:block>
+												 <th:block th:case="FORWARDED">
+													 <span class="label bg-blue">
+													 	[[${documents.status}]]
+												 	</span>
+												 </th:block>
+												 
+												 <th:block th:case="'RELEASED:COMPLETED'">
+													 <span class="label bg-light-green">
+													 		COMPLETED
+												 	</span>
+												 </th:block>
+												 <th:block th:case="'RELEASED:DEFICIENT'">
+													 <span class="label bg-yellow">
+													 		DEFICIENT
+												 	</span>
+												 </th:block>
+												 <th:block th:case="'RELEASED:REJECTED'">
+													 <span class="label bg-red">
+													 		REJECTED
+												 	</span>
+												 </th:block>
+												 <th:block th:case="*">
+													 <span class="label bg-grey">
+													 	[[${documents.status}]]
+												 	</span>
+												 </th:block>
+											</th:block>
+										</td>
+										<td>
+											<small>[[${documents.emailAddress}]]</small>
+										</td>
 									</tr>
 									</tbody>
 								</table>
