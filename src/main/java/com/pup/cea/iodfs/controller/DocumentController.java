@@ -1,14 +1,21 @@
 package com.pup.cea.iodfs.controller;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -25,23 +33,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pup.cea.iodfs.ajax.form.ForwardDocumentForm;
+import com.pup.cea.iodfs.exception.FileStorageException;
 import com.pup.cea.iodfs.model.Document;
 import com.pup.cea.iodfs.model.Office;
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.model.UserLogs;
 import com.pup.cea.iodfs.model.security.UserLogin;
+import com.pup.cea.iodfs.payload.UploadFileResponse;
 import com.pup.cea.iodfs.service.DocumentService;
 import com.pup.cea.iodfs.service.OfficeService;
 import com.pup.cea.iodfs.service.TypeService;
 import com.pup.cea.iodfs.service.UserInfoService;
 import com.pup.cea.iodfs.service.UserLogsService;
 
+
+
 @Controller
 @RequestMapping("/documents")
 public class DocumentController {
 
+	private static final Logger logger = LoggerFactory.getLogger(DocumentController.class);
 	
 	@Autowired
 	DocumentService docService;
@@ -86,45 +102,112 @@ public class DocumentController {
 		return "documents/addDocuments";
 	}
 	@RequestMapping("/save")
-	public String saveDocument(@ModelAttribute("documentObject")Document document, Model model) {
-		
+	public String saveDocument(@ModelAttribute("documentObject")Document document, Model model, @RequestParam("file") MultipartFile file) {
 		//Initial Other Settings
+		
 		document.setCurrent_office(getUserInfo().getOffice());
 		document.setSource_office(getUserInfo().getOffice());
 		document.setForwarded_office(null);
-		
 		//all newly added document would have pending status
 		document.setStatus("PENDING");
-		
 		//overriding the fetched date value from view
 		Date date = new Date(); // this object contains the current date value
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		document.setDate_received(formatter.format(date));
 		
-		/*
-		 * //userLogs Related UserLogs userLog = new UserLogs(); userLog =
-		 * userLogsService.findByCts(document.getTrackingnum());
-		 * userLog.setRemark(document.getRemark()); //taking the CURRENT REMARK that
-		 * would change after an action userLogsService.saveUserLog(userLog);
-		 */
+	   String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+	        try {
+	            // Check if the file's name contains invalid characters
+	            if(fileName.contains("..")) {
+	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+	            }
+	            
+	            document.setFileName(fileName);
+	            document.setFileType(file.getContentType());
+	            document.setData(file.getBytes());
+	            
+	            Document fileUpload = new Document(fileName, file.getContentType(), file.getBytes());
+	            
+	            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                    .path("downloadFile/")
+	                    .path(Long.toString(fileUpload.getId()))
+	                    .toUriString();
+	            
+
+	            new UploadFileResponse(fileUpload.getFileName(), fileDownloadUri,
+	                    file.getContentType(), file.getSize());
+	    		
+	        } catch (IOException ex) {
+	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+	        }
+		
+	    
+		//Document fileUpload = docService.storeFile(file);
+
+      
 		
 		System.out.println(getAuth().getName());
 		System.out.println(getUserInfo().getOffice());
-		System.out.println(document.getRemark());
+		
+		
 		
 		docService.save(document);
 		
-		/* model.addAttribute("documentList",docService.findAll()); */
-	
+		
+		
+
+		
+		
 		return "redirect:/documents/ctsPage";
 	}
 
 	@RequestMapping("/ctsPage")
 	public String ctsPage(Model model) {
-		model.addAttribute("documentList",docService.findAll()); 
+		
+		model.addAttribute("documentList",docService.findAll());
+		
 		return "documents/ctsPage";
 	}
+	
+	
+	//file download
+	
+	 @GetMapping("/documents/track/downloadFile/{documentId}")
+	 public String download(@PathVariable("documentId")Long Id, HttpServletResponse response) {
+ Document documentFile = docService.getFile(Id);
+ try {
+     response.setHeader("Content-Disposition", "inline; filename=\"" + documentFile.getFileName() + "\"");
+     OutputStream out = response.getOutputStream();
+     response.setContentType(documentFile.getFileType());
+     
+     ByteArrayInputStream inputstream = new ByteArrayInputStream(documentFile.getData());
+     IOUtils.copy(inputstream, out);
+     out.flush();
+     out.close();
 
+ } catch (IOException e) {
+     System.out.println(e.toString());
+     //Handle exception here
+ }
+
+ return "redirect:/documents/track";
+}
+	 /*
+	    public ResponseEntity<Resource> downloadFile(@PathVariable Long Id) {
+	        // Load file from database
+	        Document documentFile = docService.getFile(Id);
+
+	        return ResponseEntity.ok()
+	                .contentType(MediaType.parseMediaType(documentFile.getFileType()))
+	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documentFile.getFileName() + "\"")
+	                .body(new ByteArrayResource(documentFile.getData()));
+	    }
+	*/
+	
+	
+	
+	
 	@RequestMapping("/incoming")
 	public String incomingDocuments(Model model) {
 		model.addAttribute("documentList",docService.findIncoming(getUserInfo().getOffice().toString(), "FORWARDED"));

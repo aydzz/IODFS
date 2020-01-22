@@ -22,7 +22,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="card">
 
-						<form id ="documentForm" th:object="${documentObject}" th:action="@{/documents/save}" method="post">
+						<form id ="documentForm" th:object="${documentObject}" th:action="@{/documents/save}" method="post" enctype="multipart/form-data">
 							<!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
 							
 							<input th:field="*{id}" type="hidden">  
@@ -93,6 +93,7 @@
                                    				 <textarea th:field="*{description}" rows="1" class="form-control no-resize auto-growth" placeholder="Enter a description..." style="overflow: hidden; overflow-wrap: break-word; height: 72px;"></textarea>
                                 			</div>
 										</div>
+										  <input type="file" name="file" /><br/><br/>
 									</div>
 
 									<div class="col-sm-5"></div>

@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\Ocliaso\Documents\GitHub\IODFS01\IODFS"/>
 			<item value="C:\Users\Ocliaso\Desktop\IODFS"/>
 		</list>
 		<list key="projectNameTemplate">
