@@ -12,4 +12,5 @@ import com.pup.cea.iodfs.model.Type;
 public interface TypeRepository extends JpaRepository<Type,Long> {
 	Type findByDocType(String docType);
 	
+	void deleteById(Long Id);
 }

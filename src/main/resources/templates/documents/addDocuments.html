@@ -150,7 +150,35 @@
 		        errorPlacement: function (error, element) {
 		            $(element).parents('.form-group').append(error);
 		            $(element).parents('.validate-this').append(error);
-		        },
+		        },		        
+		        submitHandler: function(form) {
+		        	 swal({
+  					  title: "Add Document?",
+  					  text: "",
+  					  type: "warning",
+  					  showCancelButton: true,
+  					  confirmButtonClass: "btn-danger",
+  					  confirmButtonText: "Confirm",
+  					  cancelButtonText: "Cancel",
+  					  closeOnConfirm: false,
+  					  closeOnCancel: false
+  					},
+  					function(isConfirm) {
+  					  if (isConfirm) {
+  						form.submit();
+  					  } else {
+  					  	  swal({
+  					  		  title: "Release was Cancelled",
+  					  		  text: "",
+  					  		  type: "error",
+  					  		  showConfirmButton: true,
+ 					  	 	  closeOnConfirm: false
+  					  	  });
+  					    $("#saveDocBtn").prop("disabled", false);
+  					  }
+  					});
+		            
+		          },
 		        valid: function() {
 		            alert('valid!')
 		        }
@@ -164,8 +192,6 @@
 		</script>
 		
 		<!-- SCRIPT FOR SWAL CONFIMARION -->
-		
-    	
     	
    
 	    <script>

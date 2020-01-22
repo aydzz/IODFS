@@ -174,15 +174,21 @@ public class AdministratorController {
 	    }
 		return "redirect:/administrator/offices/view";
 	}
+	
 	@RequestMapping("/offices/{officeId}/edit")
 	public String editOffice(@PathVariable("officeId")Long officeId, Model model) {
 		model.addAttribute("officeObject",officeService.findOffice(officeId));
-		
-		
-		
-		
 		return "administrator/addOffice";
 	}
+	
+	
+	@RequestMapping("/offices/{officeId}/remove")
+	public String removeOffice(@PathVariable("officeId")Long officeId) {
+		officeService.delete(officeId);
+			
+		return "redirect:/administrator/offices/view";
+	}
+	
 	//TYPE
 	@RequestMapping("/type/view")
 	public String viewDocType(Model model) {
@@ -213,6 +219,16 @@ public class AdministratorController {
 		model.addAttribute("typeObject",typeService.findDocType(typeId));
 		return "administrator/addType";
 	}
+	
+	
+	
+	@RequestMapping("/type/{typeId}/remove")
+	public String removeType(@PathVariable("typeId")Long typeId,Model model) {
+		typeService.delete(typeId);
+			
+		return "redirect:/administrator/type/view";
+	}
+	
 	
 	//adzz
 	@RequestMapping("/userLogs")

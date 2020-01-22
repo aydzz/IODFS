@@ -35,7 +35,9 @@ public class TypeService {
 	}
 	
 	
-	
+	public void delete(Long id) {
+		typeRepo.deleteById(id);
+	}
 	
 	
 
