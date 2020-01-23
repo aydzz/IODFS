@@ -60,7 +60,7 @@
 													</span>	
 											</th:block>
 											<th:block th:unless = "${#strings.length(document.description) > 20}">
-													<small>[[${documents.description}]]</small>
+													<small>[[${document.description}]]</small>
 											</th:block>
 											
 										</th:block>
@@ -174,7 +174,7 @@
    					  } else {
    					  	  swal({
    					  		  title: "Release was Cancelled",
-   					  		  text: "Document " + "[[${document.trackingnum}]] " + "was not submitted.",
+   					  		  text: "Document " + "[[${document.trackingnum}]] " + "was not released.",
    					  		  type: "error",
    					  		  showConfirmButton: true,
   					  	 	  closeOnConfirm: false

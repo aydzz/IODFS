@@ -25,5 +25,7 @@ public class OfficeService {
 		return officeRepo.findById(id).get();
 	}
 	
-
+	public void delete(Long id) {
+		officeRepo.deleteById(id);
+	}
 }

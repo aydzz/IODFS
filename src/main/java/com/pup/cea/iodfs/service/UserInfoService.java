@@ -44,6 +44,10 @@ public class UserInfoService {
 		return userInfoRepo.findByUnname(username);
 	}
 	
+	public void delete(Long id) {
+		userInfoRepo.deleteById(id);
+	}
+	
 	/*FOR USER LOGIN REPO*/
 	
 	public List<UserLogin> findAlls(){
@@ -66,5 +70,8 @@ public class UserInfoService {
 		return userLoginRepos.findByUname(username);
 	}
 	
-
+	public void deletes(Long id) {
+		userLoginRepos.deleteById(id);
+	}
+	
 }

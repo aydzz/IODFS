@@ -140,15 +140,25 @@ public class AdministratorController {
 	public String editUser(Model model,
 						   @PathVariable("userId")Long userId) {
 		UserInfo userInfo = userInfoService.findUserInfo(userId);
+		
 		System.out.println(userInfo.getLname());
 		model.addAttribute("userObject",userInfo);
-		
 		model.addAttribute("officeList",officeService.findAll());
 		
 		
 		
 		return "administrator/addUser";
 	}
+	@RequestMapping("/user/{userId}/remove")
+	public String removeUser(@PathVariable("userId")Long userId) {
+		userInfoService.delete(userId);
+		userInfoService.deletes(userId);
+		
+		
+		return "redirect:/administrator/users";
+	}
+	
+	
 	//OFFICE
 	@RequestMapping("/offices/view")
 	public String viewOffices(Model model) {
@@ -174,15 +184,21 @@ public class AdministratorController {
 	    }
 		return "redirect:/administrator/offices/view";
 	}
+	
 	@RequestMapping("/offices/{officeId}/edit")
 	public String editOffice(@PathVariable("officeId")Long officeId, Model model) {
 		model.addAttribute("officeObject",officeService.findOffice(officeId));
-		
-		
-		
-		
 		return "administrator/addOffice";
 	}
+	
+	
+	@RequestMapping("/offices/{officeId}/remove")
+	public String removeOffice(@PathVariable("officeId")Long officeId) {
+		officeService.delete(officeId);
+			
+		return "redirect:/administrator/offices/view";
+	}
+	
 	//TYPE
 	@RequestMapping("/type/view")
 	public String viewDocType(Model model) {
@@ -213,6 +229,16 @@ public class AdministratorController {
 		model.addAttribute("typeObject",typeService.findDocType(typeId));
 		return "administrator/addType";
 	}
+	
+	
+	
+	@RequestMapping("/type/{typeId}/remove")
+	public String removeType(@PathVariable("typeId")Long typeId,Model model) {
+		typeService.delete(typeId);
+			
+		return "redirect:/administrator/type/view";
+	}
+	
 	
 	//adzz
 	@RequestMapping("/userLogs")
