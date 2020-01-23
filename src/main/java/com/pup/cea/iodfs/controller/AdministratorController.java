@@ -140,15 +140,25 @@ public class AdministratorController {
 	public String editUser(Model model,
 						   @PathVariable("userId")Long userId) {
 		UserInfo userInfo = userInfoService.findUserInfo(userId);
+		
 		System.out.println(userInfo.getLname());
 		model.addAttribute("userObject",userInfo);
-		
 		model.addAttribute("officeList",officeService.findAll());
 		
 		
 		
 		return "administrator/addUser";
 	}
+	@RequestMapping("/user/{userId}/remove")
+	public String removeUser(@PathVariable("userId")Long userId) {
+		userInfoService.delete(userId);
+		userInfoService.deletes(userId);
+		
+		
+		return "redirect:/administrator/users";
+	}
+	
+	
 	//OFFICE
 	@RequestMapping("/offices/view")
 	public String viewOffices(Model model) {
