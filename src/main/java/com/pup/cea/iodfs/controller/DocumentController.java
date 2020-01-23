@@ -173,37 +173,27 @@ public class DocumentController {
 	
 	//file download
 	
-	 @GetMapping("/documents/track/downloadFile/{documentId}")
-	 public String download(@PathVariable("documentId")Long Id, HttpServletResponse response) {
- Document documentFile = docService.getFile(Id);
- try {
-     response.setHeader("Content-Disposition", "inline; filename=\"" + documentFile.getFileName() + "\"");
-     OutputStream out = response.getOutputStream();
-     response.setContentType(documentFile.getFileType());
-     
-     ByteArrayInputStream inputstream = new ByteArrayInputStream(documentFile.getData());
-     IOUtils.copy(inputstream, out);
-     out.flush();
-     out.close();
+	@GetMapping("/documents/track/downloadFile/{documentId}")
+	public String download(@PathVariable("documentId")Long Id, HttpServletResponse response) {
+		Document documentFile = docService.getFile(Id);
+		try {
+			response.setHeader("Content-Disposition", "inline; filename=\"" + documentFile.getFileName() + "\"");
+			OutputStream out = response.getOutputStream();
+			response.setContentType(documentFile.getFileType());
 
- } catch (IOException e) {
-     System.out.println(e.toString());
-     //Handle exception here
- }
+			ByteArrayInputStream inputstream = new ByteArrayInputStream(documentFile.getData());
+			IOUtils.copy(inputstream, out);
+			out.flush();
+			out.close();
 
- return "redirect:/documents/track";
-}
-	 /*
-	    public ResponseEntity<Resource> downloadFile(@PathVariable Long Id) {
-	        // Load file from database
-	        Document documentFile = docService.getFile(Id);
+		} catch (IOException e) {
+			System.out.println(e.toString());
+			//Handle exception here
+		}
 
-	        return ResponseEntity.ok()
-	                .contentType(MediaType.parseMediaType(documentFile.getFileType()))
-	                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + documentFile.getFileName() + "\"")
-	                .body(new ByteArrayResource(documentFile.getData()));
-	    }
-	*/
+		return "redirect:/documents/track";
+	}
+
 	
 	
 	

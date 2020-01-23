@@ -7,6 +7,29 @@
 <th:block layout:fragment="local-styles">
     <!-- JQuery DataTable Css -->
     <link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <style>
+    	.attached-file{
+	    	width: 70px;
+		    max-width: 70px;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-align:center;
+    	}
+    	#saveAttachedButton{
+    		font-size: 12px !important;
+    		width: 30px !important;
+    		height: 30px !important;
+    		margin:0px !important;
+    	}
+    	#saveAttachedButton i{
+    		padding:0px !important;
+    		margin:0px !important;
+    		text-align:center !important;
+    	}
+    	
+    	
+    	
+    </style>
 </th:block>
 </head>
 
@@ -36,6 +59,7 @@
 											<th>Date Received</th>											
 											<th>Status</th>
 											<th>Email Address</th>
+											<th>File</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -127,6 +151,21 @@
 										<td>
 											<small>[[${documents.emailAddress}]]</small>
 										</td>
+										<td class="attached-file">
+											<th:block th:switch="${documents.fileName}">
+												<th:block th:case="null">
+													<button type="button" class="btn btn-xs bg-red waves-effect disabled">
+					                                    <i class="material-icons">save</i>
+					                                </button>
+												</th:block>
+												<th:block th:case="*">
+													<button type="button" class="btn btn-xs bg-light-blue waves-effect" th:onclick="downloadAttached([[${documents.id}]])">
+					                                    <i class="material-icons">save</i>
+					                                </button>
+												</th:block>
+											</th:block>
+											
+										</td>
 									</tr>
 									</tbody>
 								</table>
@@ -158,7 +197,31 @@
 		        scrollY:'30vh'    
 		    });
 		});
-		</script> -->
+		</script>
+		<script>
+			function downloadAttached(id){
+				$.ajax({
+					type : "POST",
+					contentType : "application/json",
+					url :"/api/fetch-file-data",
+					data: JSON.stringify(id),
+					dataType : 'json',
+					cache : false,
+					timeout : 600000,
+					success : function(data) {
+						alert("IM HERE SUCCESS");
+						console.log("SUCCESS : ", data);
+					},
+					error : function(e) {	
+						
+						alert("IM HERE FAIL FETCHING");
+						console.log("ERROR : ", e);
+					}
+		
+				});
+			}
+		
+		</script>
 	</th:block>
 </body>
 <!-- /.content-wrapper -->
