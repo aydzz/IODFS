@@ -9,5 +9,7 @@ public interface OfficeRepository extends JpaRepository<Office,Long> {
 
 	
 	void deleteById(Long id);
+	
+	Office findByOfficecode(String officecode);
 
 }

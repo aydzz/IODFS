@@ -17,6 +17,8 @@ public class Office {
 	private String officename;
 	@Column(unique=true)
 	private String officecode;
+
+	private String officetype;
 	
 	public long getId() {
 		return id;
@@ -35,6 +37,13 @@ public class Office {
 	}
 	public void setOfficecode(String officecode) {
 		this.officecode = officecode;
+	}
+	
+	public String getOfficetype() {
+		return officetype;
+	}
+	public void setOfficetype(String officetype) {
+		this.officetype = officetype;
 	}
 	
 

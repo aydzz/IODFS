@@ -83,7 +83,7 @@
 											<div class="form-group">
 												<div class="form-line">
 													<h2 class="card-inside-title">Office</h2>
-													<select th:field="*{office}" name="role" id="role"
+													<select th:field="*{office}"
 														class="form-control show-tick" required>
 														<option value="">-- Please select --</option>
 														<option th:each="office : ${officeList}"
@@ -139,8 +139,6 @@
 											</div>
 										</div>
 									</div>
-
-
 
 									<!-- <div class="col-sm-12">
                                 <div class="col-sm-6">
@@ -221,7 +219,10 @@
 		            },'password': {
 		                required: true,
 		                minlength:8
-		            }
+		            },
+		            'role': {
+	                required: true
+	            }
 		        },
 		        highlight: function (input) {
 		            $(input).parents('.form-line').addClass('error');

@@ -55,8 +55,23 @@
 											</div>
 										</div>
 									</div>
-						
-
+							
+									
+									<div class="col-sm-6">
+											<div class="form-group">
+												<div class="form-line">
+													<h2 class="card-inside-title">Role</h2>
+													<select th:field="*{officetype}"
+														class="form-control show-tick" required>
+														<option value="">-- Please select --</option>
+														<option value="USER">User</option>
+														<option value="OFFICE">Office</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										
+									<div class="col-sm-6"></div>
 									<div class="col-sm-5"></div>
 									<div class="col-sm-7">
 										<button id="saveDocBtn" class="btn btn-primary waves-effect" type="submit" data-type="success">SUBMIT</button>
@@ -100,6 +115,9 @@
 		                required: true,
 		                minlength:2,
 		                maxlength:20
+		            },
+		            'officetype': {
+		                required: true,
 		            }
 		        },
 		        highlight: function (input) {

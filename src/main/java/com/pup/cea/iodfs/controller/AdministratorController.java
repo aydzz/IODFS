@@ -121,7 +121,10 @@ public class AdministratorController {
 		/* users.setRole(role); */
 		user.setFullname(user.getName() + " " + user.getLname());
 		users.setPassword(password);
-		users.setRole("USER");
+		
+		users.setRole(officeService.findByOfficecode(user.getOffice()).getOfficetype());
+		System.out.println("OFFICE TYPE OF THE NEW USER IS:" + users.getRole());
+		
 		System.out.println(getAuth().getName());
 		System.out.println(getUserInfo().getOffice());
 		
@@ -216,8 +219,13 @@ public class AdministratorController {
 	}
 	@RequestMapping("/type/save")
 	public String saveDocType(@ModelAttribute("typeObject")Type type, Model model) {
+		Counter counter = new Counter();
+		counter.setCtr(1);
+		counter.setDocAbbrev(type.getDocAbbrev());
 		try {
 		typeService.save(type);
+		counterService.save(counter);
+
 		}catch (DataIntegrityViolationException e) {
 			model.addAttribute("message", "Error! Duplicate Entry!");
 	        return "redirect:/administrator/type/add";
@@ -245,7 +253,6 @@ public class AdministratorController {
 	public String userLogs(Model model) {
 		
 	model.addAttribute("userLogs",userLogsService.findAll());
-		
 		return "administrator/userLogs";
 	}
 	

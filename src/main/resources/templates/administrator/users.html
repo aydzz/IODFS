@@ -34,11 +34,7 @@
 									</button></a>
 								</div>
 							<h1></h1>
-						</div>
-						
-									
-									
-									
+						</div>	
 						<div class="body">
 							<div class="table-responsive">
 								<table id="trackDocTbl"class="table table-bordered table-striped table-hover dataTable">
@@ -49,7 +45,7 @@
 											<th>Username</th>
 											<th>Office</th>
 											<th>Email</th>
-											<!--  <th>Actions</th> -->
+											<th>Actions</th>
 										
 										</tr>
 									</thead>
@@ -61,11 +57,13 @@
 										<td th:text="${administrator.office}"></td>
 										<td th:text="${administrator.email}"></td>
 										<td align="center">
-											<a th:href="@{'/administrator/user/'+${administrator.id}+'/edit'}">
+										
+										<!-- REMOVED TEMPORARILY DUE TO PROCESS CONFLICT -->
+											<!-- <a th:href="@{'/administrator/user/'+${administrator.id}+'/edit'}">
 												<button type="button" class="btn btn-xs btn-warning waves-effect">
 			                                    	<i class="material-icons">mode_edit</i>
 			                                	</button>
-											</a>
+											</a> -->
 			                               <a th:href="@{'/administrator/user/'+${administrator.id}+'/remove'}">
 			                                	<button type="button" class="btn btn-xs btn-danger waves-effect">
 			                                    	<i class="material-icons">delete</i>
@@ -104,7 +102,7 @@
 		        scrollY:'30vh'    
 		    });
 		});
-		</script> -->
+		</script>
 	</th:block>
 </body>
 <!-- /.content-wrapper -->
