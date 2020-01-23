@@ -46,6 +46,7 @@ import com.pup.cea.iodfs.model.UserLogs;
 import com.pup.cea.iodfs.model.security.UserLogin;
 import com.pup.cea.iodfs.payload.UploadFileResponse;
 import com.pup.cea.iodfs.service.DocumentService;
+import com.pup.cea.iodfs.service.NotificationService;
 import com.pup.cea.iodfs.service.OfficeService;
 import com.pup.cea.iodfs.service.TypeService;
 import com.pup.cea.iodfs.service.UserInfoService;
@@ -69,6 +70,8 @@ public class DocumentController {
 	TypeService typeService;
 	@Autowired 
 	UserLogsService userLogsService;
+	@Autowired
+	NotificationService notifService;
 	
 	
 	/*
@@ -117,7 +120,9 @@ public class DocumentController {
 		
 	   String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-	        try {
+	   //added this condition since empty file is being added on NULL
+	   if(file.getSize() > 0) {
+		   try {
 	            // Check if the file's name contains invalid characters
 	            if(fileName.contains("..")) {
 	                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
@@ -141,23 +146,31 @@ public class DocumentController {
 	        } catch (IOException ex) {
 	            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
 	        }
+	   }else {
+		   document.setFileName(null);
+           document.setFileType(null);
+           document.setData(null);
+	   }
 		
 	    
 		//Document fileUpload = docService.storeFile(file);
-
-      
 		
 		System.out.println(getAuth().getName());
 		System.out.println(getUserInfo().getOffice());
 		
-		
-		
 		docService.save(document);
 		
-		
-		
-
-		
+		//------NOTIFICATION----------
+		if(document.getEmailAddress()!=null) {
+	      	  notifService.sendNotification(document, 
+		        		"Your Document was added Succesfully", 
+		        		"Please wait patiently while your document is being processed.\n We will notify you for further details.\n\n\n" +
+		        		"Time of inclusion: " + date.getHours()+":"+date.getMinutes() + "\n" +
+		        		"Date of inclusion: " + new SimpleDateFormat("MMM dd, yyyy").format(date));
+	      }else {
+	    	  //do nothing
+	      }
+		//------NOTIFICATION----------
 		
 		return "redirect:/documents/ctsPage";
 	}
@@ -229,12 +242,15 @@ public class DocumentController {
 		model.addAttribute("document",docService.findByTrackingnum(trackingnum));
 		model.addAttribute("officeList",officeService.findAll());
 		System.out.println(docService.findByTrackingnum(trackingnum).getDescription());
+		
+		
 		return "documents/forwardDocument";
 	}
 	@RequestMapping("/release/{trackingnum}")
 	public String releaseDocument(@PathVariable("trackingnum")String trackingnum,
 								  Model model) {
 		model.addAttribute("document",docService.findByTrackingnum(trackingnum));
+		
 		return "documents/releaseDocument";
 	}
 	@RequestMapping("/receive/{trackingnum}")
@@ -256,6 +272,22 @@ public class DocumentController {
 		System.out.println(getUserInfo().getOffice().toString());
 		
 		docService.save(newDocument);
+		
+		//------NOTIFICATION----------
+		Document documentNotif = newDocument;
+		Date dateNotif = new Date();
+		if(documentNotif.getEmailAddress()!=null) {
+	      	  notifService.sendNotification(documentNotif, 
+		        		"Document was Delivered", 
+		        		"Your document was successfully delivered.\n\n\n" +
+        				"Tracking Number: " + documentNotif.getTrackingnum() + "\n" + 
+		        		"Time of delivery: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
+		        		"Date of delivery: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 
+		        		"Current Office: " + documentNotif.getCurrent_office()); 
+	      }else {
+	    	  //do nothing
+	      }
+		//------NOTIFICATION----------
 		
 		return "redirect:/documents/incoming";
 	}
@@ -286,9 +318,27 @@ public class DocumentController {
 				document.setForwarded_office(forwardDocumentForm.getDestination());
 				document.setRemark(forwardDocumentForm.getRemark());
 				docService.save(document);
+				
+				//------NOTIFICATION----------
+				Document documentNotif = document;
+				Date dateNotif = new Date();
+				if(documentNotif.getEmailAddress()!=null) {
+			      	  notifService.sendNotification(documentNotif, 
+				        		"Document was Transfered", 
+				        		"Your document was transfered to another office.\n\n\n" +
+				        		"Tracking Number: " + forwardDocumentForm.getTrackingNumber() + "\n" + 
+				        		"Time of transfer: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
+				        		"Date of transfer: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 
+				        		"Forwarded Office: " + forwardDocumentForm.getDestination()); 
+			      }else {
+			    	  //do nothing
+			      }
+				//------NOTIFICATION----------
 	       }catch(Exception e) {
 	    	   return ResponseEntity.badRequest().body(e.getStackTrace().toString());
 	       }
+	       
+	     
 		return ResponseEntity.ok(true);
 		
 	}
@@ -312,6 +362,22 @@ public class DocumentController {
 		document.setForwarded_office(null);
 		document.setRemark(req.getParameter("remark"));
 		docService.save(document);
+		
+		//------NOTIFICATION----------
+		Document documentNotif = document;
+		Date dateNotif = new Date();
+		if(documentNotif.getEmailAddress()!=null) {
+	      	  notifService.sendNotification(documentNotif, 
+		        		"Document was Released!", 
+		        		"Claim your document at your department.\n\n\n" +
+        				"Tracking Number: " + documentNotif.getTrackingnum() + "\n" + 
+		        		"Time of release: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
+		        		"Date of release: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 
+		        		"Remark: " + documentNotif.getRemark()); 
+	      }else {
+	    	  //do nothing
+	      }
+		//------NOTIFICATION----------
 		return "redirect:/documents/pending";
 	}
 	
