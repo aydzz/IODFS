@@ -59,7 +59,9 @@
 											<th>Date Received</th>											
 											<th>Status</th>
 											<th>Email Address</th>
-											<th>File</th>
+											<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+												<th>File</th>
+											</th:block>
 										</tr>
 									</thead>
 									<tbody>
@@ -151,6 +153,7 @@
 										<td>
 											<small>[[${documents.emailAddress}]]</small>
 										</td>
+										<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
 										<td class="attached-file">
 											<th:block th:switch="${documents.fileName}">
 												<th:block th:case="null">
@@ -159,13 +162,14 @@
 					                                </button>
 												</th:block>
 												<th:block th:case="*">
-													<button type="button" class="btn btn-xs bg-light-blue waves-effect" th:onclick="downloadAttached([[${documents.id}]])">
+													<button type="button" class="btn btn-xs bg-light-blue waves-effect" th:onclick="downloadAttached([[${documents.id}]],[[${documents.trackingnum}]])">
 					                                    <i class="material-icons">save</i>
 					                                </button>
 												</th:block>
 											</th:block>
 											
 										</td>
+										</th:block>
 									</tr>
 									</tbody>
 								</table>
@@ -198,30 +202,26 @@
 		    });
 		});
 		</script>
-		<script>
-			function downloadAttached(id){
-				$.ajax({
-					type : "POST",
-					contentType : "application/json",
-					url :"/api/fetch-file-data",
-					data: JSON.stringify(id),
-					dataType : 'json',
-					cache : false,
-					timeout : 600000,
-					success : function(data) {
-						alert("IM HERE SUCCESS");
-						console.log("SUCCESS : ", data);
-					},
-					error : function(e) {	
-						
-						alert("IM HERE FAIL FETCHING");
-						console.log("ERROR : ", e);
-					}
-		
-				});
+		<th:block th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}">
+			<script>
+			function downloadAttached(id,trackingNumber){
+				var req = new XMLHttpRequest();
+				  req.open("GET", "/api/fetch-file-data/"+id, true);
+				  req.responseType = "blob";
+	
+				  req.onload = function (event) {
+				    var blob = req.response;
+				    console.log(blob.size);
+				    var link=document.createElement('a');
+				    link.href=window.URL.createObjectURL(blob);
+				    link.download=trackingNumber +  ".pdf";
+				    link.click();
+				  };
+	
+				  req.send();
 			}
-		
-		</script>
+			</script>
+		</th:block>
 	</th:block>
 </body>
 <!-- /.content-wrapper -->

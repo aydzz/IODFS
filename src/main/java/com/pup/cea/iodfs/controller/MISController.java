@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -171,13 +173,11 @@ public class MISController {
 
 		return ResponseEntity.ok(body);
 	}
-	
-	@PostMapping("/fetch-file-data")
-	public ResponseEntity<?> getReleasedDocument(@RequestBody Long id){
+	@RequestMapping("/fetch-file-data/{id}")
+	public ResponseEntity<Resource> getReleasedDocumentObject(@PathVariable("id")Long id){
 		
 		Document document = documentService.getFile(id);
 		
-		System.out.println("file name is: " + document.getFileName());
 		return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(document.getFileType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + document.getFileName() + "\"")
