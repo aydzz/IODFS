@@ -25,7 +25,7 @@
 						<form  id="add-doc-type" th:object = "${typeObject}" th:action="@{/administrator/type/save}" method="POST">
 							<!-- data nito mapupunta sa ADD(kung anumang name) at PENDING na database table -->
 							
-					
+						<input type = "hidden" th:field = "*{id}">
 							<div class="header">
 								<h2>
 									Add Document Types <small>Add another document type.</small>

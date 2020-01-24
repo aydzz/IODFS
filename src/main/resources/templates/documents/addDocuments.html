@@ -11,6 +11,7 @@
    <link href="/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
     <!-- Sweetalert Css -->
     <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+     <link href="/plugins/dropzone/dropzone.css" rel="stylesheet">
 </th:block>
 </head>
 <body>
@@ -93,7 +94,7 @@
                                    				 <textarea th:field="*{description}" rows="1" class="form-control no-resize auto-growth" placeholder="Enter a description..." style="overflow: hidden; overflow-wrap: break-word; height: 72px;"></textarea>
                                 			</div>
 										</div>
-										  <input type="file" name="file" /><br/><br/>
+										  <input class="btn btn-primary waves-effect" type="file" name="file" />
 									</div>
 
 									<div class="col-sm-5"></div>
@@ -211,7 +212,7 @@
 			document.getElementById("date").innerHTML = y + "-" + m + "-" + d;
 			/* document.getElementById("date1").innerHTML = y + "-" + m + "-" + d; */
 		</script>
-		
+		    <script src="/plugins/dropzone/dropzone.js"></script>
 
 
 	</th:block>

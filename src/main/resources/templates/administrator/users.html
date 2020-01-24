@@ -50,7 +50,7 @@
 										</tr>
 									</thead>
 									<tbody>
-									<tr th:each="administrator: ${userList}">
+									<tr th:each="administrator: ${userList}" th:if="${administrator.name} != 'ADMIN'">
 										<td th:text="${administrator.name}"></td>
 										<td th:text="${administrator.lname}"></td>
 										<td th:text="${administrator.username}"></td>

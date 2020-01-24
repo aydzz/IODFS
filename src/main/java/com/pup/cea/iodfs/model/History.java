@@ -18,7 +18,7 @@ public class History {
 	private String office;
 	private String doctype;
 	private String status;
-	private String remarks;
+	private String remark;
 	
 	public long getId() {
 		return id;
@@ -62,11 +62,11 @@ public class History {
 		this.status = status;
 	}
 	
-	public String getRemarks() {
-		return remarks;
+	public String getRemark() {
+		return remark;
 	}
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setRemarks(String remark) {
+		this.remark = remark;
 	}
 
 	
