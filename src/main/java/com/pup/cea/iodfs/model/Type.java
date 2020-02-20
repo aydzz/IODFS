@@ -16,7 +16,7 @@ public class Type {
 	@Column(unique=true)
 	private String docType;
 	private String docAbbrev;
-	
+
 
 	
 	public long getId() {
@@ -41,4 +41,5 @@ public class Type {
 	public void setDocAbbrev(String docAbbrev) {
 		this.docAbbrev = docAbbrev;
 	}
+
 }

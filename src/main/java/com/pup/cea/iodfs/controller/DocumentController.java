@@ -92,6 +92,7 @@ public class DocumentController {
 	public String trackDocuments(Model model) {
 		
 		model.addAttribute("documentList",docService.findAll());
+		model.addAttribute("typeList",typeService.findAll());
 		
 		return "documents/trackDocuments";
 	}
@@ -115,7 +116,7 @@ public class DocumentController {
 		document.setStatus("PENDING");
 		//overriding the fetched date value from view
 		Date date = new Date(); // this object contains the current date value
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 		document.setDate_received(formatter.format(date));
 		
 	   String fileName = StringUtils.cleanPath(file.getOriginalFilename());

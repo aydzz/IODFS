@@ -130,7 +130,7 @@ public class BaseController {
 	public String logoutSuccess() {
 		return "redirect:/login";
 	}
-	
+
 	
 	
 }
