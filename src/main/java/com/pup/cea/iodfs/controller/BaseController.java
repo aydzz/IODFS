@@ -47,6 +47,7 @@ public class BaseController {
 	@Autowired
 	NotificationService notificationService;
 	
+	
 	private Authentication auth;
 	private UserInfo userInfo;
 	
@@ -95,6 +96,7 @@ public class BaseController {
 		boolean isUser =  authorities.contains(new SimpleGrantedAuthority("ROLE_USER"));
 		//TEST
 		boolean isOffice =  authorities.contains(new SimpleGrantedAuthority("ROLE_OFFICE"));
+		boolean isGuest =  authorities.contains(new SimpleGrantedAuthority("ROLE_GUEST"));
 		//TEST
 		
 		System.out.println("YOU ARE IN /check-role");
@@ -105,11 +107,11 @@ public class BaseController {
 		System.out.println("CONTAINS OFFICE ROLE: " + authorities.contains(new SimpleGrantedAuthority("ROLE_OFFICE")));
 		//TEST
 		System.out.println("CONTAINS ADMIN ROLE: " + authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
-		
+		System.out.println("CONTAINS GUEST ROLE: " + authorities.contains(new SimpleGrantedAuthority("ROLE_GUEST")));
 		if(isAdmin) {
 			return "redirect:/administrator/home";
 		}
-		else if(isUser || isOffice) { //TESTTTTT
+		else if(isUser || isOffice || isGuest) { //TESTTTTT
 			return "redirect:/home"; 
 		}
 		else {
@@ -131,6 +133,17 @@ public class BaseController {
 		return "redirect:/login";
 	}
 	
+<<<<<<< Updated upstream
+=======
+	@RequestMapping("/track")
+	public String trackDocuments(Model model) {
+		
+		model.addAttribute("documentList",docService.findAll());
+		
+		return "trackDocuments";
+	}
+	
+>>>>>>> Stashed changes
 	
 	
 }

@@ -279,7 +279,7 @@ public class DocumentController {
 		if(documentNotif.getEmailAddress()!=null) {
 	      	  notifService.sendNotification(documentNotif, 
 		        		"Document was Delivered", 
-		        		"Your document was successfully delivered.\n\n\n" +
+		        		"Your document was successfully forwarded.\n\n\n" +
         				"Tracking Number: " + documentNotif.getTrackingnum() + "\n" + 
 		        		"Time of delivery: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
 		        		"Date of delivery: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 

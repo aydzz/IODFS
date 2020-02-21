@@ -1,11 +1,14 @@
+
 <section th:fragment="sidebar">
 	<!-- Left Sidebar -->
+	
 	<aside id="leftsidebar" class="sidebar">
 		<!-- User Info -->
 		<div class="user-info" style="background: url(/images/default-user-bg.jpg) no-repeat no-repeat;">
 			<div class="image">
 				<!-- <img src="/images/pup-logo.png" width="48" height="48" alt="User">  -->
 			</div>
+			
 			<div class="info-container">
 				<div sec:authentication="principal.fullname" class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
 				<div sec:authentication="principal.email" class="email"></div>
@@ -29,6 +32,8 @@
 					</ul>
 				</div>
 			</div>
+		
+			
 		</div>
 		<!-- #User Info -->
 		<!-- Menu -->

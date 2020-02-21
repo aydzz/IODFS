@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default_layout2}">
+<head>
+<title>Track Documents</title>
+<th:block layout:fragment="local-styles">
+    <!-- JQuery DataTable Css -->
+    <link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+    <style>
+    	.attached-file{
+	    	width: 70px;
+		    max-width: 70px;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-align:center;
+    	}
+    	#saveAttachedButton{
+    		font-size: 12px !important;
+    		width: 30px !important;
+    		height: 30px !important;
+    		margin:0px !important;
+    	}
+    	#saveAttachedButton i{
+    		padding:0px !important;
+    		margin:0px !important;
+    		text-align:center !important;
+    	}
+    	
+    	a{
+    		text-decoration:none !important;
+    		color: gray !important;
+    		font-size: 12px !important;
+    	}
+    	
+    	
+    </style>
+</th:block>
+</head>
+
+<body class="theme-orange">
+
+	<section  layout:fragment="content">
+	
+	<br><br><br>
+		<div class="">
+			<!--container fluid class-->
+			<div class="block-header"></div>
+			<!-- Basic Examples -->
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="card" >
+						<div class="header">
+							<h2>
+								TRACK DOCUMENTS <small>Track your document here. </small>
+							    <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                       List of Acronym Description
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li th:each="types: ${typeList}" th:text="${types.docAbbrev}+ ' - ' +${types.docType}"></li>
+                                    </ul>
+                                </li>
+                            </ul>
+							</h2>
+						
+						</div>
+						<div class="body" >
+							<div class="table-responsive" >
+								<table id="trackDocTbl"class="table table-bordered table-striped table-hover dataTable">
+									<thead>
+										<tr>
+											<th>CTS</th>
+											<th>Type</th>
+											<th>Current Office</th>
+											<th>Date Received</th>											
+											<th>Status</th>
+											<th>Email Address</th>
+											
+										</tr>
+									</thead>
+									<tbody>
+									<tr th:each="documents: ${documentList}">
+										<td>
+											<small>[[${documents.trackingnum}]]</small>
+										</td>
+										<td>
+											<th:block  th:switch="${documents.doctype}">
+												<th:block th:case="AF">
+													<span class="label bg-purple">
+														ACE FORM
+													</span>	
+												</th:block>
+												<th:block th:case="CF">
+													<span class="label bg-green">
+														COMPLETION FORM
+													</span>	
+												</th:block>
+												<th:block th:case="MOA">
+													<span class="label bg-orange">
+														MEMORANDUM OF AGREEMENT
+													</span>	
+												</th:block>
+												<th:block th:case="PET">
+													<span class="label bg-pink">
+														PETITION
+													</span>	
+												</th:block>
+												<th:block th:case="*">
+													<span class="label bg-gray">
+														[[${documents.doctype}]]
+													</span>	
+												</th:block>
+											</th:block>
+											
+										</td>
+										<td>
+										<th:block  th:switch="${documents.current_office}">
+											<th:block th:case="null">
+												<span class="label bg-gray">
+													DOCUMENT RELEASED
+												</span>	
+											</th:block>
+											<th:block th:case="*">
+												<small>[[${documents.current_office}]]</small>
+											</th:block>
+										</th:block>
+											
+										</td>
+										<td>
+											<small>[[${documents.date_received}]]</small>
+										</td>
+										<td>
+											<th:block  th:switch="${documents.status}">
+												<th:block th:case="PENDING">
+													<span class="label bg-amber">
+														[[${documents.status}]]
+													</span>	
+												 </th:block>
+												 <th:block th:case="FORWARDED">
+													 <span class="label bg-blue">
+													 	[[${documents.status}]]
+												 	</span>
+												 </th:block>
+												 
+												 <th:block th:case="'RELEASED:COMPLETED'">
+													 <span class="label bg-light-green">
+													 		COMPLETED
+												 	</span>
+												 </th:block>
+												 <th:block th:case="'RELEASED:DEFICIENT'">
+													 <span class="label bg-yellow">
+													 		DEFICIENT
+												 	</span>
+												 </th:block>
+												 <th:block th:case="'RELEASED:REJECTED'">
+													 <span class="label bg-red">
+													 		REJECTED
+												 	</span>
+												 </th:block>
+												 <th:block th:case="*">
+													 <span class="label bg-gray">
+													 	[[${documents.status}]]
+												 	</span>
+												 </th:block>
+											</th:block>
+										</td>
+										<td>
+											<small>[[${documents.emailAddress}]]</small>
+										</td>
+										
+									</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<th:block layout:fragment="local-scripts">
+	    <!-- Jquery DataTable Plugin Js -->
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/jquery.dataTables.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.flash.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/jszip.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/pdfmake.min.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/vfs_fonts.js}"></script>
+	    <script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.html5.min.js}"></script>
+    	<script type="text/javascript" th:src="@{/plugins/jquery-datatable/extensions/export/buttons.print.min.js}"></script>
+    	
+		<script>
+		$(function () {
+		    $('#trackDocTbl').DataTable({
+		    	order: [3,'desc'],
+		        responsive: true,
+		        scrollY:'30vh'    
+		    });
+		});
+		</script>
+		
+	</th:block>
+</body>
+<!-- /.content-wrapper -->
+
+</html>
