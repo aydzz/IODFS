@@ -92,7 +92,7 @@ public class DocumentController {
 	public String trackDocuments(Model model) {
 		
 		model.addAttribute("documentList",docService.findAll());
-	
+		model.addAttribute("typeList",typeService.findAll());
 		return "documents/trackDocuments";
 	}
 	@RequestMapping("/add")

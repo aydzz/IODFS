@@ -71,7 +71,7 @@
 													<select th:field="*{doctype}" class="form-control show-tick" id="selDocType" required>
 														<option  value="">-- Please select --</option>
 														<option th:each="documents: ${typeList}" th:text="${documents.docType}" th:value="${documents.docAbbrev}"></option>
-													
+														
 													</select>
 												</div>
 											</div>
