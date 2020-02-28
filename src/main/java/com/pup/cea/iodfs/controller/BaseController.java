@@ -20,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -131,14 +132,6 @@ public class BaseController {
 	@RequestMapping("/logout-success")
 	public String logoutSuccess() {
 		return "redirect:/login";
-	}
-	
-
-	@RequestMapping("/track")
-	public String trackDocuments(Model model) {
-		
-		model.addAttribute("documentList",docService.findAll());
-		return "trackDocuments";
 	}
 
 	

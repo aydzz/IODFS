@@ -406,5 +406,4 @@ public class DocumentController {
 		model.addAttribute("userLoginObject",userInfoService.findUser(userloginid));
 		return "documents/changePassword";
 	}
-	
 }

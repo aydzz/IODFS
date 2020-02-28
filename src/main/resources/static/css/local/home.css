@@ -3,7 +3,8 @@
 }
 @media (min-width: 992px){
 	.content{
-		padding-top:50px;
+		/* padding-top:50px; */
+		padding-top:15vh;
 	}
 	.info-box{
 		margin-bottom:5px !important;

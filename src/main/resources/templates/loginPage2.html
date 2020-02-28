@@ -63,13 +63,26 @@ color: gray !important;
 				Flow and Tracking System</small>
 		</div>
 		<div class="card">
+			<div class="header">
+				<div class="row clearfix">
+					<div class="col-xs-6 col-sm-6">
+						<span class="m-r-10 font-12">LOGIN</span>
+					</div>
+					<div class="col-xs-6 col-sm-6 align-right">
+						<a th:href="@{/public/track}" class="waves-effect waves-block">
+							<span class="font-12">TRACK DOCUMENTS </span>
+							<i class="material-icons font-12">arrow_forward</i>
+						</a>
+					</div>
+				</div>
+			</div>
 			<div class="body">
 				<form id = "loginForm" method="post" action="login">
-				<center><a th:href="@{/track}"	class=" waves-effect waves-block">Tracking Page</a>	</center>
+				<!-- <center><a th:href="@{/track}"	class=" waves-effect waves-block">Tracking Page</a>	</center>
 				
-				<center>or</center>
+				<center>or</center> -->
 				<!-- <form id="loginForm"> -->
-					<div class="msg">Sign in to start your session</div>
+					<!-- <div class="msg">Sign in to start your session</div> -->
 					<div class="input-group">
 						<span class="input-group-addon"> <i class="material-icons">person</i>
 						</span>
