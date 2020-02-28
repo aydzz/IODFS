@@ -4,6 +4,14 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+<style>
+a{
+text-decoration: none !importantp;
+color: gray !important;
+
+}
+
+</style>
 <meta charset="UTF-8">
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -41,10 +49,9 @@
 </head>
 
 <body class="login-page">
-<<<<<<< Updated upstream
-=======
-<a th:href="@{/track}"	class=" waves-effect waves-block"><i class="material-icons">person</i>Profile</a>	
->>>>>>> Stashed changes
+
+
+
 	<div class="login-box" id="login-box">
 		<center>
 			<img src="/images/logo/iods.png" width="80" height="80" />
@@ -58,6 +65,9 @@
 		<div class="card">
 			<div class="body">
 				<form id = "loginForm" method="post" action="login">
+				<center><a th:href="@{/track}"	class=" waves-effect waves-block">Tracking Page</a>	</center>
+				
+				<center>or</center>
 				<!-- <form id="loginForm"> -->
 					<div class="msg">Sign in to start your session</div>
 					<div class="input-group">

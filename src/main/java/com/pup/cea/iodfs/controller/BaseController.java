@@ -133,17 +133,14 @@ public class BaseController {
 		return "redirect:/login";
 	}
 	
-<<<<<<< Updated upstream
-=======
+
 	@RequestMapping("/track")
 	public String trackDocuments(Model model) {
 		
 		model.addAttribute("documentList",docService.findAll());
-		
 		return "trackDocuments";
 	}
-	
->>>>>>> Stashed changes
+
 	
 	
 }
