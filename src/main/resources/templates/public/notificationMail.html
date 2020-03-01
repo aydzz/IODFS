@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+	<style>
+		.card{
+			width:50%;
+			min-width:350px;
+			margin:auto;
+		    background: #fff;
+		    min-height: 50px;
+		    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+		    position: relative;
+		    margin-bottom: 30px;
+		    -webkit-border-radius: 2px;
+		    -moz-border-radius: 2px;
+		    -ms-border-radius: 2px;
+		    border-radius: 2px;
+		}
+		.card .header{
+		    color: #555;
+		    padding: 20px;
+		    position: relative;
+		    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+		}
+		.card .header h2{
+		    margin: 0;
+		    font-size: 18px;
+		    font-weight: normal;
+		    color: #111;
+		}
+		.card .body{
+			font-size: 14px;
+		    color: #555;
+		    padding: 20px;
+		    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+		}
+		.card .footer{
+		
+		}
+		
+		
+		.sub-desc{
+		    display: block;
+		    font-size: 12px;
+		    margin-top: 5px;
+		    color: #999;
+		    line-height: 15px;
+		}
+		.details{
+			background-color:#F2F2F2;
+			border-radius:10px;
+			padding:20px;
+			width:90%;
+			margin:auto;
+		}
+		.label{
+			align-content:center;
+			border-radius:10px;
+			padding-top:2px;
+			padding-bottom:2px;
+			font-size:12px;
+			padding-left:15px;
+			padding-right:15px;
+			color:white;
+		}
+		.label-status{
+			align-content:center;
+			border-radius:0px;
+			padding-top:5px;
+			padding-bottom:5px;
+			font-size:14px;
+			padding-left:25px;
+			padding-right:25px;
+			color:white;
+		}
+		.blue{
+			background-color:#2196F3;
+		}
+		.orange{
+			background-color:#FFC107;
+		}
+		.maroon{
+			background-color:#B22222;
+		}
+		.bgrey{
+			background-color:#607D8B;
+		}
+		.bg-light-green{
+		background-color:#8BC34A;
+		}
+		.bg-yellow{
+		background-color:#FFEB3B;
+		}
+		.bg-red{
+			background-color:#F44336;
+		}
+		
+	</style>
+</head>
+<body>
+<div class="card">
+	<div class="header">
+		<h2>Inter-Office Document Flow and Tracking System</h2>
+	</div>
+	<div  th:switch=${action} class="body">
+		<th:block th:case="created">
+			<p th:text=${message}></p>
+			<div class="details">
+				
+				<p>
+					Date Created:
+					<span th:text="${dateCreated}" class="label orange"></span>
+				</p>
+				<p>
+					Time Created:
+					<span th:text="${timeCreated}" class="label blue"></span>
+				</p>
+				
+			</div>
+		</th:block>
+		
+		<th:block th:case="forwarded">
+			<p th:text=${message}></p>
+			<div class="details">
+				<p>
+					Tracking Number:
+					<span th:text="${trackingNumber}" class="label maroon"></span>
+				</p>
+				<p>
+					Date of Transfer:
+					<span th:text="${dateTransfered}" class="label orange"></span>
+				</p>
+				<p>
+					Time of Transfer:
+					<span th:text="${timeTransfered}" class="label blue"></span>
+				</p>
+				<p>
+					Transfered To:
+					<span th:text="${transferedTo}" class="label bgrey"></span>
+				</p>
+			</div>
+		</th:block>
+		
+		<th:block th:case="recieved">
+			<p th:text=${message}></p>
+			<div class="details">
+				<p>
+					Tracking Number:
+					<span th:text="${trackingNumber}" class="label maroon"></span>
+				</p>
+				<p>
+					Date of Delivery:
+					<span th:text="${dateTransfered}" class="label orange"></span>
+				</p>
+				<p>
+					Time of Delivery:
+					<span th:text="${timeTransfered}" class="label blue"></span>
+				</p>
+				<p>
+					Delivered To:
+					<span th:text="${transferedTo}" class="label bgrey"></span>
+				</p>
+			</div>
+		</th:block>
+		
+		<th:block th:case="released">
+		<p th:text=${message}></p>
+			<div class="details">
+			<p>
+					Tracking Number:
+					<span th:text="${trackingNumber}" class="label maroon"></span>
+				</p>
+				<p>
+					Date of Release:
+					<span th:text="${dateReleased}" class="label orange"></span>
+				</p>
+				<p>
+					Time of Released:
+					<span th:text="${timeReleased}" class="label blue"></span>
+				</p>
+			<p>Status:</p>
+				<th:block  th:switch="${status}">
+					 <th:block th:case="'RELEASED:COMPLETED'">
+						 <span class="label-status bg-light-green">
+						 		COMPLETED
+					 	</span>
+					 </th:block>
+					 <th:block th:case="'RELEASED:DEFICIENT'">
+						 <span class="label-status bg-yellow">
+						 		DEFICIENT
+					 	</span>
+					 </th:block>
+					 <th:block th:case="'RELEASED:REJECTED'">
+						 <span class="label-status bg-red">
+						 		REJECTED
+					 	</span>
+					 </th:block>
+					 <th:block th:case="*">
+						 <span th:text="${status}" class="label bgrey">
+						 	
+					 	</span>
+					 </th:block>
+				</th:block>
+			</div>
+			
+		</th:block>
+		Remarks: <span th:text="${remark}"></span>
+	</div>
+	<div class="footer">
+		<p class="sub-desc email">
+			This message was sent to:<a th:text="${recipient}"></a>
+		</p>
+		<p class="sub-desc company-desc">
+			Inter-Office Document Flow and Tracker, Polytechnic University of the Philippines - Manila
+		</p>
+	</div>
+</div>
+
+</body>
+</html>

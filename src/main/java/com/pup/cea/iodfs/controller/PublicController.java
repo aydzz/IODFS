@@ -1,5 +1,9 @@
 package com.pup.cea.iodfs.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +40,8 @@ private static final Logger logger = LoggerFactory.getLogger(PublicController.cl
 	
 	@RequestMapping("/track")
 	public String trackDocuments(@RequestParam(value = "filter", required = false) String filter,
-							     Model model) {
+							     Model model) throws IOException {
 		model.addAttribute("documentList",docService.findAll());
-		return "trackDocuments";
+		return "public/trackDocuments";
 	}
 }

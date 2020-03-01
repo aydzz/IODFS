@@ -4,6 +4,7 @@ package com.pup.cea.iodfs.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -162,11 +163,12 @@ public class DocumentController {
 		
 		//------NOTIFICATION----------
 		if(document.getEmailAddress()!=null) {
-	      	  notifService.sendNotification(document, 
-		        		"Your Document was added Succesfully", 
-		        		"Please wait patiently while your document is being processed.\n We will notify you for further details.\n\n\n" +
-		        		"Time of inclusion: " + date.getHours()+":"+date.getMinutes() + "\n" +
-		        		"Date of inclusion: " + new SimpleDateFormat("MMM dd, yyyy").format(date));
+	      	  
+	      	String message="Your document was created and added successfully. Please wait patiently while we proccess your document. We will notify you for further details.";
+			notifService.sendCreatedDocMail(document.getEmailAddress(), 
+											message, 
+											new SimpleDateFormat("MMM dd, yyyy").format(date), 
+											new SimpleDateFormat("hh:mm aa").format(date));
 	      }else {
 	    	  //do nothing
 	      }
@@ -277,13 +279,22 @@ public class DocumentController {
 		Document documentNotif = newDocument;
 		Date dateNotif = new Date();
 		if(documentNotif.getEmailAddress()!=null) {
-	      	  notifService.sendNotification(documentNotif, 
-		        		"Document was Delivered", 
-		        		"Your document was successfully forwarded.\n\n\n" +
-        				"Tracking Number: " + documentNotif.getTrackingnum() + "\n" + 
-		        		"Time of delivery: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
-		        		"Date of delivery: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 
-		        		"Current Office: " + documentNotif.getCurrent_office()); 
+			/*
+			 * notifService.sendNotification(documentNotif, "Document was Delivered",
+			 * "Your document was successfully forwarded.\n\n\n" + "Tracking Number: " +
+			 * documentNotif.getTrackingnum() + "\n" + "Time of delivery: " +
+			 * dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" + "Date of delivery: "
+			 * + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" +
+			 * "Current Office: " + documentNotif.getCurrent_office());
+			 */
+	      	  
+	      	String message="Your document was delivered successfully. Please wait while we process your document. We will notify you for further details.";
+			notifService.sendRecievedDocMail(document.getEmailAddress(), 
+											message, 
+											new SimpleDateFormat("MMM dd, yyyy").format(dateNotif), 
+											new SimpleDateFormat("hh:mm aa").format(dateNotif),
+											documentNotif.getCurrent_office(),
+											documentNotif.getTrackingnum());
 	      }else {
 	    	  //do nothing
 	      }
@@ -323,13 +334,22 @@ public class DocumentController {
 				Document documentNotif = document;
 				Date dateNotif = new Date();
 				if(documentNotif.getEmailAddress()!=null) {
-			      	  notifService.sendNotification(documentNotif, 
-				        		"Document was Transfered", 
-				        		"Your document was transfered to another office.\n\n\n" +
-				        		"Tracking Number: " + forwardDocumentForm.getTrackingNumber() + "\n" + 
-				        		"Time of transfer: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
-				        		"Date of transfer: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 
-				        		"Forwarded Office: " + forwardDocumentForm.getDestination()); 
+				/*
+				 * notifService.sendNotification(documentNotif, "Document was Transfered",
+				 * "Your document was transfered to another office.\n\n\n" + "Tracking Number: "
+				 * + forwardDocumentForm.getTrackingNumber() + "\n" + "Time of transfer: " +
+				 * dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" + "Date of transfer: "
+				 * + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" +
+				 * "Forwarded Office: " + forwardDocumentForm.getDestination());
+				 */
+			      	  
+			      	String message="Your document has been forwarded to another office. Please wait for further details. We will notify you once the document has been recieved.";
+					notifService.sendForwardedDocMail(document.getEmailAddress(), 
+													message, 
+													new SimpleDateFormat("MMM dd, yyyy").format(dateNotif), 
+													new SimpleDateFormat("hh:mm aa").format(dateNotif),
+													forwardDocumentForm.getDestination(),
+													forwardDocumentForm.getTrackingNumber());
 			      }else {
 			    	  //do nothing
 			      }
@@ -367,13 +387,24 @@ public class DocumentController {
 		Document documentNotif = document;
 		Date dateNotif = new Date();
 		if(documentNotif.getEmailAddress()!=null) {
-	      	  notifService.sendNotification(documentNotif, 
-		        		"Document was Released!", 
-		        		"Claim your document at your department.\n\n\n" +
-        				"Tracking Number: " + documentNotif.getTrackingnum() + "\n" + 
-		        		"Time of release: " + dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" +
-		        		"Date of release: " + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + 
-		        		"Remark: " + documentNotif.getRemark()); 
+			/*
+			 * notifService.sendNotification(documentNotif, "Document was Released!",
+			 * "Claim your document at your department.\n\n\n" + "Tracking Number: " +
+			 * documentNotif.getTrackingnum() + "\n" + "Time of release: " +
+			 * dateNotif.getHours()+":"+dateNotif.getMinutes() + "\n" + "Date of release: "
+			 * + new SimpleDateFormat("MMM dd, yyyy").format(dateNotif)+"\n" + "Remark: " +
+			 * documentNotif.getRemark());
+			 */
+	      	  
+	      	String message="Your document has been released! You can claim your document at your department.";
+			notifService.sendReleasedDocMail(document.getEmailAddress(), 
+											message, 
+											new SimpleDateFormat("MMM dd, yyyy").format(dateNotif), 
+											new SimpleDateFormat("hh:mm aa").format(dateNotif),
+											documentNotif.getStatus(),
+											documentNotif.getRemark(),
+											documentNotif.getTrackingnum());
+	      	  
 	      }else {
 	    	  //do nothing
 	      }
