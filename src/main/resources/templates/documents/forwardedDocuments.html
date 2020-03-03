@@ -12,6 +12,29 @@
 		rel="stylesheet">
 		<!-- Sweetalert Css -->
 	    <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+	    <style>
+	    	#modal-table{
+	    		table-layout: fixed;
+				width: 100%;
+	    		
+	    	}
+	    	#incomingDocTbl tr{
+	    		cursor:pointer !important;
+	    	}
+	    	.field-name{
+	    		font-weight:bold;
+	    		font-size: 10pt;
+	    		margin-bottom:10px;
+	    		
+	    		
+	    	}
+	    	.field-name i{
+	 			position: relative;
+				  /* Adjust these values accordingly */
+				  top: 8px;	
+	    	}
+    	
+    	</style>
 </th:block>
 </head>
 <body>
@@ -30,70 +53,75 @@
 								<table id="forwardedDocTbl" class="table table-bordered table-striped table-hover dataTable">
 									<thead>
 										<tr>
-											<th>Tracking No.</th>
-											<th>Description</th>
+											<th>Tracking Number</th>
+											<!-- <th>Description</th> -->
 											<th>Document Type</th>
-											<th>To</th>
+											<th>Forwarded Office</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="document: ${documentList}">
-											<td>
-												<small>[[${document.trackingnum}]]</small>
-											</td>
-											<td>
-												<th:block th:switch="${document.description}">
-													<th:block th:case="''">
-														<span class="label bg-gray">
-															EMPTY DESCRIPTION
+										<th:block th:each="document: ${documentList}">
+											<tr 	th:data-doc-tracking="${document.trackingnum}"
+													th:data-doc-desc="${document.description}"
+													th:data-doc-type="${document.doctype}"
+													th:data-doc-transfer="${document.forwarded_office}" onclick="showRowDetails(this)">
+												<td>
+													<small>[[${document.trackingnum}]]</small>
+												</td>
+												<!-- <td>
+													<th:block th:switch="${document.description}">
+														<th:block th:case="''">
+															<span class="label bg-gray">
+																EMPTY DESCRIPTION
+															</span>	
+														</th:block>
+														<th:block th:case="*">
+															<th:block th:if ="${#strings.length(document.description) > 20}">
+																	<span style="cursor: pointer" th:onclick="showLongDescription([[${document.description}]])" class="label waves-effect bg-blue">
+																		CLICK HERE TO VIEW DESCRIPTION
+																	</span>	
+															</th:block>
+															<th:block th:unless = "${#strings.length(document.description) > 20}">
+																	<small>[[${document.description}]]</small>
+															</th:block>
+														</th:block>
+													</th:block>
+												</td> -->
+												<td>
+												<th:block  th:switch="${document.doctype}">
+													<th:block th:case="AF">
+														<span class="label bg-purple">
+															ACE FORM
+														</span>	
+													</th:block>
+													<th:block th:case="CF">
+														<span class="label bg-green">
+															COMPLETION FORM
+														</span>	
+													</th:block>
+													<th:block th:case="MOA">
+														<span class="label bg-orange">
+															MEMORANDUM OF AGREEMENT
+														</span>	
+													</th:block>
+													<th:block th:case="PET">
+														<span class="label bg-pink">
+															PETITION
 														</span>	
 													</th:block>
 													<th:block th:case="*">
-														<th:block th:if ="${#strings.length(document.description) > 20}">
-																<span style="cursor: pointer" th:onclick="showLongDescription([[${document.description}]])" class="label waves-effect bg-blue">
-																	CLICK HERE TO VIEW DESCRIPTION
-																</span>	
-														</th:block>
-														<th:block th:unless = "${#strings.length(document.description) > 20}">
-																<small>[[${document.description}]]</small>
-														</th:block>
+														<span class="label bg-gray">
+															[[${document.doctype}]]
+														</span>	
 													</th:block>
 												</th:block>
-												</td>
-											<td>
-											<th:block  th:switch="${document.doctype}">
-												<th:block th:case="AF">
-													<span class="label bg-purple">
-														ACE FORM
-													</span>	
-												</th:block>
-												<th:block th:case="CF">
-													<span class="label bg-green">
-														COMPLETION FORM
-													</span>	
-												</th:block>
-												<th:block th:case="MOA">
-													<span class="label bg-orange">
-														MEMORANDUM OF AGREEMENT
-													</span>	
-												</th:block>
-												<th:block th:case="PET">
-													<span class="label bg-pink">
-														PETITION
-													</span>	
-												</th:block>
-												<th:block th:case="*">
-													<span class="label bg-gray">
-														[[${document.doctype}]]
-													</span>	
-												</th:block>
-											</th:block>
-											
-										</td>
-											<td>
-												<small>[[${document.forwarded_office}]]</small>
+												
 											</td>
-										</tr>
+												<td>
+													<small>[[${document.forwarded_office}]]</small>
+												</td>
+											</tr>
+										</th:block>
 									</tbody>
 								</table>
 							</div>
@@ -103,6 +131,79 @@
 			</div>
 			<!-- #END# Basic Examples -->
 		</div>
+		<!-- MODALS -->
+            <div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-md " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        	<div class="row clearfix">
+                        	<div class="col-xs-10 col-sm-10">
+                            	<h4 class="modal-title" id="largeModalLabel">DOCUMENT DETAILS</h4>
+                           	</div>
+								<div class="col-xs-2 col-sm-2 align-right">
+									<i class="material-icons font-20" data-dismiss="modal" style="cursor: pointer;">close</i>
+								</div>
+							</div>
+                        </div>
+                        <div class="modal-body">
+                        <div>
+                        <table id="modal-table" class="table table-hover">
+                        	<tbody>
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-red">location_on</i>
+				                            TRACKING NUMBER
+				                        </div>
+				                        <div class="field-value align-center" id="trackingNumber-val">
+				                           TRACKING NUMBER
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-light-green">insert_drive_file</i>
+				                            DOCUMENT TYPE
+				                        </div>
+				                        <div class="field-value align-center" id="docType-val">
+				                           DOCUMENT TYPE
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-light-blue">person_pin_circle</i>
+				                           TRANSFERED OFFICE
+				                        </div>
+				                        <div class="field-value align-center" id="transferedOffice-val" style="word-wrap: break-word;">
+				                           TRANSFERED OFFICE
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-amber">description</i>
+				                           DESCRIPTION
+				                        </div>
+				                        <div class="field-value" id="desc-val" style="word-wrap: break-word;">
+				                           DESCRIPTION
+				                        </div>
+                        			</td>
+                        		</tr>
+                        	</tbody>
+                        </table>
+	                        
+                        </div>	
+                        </div>
+                        <div class="modal-footer align-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
 	</section>
 
 	<th:block layout:fragment="local-scripts">
@@ -134,7 +235,7 @@
 				$('#forwardedDocTbl').DataTable({
 					order: [0,'desc'],
 					responsive : true,
-					scrollY : '30vh'
+					scrollY:'41vh'  
 				});
 			});
 		</script>
@@ -153,6 +254,23 @@
 			        text: "<pre style='white-space:pre-wrap'>"+rem+"</pre>",
 			        html: true
 			    });
+			}
+			
+			function showRowDetails(element){
+				var modal = $('#actionModal')
+				$("#trackingNumber-val").text($(element).data("docTracking"));
+				$("#docType-val").text($(element).data("docType"));
+				$("#transferedOffice-val").text($(element).data("docTransfer"));
+				
+				var description = new String($(element).data("docDesc"));
+				var remark = new String($(element).data("docRemark"));
+				
+				if(description.length > 0 && description != "undefined"){
+					$("#desc-val").text($(element).data("docDesc"));
+				}else{
+					$("#desc-val").text("Description is unavailable for this Document");
+				}
+				modal.modal('show');
 			}
 		</script>
 	</th:block>

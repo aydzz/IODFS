@@ -11,6 +11,32 @@
 	<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 	<!-- Sweetalert Css -->
     <link href="/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+    <style>
+    	#recieve-button:hover{
+    		color:white;
+    	}
+    	#modal-table{
+    		table-layout: fixed;
+			width: 100%;
+    		
+    	}
+    	#incomingDocTbl tr{
+    		cursor:pointer !important;
+    	}
+    	.field-name{
+    		font-weight:bold;
+    		font-size: 10pt;
+    		margin-bottom:10px;
+    		
+    		
+    	}
+    	.field-name i{
+ 			position: relative;
+			  /* Adjust these values accordingly */
+			  top: 8px;	
+    	}
+    	
+    </style>
 </th:block>
 </head>
 <body>
@@ -33,119 +59,126 @@
 									<table id="incomingDocTbl" class="table table-bordered table-striped table-hover dataTable">
 										<thead>
 											<tr>
-												<th>Tracking No.</th>
-												<th>Description</th>
-												<th>Type</th>
-												<th>From</th>
-												<th>Remarks</th>
-												<th>Action</th>
+												<th>Tracking Number</th>
+												<!-- <th>Description</th> -->
+												<th>Document Type</th>
+												<th>Source Office</th>
+												<!-- <th>Remarks</th> -->
+												<!-- <th>Action</th> -->
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="documents: ${documentList}">
-												<!-- kukuhanin nya yung data sa FORWARDED Database table, na WHERE office=CPE Department(kung CPE dept yung account)-->
-												<td>
-													<small>[[${documents.trackingnum}]]</small>
-												</td>
-												<td>
-													<th:block th:switch="${documents.description}">
-														<th:block th:case="''">
-															<span class="label bg-gray">
-																EMPTY DESCRIPTION
-															</span>	
-														</th:block>
-														<th:block th:case="null">
-															<span class="label bg-gray">
-																EMPTY DESCRIPTION
-															</span>	
-														</th:block>
-														<th:block th:case="*">
-															<th:block th:if ="${#strings.length(documents.description) > 20}">
-																	<span style="cursor: pointer" th:onclick="showLongDescription([[${documents.description}]])" class="label waves-effect bg-blue">
-																		CLICK HERE TO VIEW DESCRIPTION
-																	</span>	
+											<th:block th:each="documents: ${documentList}">
+												<tr th:data-doc-tracking="${documents.trackingnum}"
+													th:data-doc-desc="${documents.description}"
+													th:data-doc-type="${documents.doctype}"
+													th:data-doc-src="${documents.current_office}"
+													th:data-doc-remark="${documents.remark}" onclick="showRowDetails(this)">
+													<!-- kukuhanin nya yung data sa FORWARDED Database table, na WHERE office=CPE Department(kung CPE dept yung account)-->
+													<td>
+														<small>[[${documents.trackingnum}]]</small>
+													</td>
+													<!-- <td>
+														<th:block th:switch="${documents.description}">
+															<th:block th:case="''">
+																<span class="label bg-gray">
+																	EMPTY DESCRIPTION
+																</span>	
 															</th:block>
-															<th:block th:unless = "${#strings.length(documents.description) > 20}">
-																	<small>[[${documents.description}]]</small>
+															<th:block th:case="null">
+																<span class="label bg-gray">
+																	EMPTY DESCRIPTION
+																</span>	
 															</th:block>
+															<th:block th:case="*">
+																<th:block th:if ="${#strings.length(documents.description) > 20}">
+																		<span style="cursor: pointer" th:onclick="showLongDescription([[${documents.description}]])" class="label waves-effect bg-blue">
+																			CLICK HERE TO VIEW DESCRIPTION
+																		</span>	
+																</th:block>
+																<th:block th:unless = "${#strings.length(documents.description) > 20}">
+																		<small>[[${documents.description}]]</small>
+																</th:block>
+																
+															</th:block>
+														</th:block>
+													</td> -->
+													<td>
+														<th:block  th:switch="${documents.doctype}">
+															<th:block th:case="AF">
+																
+																<span class="label bg-purple">
+																	ACE FORM
+																</span>	
+															</th:block>
+															<th:block th:case="CF">
+																<span class="label bg-green">
+																	COMPLETION FORM
+																</span>	
+															</th:block>
+															<th:block th:case="MOA">
+																<span class="label bg-orange">
+																	MEMORANDUM OF AGREEMENT
+																</span>	
+															</th:block>
+															<th:block th:case="PET">
+																<span class="label bg-pink">
+																	PETITION
+																</span>	
+															</th:block>
+															<th:block th:case="*">
+																<span class="label bg-gray">
+																	[[${documents.doctype}]]
+																</span>	
+															</th:block>
+														</th:block>
+												
+													</td>
+													<td>
+														<small>[[${documents.current_office}]]</small>
+													</td>
+													<!-- <td>
+														<th:block th:switch="${documents.remark}">
+															<th:block th:case="''">
+																<span class="label bg-gray">
+																	EMPTY REMARK
+																</span>	
+															</th:block>
+															<th:block th:case="null">
+																<span class="label bg-gray">
+																	EMPTY REMARK
+																</span>	
+															</th:block>
+															<th:block th:case="*">
+																<th:block th:if ="${#strings.length(documents.remark) > 20}">
+																		<span style="cursor: pointer" th:onclick="showLongRemark([[${documents.remark}]])" class="label waves-effect bg-cyan">
+																			CLICK HERE TO VIEW REMARK
+																		</span>	
+																</th:block>
+																<th:block th:unless = "${#strings.length(documents.remark) > 20}">
+																		<small>[[${documents.remark}]]</small>
+																</th:block>
+																
+															</th:block>
+														</th:block>
+													</td> -->
+													<!-- <td class="row clearfix js-sweetalert" align="center">
+													 	<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
+															<button class="btn btn-primary waves-effect PINDOT" onclick="showPromptMessage(this)" type="button">
+															Receive
+															</button>
 															
-														</th:block>
-													</th:block>
-												</td>
-												<td>
-													<th:block  th:switch="${documents.doctype}">
-														<th:block th:case="AF">
-															
-															<span class="label bg-purple">
-																ACE FORM
-															</span>	
-														</th:block>
-														<th:block th:case="CF">
-															<span class="label bg-green">
-																COMPLETION FORM
-															</span>	
-														</th:block>
-														<th:block th:case="MOA">
-															<span class="label bg-orange">
-																MEMORANDUM OF AGREEMENT
-															</span>	
-														</th:block>
-														<th:block th:case="PET">
-															<span class="label bg-pink">
-																PETITION
-															</span>	
-														</th:block>
-														<th:block th:case="*">
-															<span class="label bg-gray">
-																[[${documents.doctype}]]
-															</span>	
-														</th:block>
-													</th:block>
+														</a>
+														<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
+															<button type="button" class="btn btn-xs btn-warning waves-effect">
+						                                    	<i class="material-icons">move_to_inbox</i>
+																<small>Receive</small>
+						                                	</button>
+														</a>
+													</td> -->
+												</tr>
+											</th:block>
 											
-												</td>
-												<td>
-													<small>[[${documents.current_office}]]</small>
-												</td>
-												<td>
-													<th:block th:switch="${documents.remark}">
-														<th:block th:case="''">
-															<span class="label bg-gray">
-																EMPTY REMARK
-															</span>	
-														</th:block>
-														<th:block th:case="null">
-															<span class="label bg-gray">
-																EMPTY REMARK
-															</span>	
-														</th:block>
-														<th:block th:case="*">
-															<th:block th:if ="${#strings.length(documents.remark) > 20}">
-																	<span style="cursor: pointer" th:onclick="showLongRemark([[${documents.remark}]])" class="label waves-effect bg-cyan">
-																		CLICK HERE TO VIEW REMARK
-																	</span>	
-															</th:block>
-															<th:block th:unless = "${#strings.length(documents.remark) > 20}">
-																	<small>[[${documents.remark}]]</small>
-															</th:block>
-															
-														</th:block>
-													</th:block>
-												</td>
-												<td class="row clearfix js-sweetalert" align="center">
-												 <!-- 	<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
-														<button class="btn btn-primary waves-effect PINDOT" onclick="showPromptMessage(this)" type="button">
-														Receive
-														</button>
-														
-													</a>-->
-													<a th:href="@{'/documents/receive/'+${documents.trackingnum}}">
-														<button type="button" class="btn btn-xs btn-warning waves-effect">
-					                                    	<i class="material-icons">move_to_inbox</i>
-															<small>Receive</small>
-					                                	</button>
-													</a>
-												</td>
-											</tr>
 										</tbody>
 									</table>
 								</form>
@@ -157,6 +190,101 @@
 			</div>
 			<!-- #END# Basic Examples -->
 		</div>
+		
+		<!-- MODALS -->
+		<!-- Large Size -->
+            <div class="modal fade" id="actionModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-md " role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        	<div class="row clearfix">
+                        	<div class="col-xs-10 col-sm-10">
+                            	<h4 class="modal-title" id="largeModalLabel">DOCUMENT DETAILS</h4>
+                           	</div>
+								<div class="col-xs-2 col-sm-2 align-right">
+									<i class="material-icons font-20" data-dismiss="modal" style="cursor: pointer;">close</i>
+								</div>
+							</div>
+                        </div>
+                        <div class="modal-body">
+                        <div>
+                        <table id="modal-table" class="table table-hover">
+                        	<tbody>
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-red">location_on</i>
+				                            TRACKING NUMBER
+				                        </div>
+				                        <div class="field-value align-center" id="trackingNumber-val">
+				                           TRACKING NUMBER
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-light-green">insert_drive_file</i>
+				                            DOCUMENT TYPE
+				                        </div>
+				                        <div class="field-value align-center" id="docType-val">
+				                           DOCUMENT TYPE
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-light-blue">person_pin_circle</i>
+				                           	SOURCE OFFICE
+				                        </div>
+				                        <div class="field-value align-center" id="srcOffice-val">
+				                           SOURCE OFFICE
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-amber">description</i>
+				                           DESCRIPTION
+				                        </div>
+				                        <div class="field-value" id="desc-val" style="word-wrap: break-word;">
+				                           DESCRIPTION
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		<tr>
+                        			<td>
+                        				<div class="field-name">
+				                            <i class="material-icons col-yellow">format_quote</i>
+				                           	REMARK
+				                        </div>
+				                        <div class="field-value" id="remark-val" style="word-wrap: break-word;">
+				                           REMARK
+				                        </div>
+                        			</td>
+                        		</tr>
+                        		
+                        	</tbody>
+                        </table>
+	                        
+                        </div>	
+                        </div>
+                        <div class="modal-footer align-center">
+	                        <a id="link-to-receive" href="">
+	                            <button id="recieve-button" type="button" class="btn bg-orange waves-effect">
+	                                    <i class="material-icons">move_to_inbox</i>
+	                                    <span>RECIEVE</span>
+	                            </button>	
+	                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 	</section>
 
 	<th:block layout:fragment="local-scripts">
@@ -179,11 +307,11 @@
 		    $('#incomingDocTbl').DataTable({
 		    	order: [0,'desc'],
 		        responsive: true,
-		        scrollY:'30vh'    
+		        scrollY:'41vh'    
 		    });
 		});
 		</script>
-				<script>
+		<script>
 			function showLongDescription(desc){
 				swal({
 			        title: "Document Description",
@@ -199,7 +327,35 @@
 			        html: true
 			    });
 			}
+			
+			function showRowDetails(element){
+				/* alert($(element).data("docTracking")) */
+				
+				var modal = $('#actionModal')
+				$("#trackingNumber-val").text($(element).data("docTracking"));
+				$("#docType-val").text($(element).data("docType"));
+				$("#srcOffice-val").text($(element).data("docSrc"));
+				
+				var description = new String($(element).data("docDesc"));
+				var remark = new String($(element).data("docRemark"));
+				
+				if(description.length > 0 && description != "undefined"){
+					$("#desc-val").text($(element).data("docDesc"));
+				}else{
+					$("#desc-val").text("Description is unavailable for this Document");
+				}
+				
+				if(remark.length > 0 && remark != "undefined"){
+					$("#remark-val").text($(element).data("docRemark"));
+				}else{
+					$("#remark-val").text("Remark is unavailable for this Document");
+				}
+				
+				$("#link-to-receive").attr("href", "/documents/receive/"+$(element).data("docTracking"));
+				modal.modal('show');
+			}
 		</script>
+		
 	</th:block>
 </body>
 <!-- /.content-wrapper -->
