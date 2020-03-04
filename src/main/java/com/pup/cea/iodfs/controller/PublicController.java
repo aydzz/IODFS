@@ -42,6 +42,11 @@ private static final Logger logger = LoggerFactory.getLogger(PublicController.cl
 	public String trackDocuments(@RequestParam(value = "filter", required = false) String filter,
 							     Model model) throws IOException {
 		model.addAttribute("documentList",docService.findAll());
+		model.addAttribute("typeList",typeService.findAll());
 		return "public/trackDocuments";
+	}
+	@RequestMapping("/tracker")
+	public String documentTracker(Model model) {
+		return "public/documentTracker";
 	}
 }

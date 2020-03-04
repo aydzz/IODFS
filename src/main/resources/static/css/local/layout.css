@@ -9,5 +9,9 @@
 .topbar{
 	border-bottom:5px solid gold !important;
 }
+#login-span:hover{
+	font-weight: bold;
+}
+
 
 
