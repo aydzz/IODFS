@@ -19,5 +19,10 @@ public interface UserLogsRepository extends JpaRepository<UserLogs,Long> {
 	
 	@Query(value="SELECT * FROM user_logs u WHERE u.datetime LIKE :string",nativeQuery = true)
 	List<UserLogs> findByDateWildCard(@Param("string") String date);
+	
+	@Query(value="SELECT * FROM user_logs u WHERE u.cts LIKE :string ORDER BY u.datetime ASC",nativeQuery = true)
+	List<UserLogs> findByTrackingNum(@Param("string") String trackingNum);
+	
+	
 
 }

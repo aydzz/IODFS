@@ -41,11 +41,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.pup.cea.iodfs.ajax.form.ForwardDocumentForm;
 import com.pup.cea.iodfs.exception.FileStorageException;
 import com.pup.cea.iodfs.model.Document;
+import com.pup.cea.iodfs.model.DocumentHistory;
 import com.pup.cea.iodfs.model.Office;
 import com.pup.cea.iodfs.model.UserInfo;
 import com.pup.cea.iodfs.model.UserLogs;
 import com.pup.cea.iodfs.model.security.UserLogin;
 import com.pup.cea.iodfs.payload.UploadFileResponse;
+import com.pup.cea.iodfs.service.DocumentHistoryService;
 import com.pup.cea.iodfs.service.DocumentService;
 import com.pup.cea.iodfs.service.NotificationService;
 import com.pup.cea.iodfs.service.OfficeService;
@@ -112,6 +114,7 @@ public class DocumentController {
 		document.setCurrent_office(getUserInfo().getOffice());
 		document.setSource_office(getUserInfo().getOffice());
 		document.setForwarded_office(null);
+		
 		//all newly added document would have pending status
 		document.setStatus("PENDING");
 		//overriding the fetched date value from view
@@ -158,7 +161,7 @@ public class DocumentController {
 		
 		System.out.println(getAuth().getName());
 		System.out.println(getUserInfo().getOffice());
-		
+
 		docService.save(document);
 		
 		//------NOTIFICATION----------

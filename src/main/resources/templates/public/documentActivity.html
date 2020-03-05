@@ -25,11 +25,6 @@
 	    	bottom:10px;
     	}
     	
-    	.bg-maroon:hover{
-    		color:white;
-    	}
-    	
-    	
     	</style>
     	
 
@@ -39,23 +34,10 @@
 	<section class="tracker-content" layout:fragment="content">
 		<div id="tracker-container"class="container-fluid">
 		<th:block th:if="${documentHistory.size() == 0}">
-			<div class="container-fluid align-center m-t-0">
-				<img src="/images/tuzki-question.gif" width="200" height="200" alt="Logo">
-				<h3>DOCUMENT NOT FOUND</h3>
-				<!-- <small>Search result for "[[${cts}]]": 0 result</small> -->
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-				<a href="/public/track">
-					<button type="button" class="btn btn-block btn-lg bg-maroon waves-effect" style="border-radius:50px;">TRACK DOCUMENTS</button>
-				</a>
-				</div>
-			</div>
-			
 		</th:block>
 		<th:block th:if="${documentHistory.size() >= 1}">
 		<div class="block-header">
-				<h2>DOCUMENT HISTORY</h2><small th:text="${count}"></small>
+				<h2>SHOWING LATEST DOCUMENT ACTIVITY</h2><small>Refreshing in 5</small>
 			</div>
 			<div class="row clearfix">
 			<div class="col-lg-12">

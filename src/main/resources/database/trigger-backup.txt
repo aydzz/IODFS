@@ -1,0 +1,36 @@
+DOCUMENT TABLE - BEFORE INSERT
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `ctruserlogs` BEFORE INSERT ON `document` FOR EACH ROW BEGIN
+IF ((SELECT `ctr` from `counter` WHERE `doc_abbrev`=NEW.doctype)<10) THEN
+SET NEW.trackingnum = CONCAT(NEW.date_received, '-',(SELECT `doc_abbrev` from `counter` where `doc_abbrev`=NEW.doctype),'-00',(SELECT `ctr` from `counter` where `doc_abbrev`=NEW.doctype));
+ELSEIF ((SELECT `ctr` from `counter` WHERE `doc_abbrev`=NEW.doctype)>=10 AND (SELECT `ctr` from `counter` WHERE `doc_abbrev`=NEW.doctype)<99) THEN
+SET NEW.trackingnum = CONCAT(NEW.date_received, '-',(SELECT `doc_abbrev` from `counter` where `doc_abbrev`=NEW.doctype),'-0',(SELECT `ctr` from `counter` where `doc_abbrev`=NEW.doctype));
+ELSE 
+SET NEW.trackingnum = CONCAT(NEW.date_received, '-',(SELECT `doc_abbrev` from `counter` where `doc_abbrev`=NEW.doctype),'-',(SELECT `ctr` from `counter` where `doc_abbrev`=NEW.doctype));
+END IF;			
+END
+
+DOCUMENT TABLE - AFTER INSERT
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `afctruserlogs` AFTER INSERT ON `document` FOR EACH ROW BEGIN
+
+	 UPDATE `counter` SET `ctr` = `ctr` + 1 WHERE `doc_abbrev`=NEW.doctype;
+	 INSERT INTO `user_logs`(`cts`,`action`,`datetime`) VALUES(NEW.trackingnum,CONCAT('ADDED by ' ,NEW.source_office),NOW());
+	
+	
+END
+
+DOCUMENT TABLE - AFTER UPDATE
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `userlogs` AFTER UPDATE ON `document` FOR EACH ROW BEGIN
+
+IF NEW.status LIKE 'FORWARDED' THEN
+	INSERT INTO `user_logs`(`cts`,`action`,`remark`,`datetime`) VALUES(NEW.trackingnum,CONCAT('FORWARDED by ', OLD.current_office, ' to ',NEW.forwarded_office),NEW.remark,NOW());
+    
+ELSEIF NEW.status LIKE 'PENDING' THEN
+	INSERT INTO `user_logs`(`cts`,`action`,`remark`,`datetime`) VALUES(NEW.trackingnum,CONCAT('RECEIVED by ', NEW.current_office, ' from ',OLD.current_office),NEW.remark,NOW());
+ELSE
+    INSERT INTO `user_logs`(`cts`,`action`,`remark`,`datetime`) VALUES(NEW.trackingnum,CONCAT('RELEASED by ', OLD.current_office),NEW.remark,NOW());
+     INSERT INTO `history`(`Date`,`cts`,`office`,`doctype`,`status`,`remark`) VALUES(OLD.date_received,OLD.trackingnum,OLD.current_office,OLD.doctype,NEW.status,NEW.remark);
+    END IF;
+END

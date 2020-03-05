@@ -77,7 +77,20 @@
 	</div>
 	
 
-    
+     <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <form action="/public/tracker">
+        	<input id="cts" name="cts" type="text" placeholder="ENTER DOCUMENT TRACKING NUMBER...">
+        </form>
+        
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
     <nav th:replace="fragments/navbar::navbar">
     	<!-- NAVBAR WILL BE SWAPPED HERE -->
     </nav>

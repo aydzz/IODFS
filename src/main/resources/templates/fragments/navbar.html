@@ -3,24 +3,30 @@
 	<div class="container-fluid topbar">
 	<!-- THIS IS FOR THE PUBLIC PAGE -->
 	<th:block th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')') OR #authorization.expression('hasRole(''ROLE_USER'')') OR #authorization.expression('hasRole(''ROLE_OFFICE'')')}">
-		<div class="row">
-			<div class="col-lg-12 align-center">
-				<a href="/login">
-				<span id="login-span" class="pull-right col-orange" style="position: relative;top: 28px; cursor:pointer;">
-				 	 LOG IN
-			    </span>
-			    </a>
-			    <a href="/home">
-				<img src="/images/logo/iods-icon.ico" width="48" height="48" alt="Logo" style="position: relative;
-																						 	   top: 10px;">
-				</a>
-																						 
-				
+			 
+			<div class="row">
+				<div class="col-lg-12 align-center">
+					<a href="/login">
+						<span id="login-span" class="pull-right col-orange" style="position: relative;top: 28px; cursor:pointer;">
+						 	 LOG IN
+					    </span>
+				    </a>
+					<a href="javascript:void(0);" class="js-search" data-close="true">
+						<span id="login-span" class="pull-right col-orange" style="position: relative;top: 28px; cursor:pointer;margin-right:10px">
+						 	 SEARCH
+					    </span>
+				    </a>
+				    
+				    <a href="/home">
+					<img src="/images/logo/iods-icon.ico" width="48" height="48" alt="Logo" style="position: relative;
+																							 	   top: 10px;">
+					</a>
+				</div>
 			</div>
-			
-		</div>
 	</th:block>
-		<div class="navbar-header">
+		<div class=" row navbar-header">
+		
+			
 		<th:block sec:authorize="hasAuthority('ROLE_OFFICE')">
 			<a  class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar-collapse"
@@ -46,22 +52,8 @@
 				class="bars"></a> <a class="navbar-brand" th:href="@{/administrator/home}">Inter-Office
 				Document Flow System</a>
 		</th:block>	
-		
-		
-			<!--  for public track page -->
-	<!-- <th:block th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')') OR #authorization.expression('hasRole(''ROLE_USER'')') OR #authorization.expression('hasRole(''ROLE_OFFICE'')')}">
-		<a  class="navbar-toggle collapsed"
-			data-toggle="collapse" data-target="#navbar-collapse"
-			aria-expanded="false"></a> <a href="javascript:void(0);"
-			class="bars"></a> 
-			<a class="navbar-brand" th:href="@{/home}">Inter-Office
-			Document Flow System</a>
-			
-		<a class="navbar-brand"th:href="@{/login}"	>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login</a>		
-	</th:block>	 -->
-				
 				
 		</div>
-
+		
 	</div>
 </nav>

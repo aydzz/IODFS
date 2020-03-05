@@ -19,8 +19,15 @@ public class UserLogs {
 	private String destination;
 	private String datetime;
 	private String remark;
+	private String activity;
 	
 
+	public String getActivity() {
+		return activity;
+	}
+	public void setActivity(String activity) {
+		this.activity = activity;
+	}
 	public long getId() {
 		return id;
 	}

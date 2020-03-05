@@ -32,6 +32,10 @@ public class UserLogsService {
 		return userLogsRepos.findAll();
 	}
 	
+	public List<UserLogs> findByTrackingNum(String trackingNum){
+		return userLogsRepos.findByTrackingNum(trackingNum);
+	}
+	
 	
 	/*
 	 * added for ops that is not defined in the SQL Script dito muna hanggat di pa
